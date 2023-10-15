@@ -1,0 +1,53 @@
+// Colors
+$text: #E4EAEC;
+$background: #111618;
+$accent: #CC6E4A;
+$primary: #7C5241;
+$secondary: #343434;
+$text-secondary: #494949;
+
+// Fonts
+$normal: Avenir, Montserrat, Corbel, 'URW Gothic', source-sans-pro, sans-serif; 
+
+* {
+    font: 100% $normal;
+}
+
+h1 {
+    font: 200% $normal;
+    font-weight: bold;
+}
+
+a {
+    color: $text;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.nav-link,
+.nav-link:active,
+.nav-link:visited,
+.nav-link:visited:hover {
+    color: $text !important;
+}
+
+.nav-pills .nav-link.active, 
+.nav-pills .nav-link.active:hover {
+    background-color: $accent;
+    color: $background !important;
+}
+
+.nav-pills .nav-link:hover {
+    background-color: darken($accent, 25%);
+    color: $text;
+}
+
+.category {
+    color: $accent;
+}
+
+nav {
+    background-color: $background;
+}

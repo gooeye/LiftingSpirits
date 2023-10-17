@@ -10,9 +10,9 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
 
     <!-- Add Vue.js via CDN -->
-    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>\
     <script src="components/navbar.js"></script>
-
+      
     
     <link href="styles/style.css" rel="stylesheet">
 </head>
@@ -21,7 +21,7 @@
         <main>
             <div class="container-fluid">
                 <div class="row">
-                    <vertical-navbar></vertical-navbar>
+                    <vertical-navbar :page="page" :is-logged-in="isLoggedIn"></vertical-navbar>
               <!-- Content Area -->
                     <div class="col">
                         <h1>Main Content</h1>
@@ -45,7 +45,8 @@
                             
                             Curabitur tincidunt vulputate felis, vitae aliquet mi blandit quis. Nunc odio diam, iaculis at odio quis, bibendum tempor orci. Vestibulum sed aliquam ligula. Praesent sed leo congue, sollicitudin elit ullamcorper, sodales lorem. Etiam eu ligula massa. Mauris eu felis rutrum, consectetur tellus id, volutpat lorem. Praesent quis nisi massa. Donec mattis sem bibendum, iaculis purus quis, dictum ex. Donec lacus neque, feugiat a bibendum et, tristique sed nisi. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Donec ipsum ipsum, placerat vel sapien at, scelerisque malesuada lacus. Nullam bibendum purus augue, vitae sodales orci ullamcorper vel. Nam scelerisque dolor sit amet nisl mollis, sed porta dolor feugiat. Praesent erat nibh, fringilla sit amet augue sed, ultricies blandit augue.
                             
-                            Nullam non ex id urna blandit pulvinar. Pellentesque euismod arcu nisl, nec tristique dui dignissim a. Vestibulum sollicitudin blandit leo, sed condimentum lorem vulputate a. In rutrum risus sed eros fermentum, nec ullamcorper nulla convallis. Pellentesque id condimentum sem, non iaculis augue. Vivamus pretium tortor a scelerisque convallis. Integer pulvinar blandit ipsum vitae fermentum. Mauris euismod vitae diam quis vulputate. Aliquam erat volutpat. </p>
+                            Nullam non ex id urna blandit pulvinar. Pellentesque euismod arcu nisl, nec tristique dui dignissim a. Vestibulum sollicitudin blandit leo, sed condimentum lorem vulputate a. In rutrum risus sed eros fermentum, nec ullamcorper nulla convallis. Pellentesque id condimentum sem, non iaculis augue. Vivamus pretium tortor a scelerisque convallis. Integer pulvinar blandit ipsum vitae fermentum. Mauris euismod vitae diam quis vulputate. Aliquam erat volutpat. 
+                        </p>
                     </div>
             </div>
           </div>
@@ -54,12 +55,21 @@
 
     <!-- Vue.js App -->
     <script>
-        new Vue({
-        el: '#app',
-        data: {
-            // You can add data properties and methods here if needed
-        }
-        });
+        // import navbar from "./components/navbar.js"
+        // import("./components/navbar.js").then(navbar);
+
+        const app = Vue.createApp({
+            data() {
+                return {
+                    page: 'home',
+                    isLoggedIn: true,
+                }
+            },
+        })
+        app.component(
+            'vertical-navbar', navbar
+        )
+        vm = app.mount("#app")
     </script>
 
     <!-- Add Bootstrap JS via CDN (for Bootstrap features like dropdowns) -->

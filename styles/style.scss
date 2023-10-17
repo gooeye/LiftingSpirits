@@ -48,6 +48,12 @@ a {
     color: $accent;
 }
 
+.profile {
+    object-fit: cover;
+    width: 25px;
+    height: 25px;
+}
+
 nav {
     background-color: $background;
 }

@@ -11,8 +11,13 @@
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 
     <style>
+      html {
+        height: 100%;
+      }
       body{
         background-image: linear-gradient(315deg, #ffd045 0%, #d14545 74%);
+        height: 100%;
+        margin: 0;
         background-repeat: no-repeat;
         background-attachment: fixed;
         font-family: Avenir, Montserrat, Corbel, 'URW Gothic', source-sans-pro, sans-serif;
@@ -24,13 +29,10 @@
         background-color: darken(#CC6E4A,25%);
         color: #E4EAEC;
       }
-      body{
-        overflow-y:hidden;
-      }
     </style>
 </head>
 <body>
-        <div class="container py-5 h-100">
+        <div class="container py-5 d-md-flex d-lg-flex align-items-center h-100">
           <div class="row d-flex justify-content-center align-items-center h-100">
             <div class="col col-xl-10">
               <div class="card" id = "loginCard" style="border-radius: 1rem;">
@@ -45,7 +47,7 @@
       
                         <div class="d-flex align-items-center mb-3 pb-1">
                             <i class="bi bi-egg me-1 fs-3"></i>
-                            <span class="fs-3 mt-2 align-middle" style="font-weight: bold;">LiftingSpirits</span>
+                            <span class="fs-1 mt-1 align-middle" style="font-weight: bold;">LiftingSpirits</span>
                         </div>
       
                         <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Sign into your account</h5>
@@ -61,7 +63,7 @@
                         </div>
       
                         <div class="pt-1 mb-4">
-                          <button class="loginButton btn btn-dark btn-lg btn-block" type="button">Login</button>
+                          <button class="btn btn-dark btn-lg btn-block" id ="loginButton" type="button";">Login</button>
                         </div>
       
                         <p class="mb-5 pb-lg-2" style="color: #E4EAEC;">New to LiftingSpirits? <a href="#!"

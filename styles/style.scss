@@ -5,6 +5,7 @@ $accent: #CC6E4A;
 $primary: #7C5241;
 $secondary: #343434;
 $text-secondary: #494949;
+$bg-secondary: #815f30;
 
 // Fonts
 $normal: Avenir, Montserrat, Corbel, 'URW Gothic', source-sans-pro, sans-serif; 
@@ -13,6 +14,27 @@ $normal: Avenir, Montserrat, Corbel, 'URW Gothic', source-sans-pro, sans-serif;
     font: 100% $normal;
 }
 
+body {
+	background: linear-gradient(-45deg,  #d03667,#ffd045, #d14545);
+	background-size: 400% 400%;
+	animation: gradient 15s ease infinite;
+	height: 100vh;
+    color: $text;
+}
+
+@keyframes gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}
+
+
 h1 {
     font: 200% $normal;
     font-weight: bold;
@@ -20,6 +42,18 @@ h1 {
 
 a {
     color: $text;
+}
+
+.background {
+    background-color: $background;
+}
+
+.card {
+    background-color: $background;
+}
+
+.card-header {
+    background-color: $secondary;
 }
 
 .bold {
@@ -54,6 +88,6 @@ a {
     height: 25px;
 }
 
-nav {
-    background-color: $background;
+.orange {
+    color: $accent;
 }

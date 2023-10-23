@@ -91,7 +91,7 @@ const navbar = {
                             </a>
                         </li>
                         <li :class="{'nav-item':true, 'my-1':true, 'd-none':isLoggedIn}">
-                            <a class="nav-link text-center active" href="#">
+                            <a class="nav-link text-center active" href="register.html">
                                 <span class="align-middle">Create an account</span>
                             </a>
                         </li>

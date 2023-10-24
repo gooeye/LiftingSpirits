@@ -15,6 +15,7 @@
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script src=" https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js "></script>
     <script src="components/navbar.js"></script>
+    <script type="module" src="https://unpkg.com/@splinetool/viewer/build/spline-viewer.js"></script>
     
 </head>
 <body>
@@ -22,7 +23,14 @@
         <main class="d-md-flex">
             <vertical-navbar :page="page" :is-logged-in="isLoggedIn"></vertical-navbar>
             <!-- Content Area -->
-            <div class="col-lg-10 col-md-9 col-12 background2 p-3">
+            <div class="col-lg-10 col-md-9 col-12 background2 p-3 h-100 min-vh-100">
+                <div style="height: 480px;" class="row flex-row align-items-center px-5 g-4">
+                    <spline-viewer url="https://prod.spline.design/uz2CcItbK6738Dh1/scene.splinecode" event-target="global" class="col-6"></spline-viewer>
+                    <div class="col-6">
+                        <h1 class="display-5 fw-bold lh-1 mb-3">Big Header Text!</h1>
+                        <p class="lead">Get started today with LiftingSpirits to explore drinking with like-minded people!</p>
+                    </div>
+                </div>
                 <div class="splide rounded mx-auto" aria-label="Splide Basic HTML Example">
                     <div class="splide__track">
                         <h4 class="p-1">Featured Drinks</h4>
@@ -52,6 +60,8 @@
     <!-- Vue.js App -->
     <script>
         document.addEventListener( 'DOMContentLoaded', function() {
+            var shadowRoot = document.querySelector('spline-viewer').shadowRoot;
+            shadowRoot.querySelector('#logo').remove();
             var splide = new Splide( '.splide', {
                 type   : 'loop',
                 drag   : 'free',

@@ -1,14 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100;0,300;0,400;0,600;0,700;0,900;1,100;1,300;1,400;1,600;1,700;1,900&family=Mulish:wght@200;300;400;500;600;700&display=swap');
+
 // Colors
 $text: #E4EAEC;
 $background: #111618;
+$background2: #222222;
+$background3: #111618;
 $accent: #CC6E4A;
 $primary: #7C5241;
-$secondary: #343434;
 $text-secondary: #494949;
 $bg-secondary: #815f30;
 
 // Fonts
-$normal: Avenir, Montserrat, Corbel, 'URW Gothic', source-sans-pro, sans-serif; 
+$normal: 'Exo 2', sans-serif;
 
 * {
     font: 100% $normal;
@@ -20,6 +23,7 @@ body {
 	animation: gradient 15s ease infinite;
 	height: 100vh;
     color: $text;
+    font-size: 15px;
 }
 
 @keyframes gradient {
@@ -34,6 +38,21 @@ body {
 	}
 }
 
+@media only screen and (min-width: 768px) {
+    nav {
+        height: 100vh;
+    }
+} 
+
+nav::-webkit-scrollbar {
+    display: none; /* for Chrome, Safari and Opera */
+}
+
+nav{
+    overflow-y: scroll;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
 
 h1 {
     font: 200% $normal;
@@ -47,17 +66,15 @@ a {
 .background {
     background-color: $background;
 }
+.background2 {
+    background-color: $background2;
+}
+.background3 {
+    background-color: $background3;
+}
 
 .card {
     background-color: $background;
-}
-
-.card-header {
-    background-color: $secondary;
-}
-
-.bold {
-    font-weight: bold;
 }
 
 .nav-link,
@@ -65,6 +82,7 @@ a {
 .nav-link:visited,
 .nav-link:visited:hover {
     color: $text !important;
+    padding: 8px;
 }
 
 .nav-pills .nav-link.active, 

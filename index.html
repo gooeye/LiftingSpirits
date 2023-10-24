@@ -19,40 +19,30 @@
 </head>
 <body>
     <div id="app">
-        <main>
-            <div class="container-fluid">
-                <div class="row">
-                    <vertical-navbar :page="page" :is-logged-in="isLoggedIn"></vertical-navbar>
-              <!-- Content Area -->
-                    <div class="container col-10 p-2 ps-0">
-                        <div class="background rounded h-100 p-4">
-                            <div class="splide rounded" aria-label="Splide Basic HTML Example">
-                                <div class="splide__track">
-                                    <h4 class="p-1">Featured Drinks</h4>
-                                    <ul class="splide__list">
-                                        <li v-for="drink in drinks" class="splide__slide">
-                                            <div class="m-1 mb-4">
-                                                <div class="card shadow-lg">
-                                                    <div class="card-header text-center p-0">{{drink.type}}</div>
-                                                    <img :src="drink.img" class="card-img-bottom" alt="..." height="200" style="object-fit: cover;">
-                                                </div>
-                                                <div style="font-size: 18px;" class="">{{drink.name}}</div>
-                                            </div>
-                                        </li>
-                                    </ul>
+        <main class="d-md-flex">
+            <vertical-navbar :page="page" :is-logged-in="isLoggedIn"></vertical-navbar>
+            <!-- Content Area -->
+            <div class="col-lg-10 col-md-9 col-12 background2 p-3">
+                <div class="splide rounded mx-auto" aria-label="Splide Basic HTML Example">
+                    <div class="splide__track">
+                        <h4 class="p-1">Featured Drinks</h4>
+                        <ul class="splide__list">
+                            <li v-for="drink in drinks" class="splide__slide">
+                                <div class="m-1 mb-4">
+                                    <div class="card shadow-lg">
+                                        <img :src="drink.img" class="card-img" alt="..." height="200" width="150" style="object-fit: cover;">
+                                    </div>
+                                    <div class="px-2">
+                                        <span style="font-size: 12px;" class="float-end">
+                                            <i v-for="i in drink.rating" class="bi bi-star-fill"></i>
+                                            <i v-for="i in 5-drink.rating" class="bi bi-star"></i>
+                                        </span>
+                                        <p style="font-size: 14px; font-weight: 100;" class="m-0">{{drink.type}}</p>
+                                        <p style="font-size: 18px;" class="m-0">{{drink.name}}</p>
+                                    </div>
                                 </div>
-                            </div>
-                        <!-- <div class="w-100 overflow-hidden d-flex flex-wrap flex-column" style="height: 300px;">
-                            <div v-for="drink in drinks" class="card w-25 m-3" style="height: 90%;">
-                                <img :src="drink.img" class="card-img-top" alt="...">
-                                <div class="card-body">
-                                    <h5 class="card-title">{{drink.name}}</h5>
-                                    <p class="card-text">{{drink.text}}</p>
-                                </div>
-                            </div>
-                            <button></button>
-                        </div> -->
-                        </div>
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </div>
@@ -67,7 +57,22 @@
                 drag   : 'free',
                 snap   : true,
                 autoHeight: true,
-                perPage: 5,
+                width  : '90%',
+                perPage: 6,
+                breakpoints: {
+                    386: {
+                        perPage: 2,
+                    },
+                    768: {
+                        perPage: 3,
+                    },
+                    992: {
+                        perPage: 4,
+                    },
+                    1280: {
+                        perPage: 5,
+                    },
+                }
             } );
     
             splide.mount();
@@ -82,77 +87,92 @@
                         {
                             img: "https://www.petitefleursg.com//image/cache/catalog/271376_pizzolato_ros_extra_dry_m-use_nv_pp-700x700.jpg",
                             name: "Pizzolato Rosé Extra Dry",
-                            type: "wine"
+                            type: "wine",
+                            rating: 3
                         },
                         {
                             img: "https://cdn.loveandlemons.com/wp-content/uploads/2020/07/mojito.jpg",
                             name: "Mojito",
-                            type: "cocktail"
+                            type: "cocktail",
+                            rating: 4
                         },
                         {
                             img: "https://www.peakales.co.uk/cdn/shop/products/PA_Beer_Bottle_IPA_Front.jpg?v=1633509043",
                             name: "IPA",
-                            type: "beer"
+                            type: "beer",
+                            rating: 5
                         },
                         {
                             img: "https://hips.hearstapps.com/hmg-prod/images/sangria-index-643044ca71f12.jpg?crop=0.502xw:1.00xh;0.210xw,0&resize=1200:*",
                             name: "Sangria",
-                            type: "cocktail"
+                            type: "cocktail",
+                            rating: 4
                         },
                         {
                             img: "https://www.foodandwine.com/thmb/RdbOj6gOlRyV4cpvmmUK7bI0TP4=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/Wine-Guide-Cabernet-Sauvignon-FT-BLOG0622-2000-6b414113ef0449178e4ee5bf69ceeb5c.jpg",
                             name: "Cabernet Sauvignon",
-                            type: "wine"
+                            type: "wine",
+                            rating: 4
                         },
                         {
                             img: "https://www.petitefleursg.com//image/cache/catalog/271376_pizzolato_ros_extra_dry_m-use_nv_pp-700x700.jpg",
                             name: "Piña Colada",
-                            type: "cocktail"
+                            type: "cocktail",
+                            rating: 4
                         },
                         {
                             img: "https://www.petitefleursg.com//image/cache/catalog/271376_pizzolato_ros_extra_dry_m-use_nv_pp-700x700.jpg",
                             name: "Stout",
-                            type: "beer"
+                            type: "beer",
+                            rating: 4
                         },
                         {
                             img: "https://www.petitefleursg.com//image/cache/catalog/271376_pizzolato_ros_extra_dry_m-use_nv_pp-700x700.jpg",
                             name: "Margarita",
-                            type: "cocktail"
+                            type: "cocktail",
+                            rating: 4
                         },
                         {
                             img: "https://www.petitefleursg.com//image/cache/catalog/271376_pizzolato_ros_extra_dry_m-use_nv_pp-700x700.jpg",
                             name: "Chardonnay",
-                            type: "wine"
+                            type: "wine",
+                            rating: 4
                         },
                         {
                             img: "https://www.petitefleursg.com//image/cache/catalog/271376_pizzolato_ros_extra_dry_m-use_nv_pp-700x700.jpg",
                             name: "Martini",
-                            type: "cocktail"
+                            type: "cocktail",
+                            rating: 4
                         },
                         {
                             img: "https://www.petitefleursg.com//image/cache/catalog/271376_pizzolato_ros_extra_dry_m-use_nv_pp-700x700.jpg",
                             name: "Pale Ale",
-                            type: "beer"
+                            type: "beer",
+                            rating: 4
                         },
                         {
                             img: "https://www.petitefleursg.com//image/cache/catalog/271376_pizzolato_ros_extra_dry_m-use_nv_pp-700x700.jpg",
                             name: "Negroni",
-                            type: "cocktail"
+                            type: "cocktail",
+                            rating: 4
                         },
                         {
                             img: "https://www.petitefleursg.com//image/cache/catalog/271376_pizzolato_ros_extra_dry_m-use_nv_pp-700x700.jpg",
                             name: "Merlot",
-                            type: "wine"
+                            type: "wine",
+                            rating: 4
                         },
                         {
                             img: "https://www.petitefleursg.com//image/cache/catalog/271376_pizzolato_ros_extra_dry_m-use_nv_pp-700x700.jpg",
                             name: "Whiskey Sour",
-                            type: "cocktail"
+                            type: "cocktail",
+                            rating: 4
                         },
                         {
                             img: "https://www.petitefleursg.com//image/cache/catalog/271376_pizzolato_ros_extra_dry_m-use_nv_pp-700x700.jpg",
                             name: "Lager",
-                            type: "beer"
+                            type: "beer",
+                            rating: 4
                         }
                         ]
                 }

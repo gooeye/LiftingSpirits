@@ -2,6 +2,8 @@
 import { initializeApp }  from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
 import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-auth.js";
 import { getDatabase,set,ref,update } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-database.js";
+import { getFirestore,collection, addDoc, doc} from "https://www.gstatic.com/firebasejs/10.5.0/firebase-firestore.js";
+
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -21,12 +23,13 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth();
-const database = getDatabase(app);
+const realtime = getDatabase(app);
+const storage = getFirestore(app);
 
 //registration function
 var register = document.getElementById("regButton")
 
-register.addEventListener("click", () =>{
+register.addEventListener("click", async () =>{
 
     var email = document.getElementById('regEmail').value
     var username = document.getElementById('userId').value
@@ -48,17 +51,32 @@ register.addEventListener("click", () =>{
         return
     }
 
+    //update realtime database---------------------------------------------------------------------------------------------
     createUserWithEmailAndPassword(auth,email,password)
     .then(function(userCredential){
         var user = auth.currentUser
 
-        update(ref(database, "users/" + user.uid),{
+        update(ref(realtime, "users/" + user.uid),{
             email: email,
             username: username,
             last_login : "",
         })
+
+        try {
+            const docRef = addDoc(collection(storage, user.uid), {
+              first: "Ada",
+              last: "Lovelace",
+              born: [1,2,3,4,5],
+            });
+            console.log("Document written with ID: ", docRef.id);
+          } catch (e) {
+            console.error("Error adding document: ", e);
+          }
+        
+
+
         alert("Account has been created!")
-        window.location.assign("login.html")
+       // window.location.assign("login.html")
     })
 
     .catch(function(error){
@@ -66,6 +84,7 @@ register.addEventListener("click", () =>{
         const errorMessage = error.message;
         console.log(errorMessage)
     })
+    //---------------------------------------------------------------------------------------------------------------------
 })
 
 function passwordMatch(x,y){

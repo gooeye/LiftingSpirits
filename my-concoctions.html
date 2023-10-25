@@ -43,19 +43,25 @@
                                 </div>
                             </div>
                             <div class = "row p-3">
-                                <div class = "container col-9 h-100 rounded bg-dark">
+                                <div class = "container col-9 h-100 rounded bg-dark p-0">
                                     <div class = "row d-flex justify-content-start">
-                                        <div class = "container col-4 p-2">
-                                            <h4 class = "text-white">Mojito</h4>
+                                        <div class = "container col-4 pt-4">
+                                            <h4 class = "text-white">{{selected_drink.name}}</h4>
                                             <img class = "img-fluid rounded" src = "https://cdn.loveandlemons.com/wp-content/uploads/2020/07/mojito.jpg">
                                         </div>
-                                        <div class = "container col-5 pt-2">
+                                        <div class = "container col-5 pt-4">
                                             <h4 class = "text-white">Ingredients</h4>
-                                            <h4 class = "text-white">How to Make</h4>
+                                                <ul v-for = "i of selected_drink.ingredients" style="padding:0;list-style-type: none;">
+                                                    <li><button class="btn btn-outline-light rounded btn-sm" value = {{i}}>+</button>&nbsp{{i}}</li>
+                                                </ul>
+                                            <h4 class = "text-white">Steps</h4>
+                                            <ul v-for = "(s,index) of selected_drink.steps" style="padding:0;list-style-type: none;">
+                                                <li>{{index+1}}. {{s}}</li>
+                                            </ul>
                                         </div>
                                     </div>
                                 </div>
-                                <div class = "container col-3 h-100 rounded bg-dark">
+                                <div class = "container col-3 h-100 rounded bg-dark pt-2">
                                     <h4 class = "text-white">My Cart</h4>
                                 </div>
                         </div>
@@ -81,6 +87,11 @@
         const app = Vue.createApp({
             data() {
                 return {
+                    selected_drink:{
+                        name: "Mojito",
+                        ingredients : [1,2,3,4,5],
+                        steps:[1,2,3,4,5],
+                    },
                     page: 'home',
                     isLoggedIn: false,
                     model: null,

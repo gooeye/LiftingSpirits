@@ -1,0 +1,98 @@
+@import url("https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100;0,300;0,400;0,600;0,700;0,900;1,100;1,300;1,400;1,600;1,700;1,900&family=Mulish:wght@200;300;400;500;600;700&display=swap");
+* {
+  font: 100% "Exo 2", sans-serif;
+}
+
+body {
+  background: linear-gradient(-45deg, #d03667, #ffd045, #d14545);
+  background-size: 400% 400%;
+  animation: gradient 15s ease infinite;
+  height: 100vh;
+  color: #E4EAEC;
+  font-size: 15px;
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+@media only screen and (min-width: 768px) {
+  nav {
+    height: 100vh;
+  }
+}
+nav::-webkit-scrollbar {
+  display: none; /* for Chrome, Safari and Opera */
+}
+
+nav {
+  overflow-y: scroll;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+h1 {
+  font: 200% "Exo 2", sans-serif;
+  font-weight: bold;
+}
+
+a {
+  color: #E4EAEC;
+}
+
+.background {
+  background-color: #111618;
+}
+
+.background2 {
+  background-color: #222222;
+}
+
+.background3 {
+  background-color: #111618;
+}
+
+.card {
+  background-color: #111618;
+}
+
+.nav-link,
+.nav-link:active,
+.nav-link:visited,
+.nav-link:visited:hover {
+  color: #E4EAEC !important;
+  padding: 8px;
+}
+
+.nav-pills .nav-link.active,
+.nav-pills .nav-link.active:hover {
+  background-color: #CC6E4A;
+  color: #111618 !important;
+}
+
+.nav-pills .nav-link:hover {
+  background-color: #753821;
+  color: #E4EAEC;
+}
+
+.category {
+  color: #CC6E4A;
+}
+
+.profile {
+  -o-object-fit: cover;
+     object-fit: cover;
+  width: 25px;
+  height: 25px;
+}
+
+.orange {
+  color: #CC6E4A;
+}/*# sourceMappingURL=style.css.map */

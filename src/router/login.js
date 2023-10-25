@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp }  from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
-import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-auth.js";
+import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-auth.js";
 import { getDatabase,set,ref,update } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-database.js";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -25,13 +25,20 @@ const database = getDatabase(app);
 
 var login = document.getElementById("loginButton")
 
-//define login function
+//login function
 login.addEventListener("click", () =>{
-
-
     var email = document.getElementById('email').value
     var password = document.getElementById('password').value
 
+    if (validate_email(email) == false){
+        alert("Enter a valid email address")
+        return
+    }
+
+    if(validatePassword(password) == false){
+        alert("Password is invalid!")
+        return
+    }
 
     signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
@@ -43,13 +50,40 @@ login.addEventListener("click", () =>{
                     last_login : lgDate,
                 })
                 .then(() =>{
-                    console.log("Success!")
+                    alert("Logged in successfully!")
                 })
             })
             .catch((error) => {
+                alert("Login failed! Check your email and password")
                 const errorCode = error.code;
                 const errorMessage = error.message;
                 console.log(errorMessage)
         });
+
+    
+    
     })
+
+function passwordMatch(x,y){
+    if (x !== y){
+        return false
+    }
+    return true
+}
+
+function validatePassword(x){
+    if(x.length < 6){
+        return false
+    }
+    return true
+}
+
+function validate_email(email){
+    let expression = /^[^@]+@\w+(\.\w+)+\w$/
+    if(expression.test(email)==true){
+        return true
+    }
+    return false
+}
+
 

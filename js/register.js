@@ -2,7 +2,7 @@
 import { initializeApp }  from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
 import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-auth.js";
 import { getDatabase,set,ref,update } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-database.js";
-import { getFirestore,collection, addDoc, doc} from "https://www.gstatic.com/firebasejs/10.5.0/firebase-firestore.js";
+import { getFirestore,collection, addDoc, doc, setDoc} from "https://www.gstatic.com/firebasejs/10.5.0/firebase-firestore.js";
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -24,7 +24,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth();
 const realtime = getDatabase(app);
-const storage = getFirestore(app);
+const db = getFirestore(app);
 
 //registration function
 var register = document.getElementById("regButton")
@@ -35,6 +35,7 @@ register.addEventListener("click", async () =>{
     var username = document.getElementById('userId').value
     var password = document.getElementById('regPassword').value
     var cpassword = document.getElementById('cPassword').value
+    var dob = document.getElementById("dob").value
 
     if (validate_email(email) == false){
         alert("Enter a valid email address")
@@ -51,29 +52,35 @@ register.addEventListener("click", async () =>{
         return
     }
 
+    if(validate_dob(dob) == false){
+        alert("You are too young to be on this website! Come back when you're older!")
+        return
+    }
+
     //update realtime database---------------------------------------------------------------------------------------------
     createUserWithEmailAndPassword(auth,email,password)
     .then(function(userCredential){
-        var user = auth.currentUser
+        const user = userCredential.user
 
-        update(ref(realtime, "users/" + user.uid),{
-            email: email,
+        doc(collection(db,"users"))
+
+        setDoc(doc(db, "users", email), {
+            userid: user.uid,
             username: username,
-            last_login : "",
-        })
+            email: email,
+            dob: new Date(dob) ,
 
-        try {
-            const docRef = addDoc(collection(storage, user.uid), {
-              first: "Ada",
-              last: "Lovelace",
-              born: [1,2,3,4,5],
-            });
-            console.log("Document written with ID: ", docRef.id);
-          } catch (e) {
-            console.error("Error adding document: ", e);
-          }
-        
+            joined_events:[],
+            created_events:[],
 
+            created_drinks:[],
+            will_drink:[],
+            will_not_drink:[],
+            have_drank:[],
+
+
+            
+        });
 
         alert("Account has been created!")
        // window.location.assign("login.html")
@@ -107,6 +114,32 @@ function validate_email(email){
         return true
     }
     return false
+}
+
+function validate_dob(date){
+    let birth = new Date(date)
+    let byear = birth.getFullYear()
+    let bmonth  = birth.getMonth()
+    let bday = birth.getDate()
+
+    let current = new Date()
+    let cyear = current.getFullYear()
+    let cmonth = current.getMonth()
+    let cday = current.getDate()
+
+    let age = 0 
+
+    if (cmonth < bmonth){
+        age = age = cyear - byear - 1
+    }
+    else if((cmonth >= bmonth && cday >= bday) ||(cmonth > bmonth)){
+        age =  age = cyear - byear
+    }
+
+    if(age < 18){
+        return false
+    }
+    return true
 }
 
 

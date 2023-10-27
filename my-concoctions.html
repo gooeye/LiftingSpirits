@@ -24,49 +24,66 @@
                 <div class="row">
                     <vertical-navbar :page="page" :is-logged-in="isLoggedIn"></vertical-navbar>
               <!-- Content Area -->
-                    <div class="container col-10 p-2 ps-0">
-                        <div class="background rounded h-100 p-4">
+              <div class="col-lg-10 col-md-9 col-12 background2 p-3 h-100 min-vh-100" v-if="created_drinks.length > 1">
                             <div class="splide rounded" aria-label="Splide Basic HTML Example">
                                 <div class="splide__track">
-                                    <h4 class="p-1">Your Creations</h4>
+                                    <h3 class="p-1">My Concoctions</h3>
                                     <ul class="splide__list">
-                                        <li v-for="drink in drinks" class="splide__slide">
+                                        <li class="splide__slide"v-for="(drink,index) of created_drinks" >
                                             <div class="m-1 mb-4">
-                                                <div class="card shadow-lg">
-                                                    <div class="card-header text-center p-0">{{drink.type}}</div>
-                                                    <img :src="drink.img" class="card-img-bottom" alt="..." height="200" style="object-fit: cover;">
+                                                <div class="card">
+                                                    <div class="card-header text-white text-center p-0">{{drink.type}}</div>
+                                                    <img :src="drink.img" class="card-img-bottom" alt="..." height="200" style="object-fit: cover;" @click = selectDrink(index)>
                                                 </div>
-                                                <div style="font-size: 18px;" class="">{{drink.name}}</div>
+                                                <div style="font-size: 18px;" class="card-header text-white text-center p-0">{{drink.name}}</div>
                                             </div>
                                         </li>
                                     </ul>
                                 </div>
                             </div>
-                            <div class = "row p-3">
-                                <div class = "container col-9 h-100 rounded bg-dark p-0">
-                                    <div class = "row d-flex justify-content-start">
-                                        <div class = "container col-4 pt-4">
+                            <div class = "row" v-if="!click">
+                                <h1>Click on a drink card to show its full recipe</h1>
+                            </div>
+                            <div class = "row p-3" v-else>
+                                <hr class ="rounded bg-light" style="border-top: 8px solid;border-radius: 5px;">
+                                <div class = "container col-9 h-auto rounded-start p-0">
+                                    <div class = "row gx-5">
+                                        <div class = "container col-3 pt-3 justify-content-start">
                                             <h4 class = "text-white">{{selected_drink.name}}</h4>
-                                            <img class = "img-fluid rounded" src = "https://cdn.loveandlemons.com/wp-content/uploads/2020/07/mojito.jpg">
+                                            <img :src="selected_drink.img" class="rounded" alt="..." height="250" width="250" style="object-fit: cover;">
                                         </div>
-                                        <div class = "container col-5 pt-4">
+                                        <div class = "container col-6 pt-3 justify-content-start">
                                             <h4 class = "text-white">Ingredients</h4>
-                                                <ul v-for = "i of selected_drink.ingredients" style="padding:0;list-style-type: none;">
-                                                    <li><button class="btn btn-outline-light rounded btn-sm" value = {{i}}>+</button>&nbsp{{i}}</li>
+                                                <ul style="padding:0;list-style-type: none;">
+                                                    <li class="pb-1" v-for = "i of selected_drink.ingredients">
+                                                        <button class="btn btn-outline-light rounded btn-sm" v-bind:value = i @click="addCart(i)">+</button>
+                                                        &nbsp{{i}}
+                                                    </li>
                                                 </ul>
-                                            <h4 class = "text-white">Steps</h4>
+                                            <h4 class = "text-white">How to Make</h4>
                                             <ul v-for = "(s,index) of selected_drink.steps" style="padding:0;list-style-type: none;">
                                                 <li>{{index+1}}. {{s}}</li>
                                             </ul>
                                         </div>
                                     </div>
                                 </div>
-                                <div class = "container col-3 h-100 rounded bg-dark pt-2">
-                                    <h4 class = "text-white">My Cart</h4>
+                                <div class = "container col-3 h-auto pt-3 background2 rounded-end">
+                                    <div class = "row">
+                                        <h4 class = "text-white pl-0">My Cart</h4>
+                                            <h5 class = "text-white" v-if="cart.length==0">Your Cart is empty</h5>
+                                            <ol class = "text-white" id="finalCart" v-else style="list-style-type: none;">
+                                                <li v-for="item of cart" class="pl-1 pb-2" ><i class="bi-circle"></i> {{item.name}}&nbsp&nbsp&nbsp x{{item.qty}}</li>
+                                            </ol>
+                                    </div>
                                 </div>
+                            </div>
+                    </div>
+                    <div class="container col-10" v-else>
+                        <div class="background rounded h-100 p-4 text-center align-self-center">
+                            <h2>You haven't created any drinks yet!</h2>
+                            <button class ="btn btn-dark" href="#">Create a concoction!</button>
                         </div>
                     </div>
-                </div>
             </div>
         </main>
       </div>
@@ -78,107 +95,94 @@
                 type   : 'loop',
                 drag   : 'free',
                 snap   : true,
-                autoHeight: true,
-                perPage: 5,
+                Height: 200,
+                Width: 200,
+                perPage: 3,
             } );
     
             splide.mount();
-        } );
+        });
+
         const app = Vue.createApp({
             data() {
                 return {
-                    selected_drink:{
+                    //shopping cart
+                    cart : [],
+                    //boolean when card is not selected
+                    click : false,
+                    //pick drink from list of created drinks
+                    selected_drink : {},
+                    //test
+                    
+                    //drinks made by user called from firestore api
+                    created_drinks : [
+                    {
                         name: "Mojito",
-                        ingredients : [1,2,3,4,5],
-                        steps:[1,2,3,4,5],
+                        type: "Cocktail",
+                        ingredients:["lime","rum","mint","ice"],                        
+                        steps:["Muddle the mint","Mix and measure to your liking","Stir with ice"],
+                        img: "https://cdn.loveandlemons.com/wp-content/uploads/2020/07/mojito.jpg",
                     },
+
+                    {
+                        name: "Sangria",
+                        type: "Cocktail",
+                        ingredients:["Orange","Apple","Sugar syrup","Brandy","Rioja wine","Ice"],                        
+                        steps:["Cut the fruits","Mix and measure to your liking","Stir with ice"],
+                        img: "https://hips.hearstapps.com/hmg-prod/images/sangria-index-643044ca71f12.jpg?crop=0.502xw:1.00xh;0.210xw,0&resize=1200:*",
+                    },
+
+                    {
+                        name: "Whiskey Sour",
+                        type: "Cocktail",
+                        ingredients:["Bourdon","Lemon juice","Sugar syrup","Egg white","Angosutra bitters"],                        
+                        steps:["Add bourbon, lemon juice, simple syrup and egg white, if using, to a shaker, and dry-shake for 30 seconds without ice."
+                        ,"Add ice and shake again for 15–20 seconds, until well-chilled.",
+                        "Strain into a rocks glass over fresh ice, or into a coupe without ice.",
+                        "Garnish with 3–4 drops of Angostura bitters."],
+                        img: "https://hips.hearstapps.com/hmg-prod/images/sangria-index-643044ca71f12.jpg?crop=0.502xw:1.00xh;0.210xw,0&resize=1200:*",
+                    },
+                    ],
                     page: 'home',
                     isLoggedIn: false,
                     model: null,
-                    drinks: [
-                        {
-                            img: "https://www.petitefleursg.com//image/cache/catalog/271376_pizzolato_ros_extra_dry_m-use_nv_pp-700x700.jpg",
-                            name: "Pizzolato Rosé Extra Dry",
-                            type: "wine"
-                        },
-                        {
-                            img: "https://cdn.loveandlemons.com/wp-content/uploads/2020/07/mojito.jpg",
-                            name: "Mojito",
-                            type: "cocktail"
-                        },
-                        {
-                            img: "https://www.peakales.co.uk/cdn/shop/products/PA_Beer_Bottle_IPA_Front.jpg?v=1633509043",
-                            name: "IPA",
-                            type: "beer"
-                        },
-                        {
-                            img: "https://hips.hearstapps.com/hmg-prod/images/sangria-index-643044ca71f12.jpg?crop=0.502xw:1.00xh;0.210xw,0&resize=1200:*",
-                            name: "Sangria",
-                            type: "cocktail"
-                        },
-                        {
-                            img: "https://www.foodandwine.com/thmb/RdbOj6gOlRyV4cpvmmUK7bI0TP4=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/Wine-Guide-Cabernet-Sauvignon-FT-BLOG0622-2000-6b414113ef0449178e4ee5bf69ceeb5c.jpg",
-                            name: "Cabernet Sauvignon",
-                            type: "wine"
-                        },
-                        {
-                            img: "https://www.petitefleursg.com//image/cache/catalog/271376_pizzolato_ros_extra_dry_m-use_nv_pp-700x700.jpg",
-                            name: "Piña Colada",
-                            type: "cocktail"
-                        },
-                        {
-                            img: "https://www.petitefleursg.com//image/cache/catalog/271376_pizzolato_ros_extra_dry_m-use_nv_pp-700x700.jpg",
-                            name: "Stout",
-                            type: "beer"
-                        },
-                        {
-                            img: "https://www.petitefleursg.com//image/cache/catalog/271376_pizzolato_ros_extra_dry_m-use_nv_pp-700x700.jpg",
-                            name: "Margarita",
-                            type: "cocktail"
-                        },
-                        {
-                            img: "https://www.petitefleursg.com//image/cache/catalog/271376_pizzolato_ros_extra_dry_m-use_nv_pp-700x700.jpg",
-                            name: "Chardonnay",
-                            type: "wine"
-                        },
-                        {
-                            img: "https://www.petitefleursg.com//image/cache/catalog/271376_pizzolato_ros_extra_dry_m-use_nv_pp-700x700.jpg",
-                            name: "Martini",
-                            type: "cocktail"
-                        },
-                        {
-                            img: "https://www.petitefleursg.com//image/cache/catalog/271376_pizzolato_ros_extra_dry_m-use_nv_pp-700x700.jpg",
-                            name: "Pale Ale",
-                            type: "beer"
-                        },
-                        {
-                            img: "https://www.petitefleursg.com//image/cache/catalog/271376_pizzolato_ros_extra_dry_m-use_nv_pp-700x700.jpg",
-                            name: "Negroni",
-                            type: "cocktail"
-                        },
-                        {
-                            img: "https://www.petitefleursg.com//image/cache/catalog/271376_pizzolato_ros_extra_dry_m-use_nv_pp-700x700.jpg",
-                            name: "Merlot",
-                            type: "wine"
-                        },
-                        {
-                            img: "https://www.petitefleursg.com//image/cache/catalog/271376_pizzolato_ros_extra_dry_m-use_nv_pp-700x700.jpg",
-                            name: "Whiskey Sour",
-                            type: "cocktail"
-                        },
-                        {
-                            img: "https://www.petitefleursg.com//image/cache/catalog/271376_pizzolato_ros_extra_dry_m-use_nv_pp-700x700.jpg",
-                            name: "Lager",
-                            type: "beer"
-                        }
-                        ]
                 }
             },
+
+            computed: {
+            },
+
+            methods: {
+
+                addCart(item){
+                    (this.cart).forEach( inside => {
+                            if(inside.name == item){
+                                inside.qty +=1
+                            }
+                            return
+                    })
+                    var toAdd = {
+                        name: item,
+                        qty: 1,
+                    };
+
+                    (this.cart).push(toAdd)
+                    return
+                },
+
+                selectDrink(index){
+                    this.selected_drink = this.created_drinks[index]
+                    if(this.click == false){
+                        this.click = true
+                    }
+                },
+            }
         })
         app.component(
             'vertical-navbar', navbar
         )
         vm = app.mount("#app")
+
     </script>
 
     <!-- Add Bootstrap JS via CDN (for Bootstrap features like dropdowns) -->

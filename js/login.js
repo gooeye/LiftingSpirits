@@ -1,6 +1,12 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp }  from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
-import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-auth.js";
+import { 
+    getAuth, 
+    onAuthStateChanged, 
+    signInWithEmailAndPassword, 
+    createUserWithEmailAndPassword, 
+    signOut 
+    } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-auth.js";
 import { getDatabase,set,ref,update } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-database.js";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -21,69 +27,45 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth();
-const database = getDatabase(app);
 
-var login = document.getElementById("loginButton")
+//get html 
+var userEmail = document.getElementById("email")
+var userPassword = document.getElementById("password")
+var loginButton = document.getElementById("loginButton")
+
+
+const login = document.getElementById("loginButton")
 
 //login function
-login.addEventListener("click", () =>{
-    var email = document.getElementById('email').value
-    var password = document.getElementById('password').value
-
-    if (validate_email(email) == false){
-        alert("Enter a valid email address")
-        return
-    }
-
-    if(validatePassword(password) == false){
-        alert("Password is invalid!")
-        return
-    }
-
-    signInWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-            // Signed in 
-            const user = userCredential.user;
-            // ...
-            var lgDate = new Date()
-                update(ref(database, "users/" + user.uid),{
-                    last_login : lgDate,
-                })
-                .then(() =>{
-                    alert("Logged in successfully!")
-                })
-            })
-            .catch((error) => {
-                alert("Login failed! Check your email and password")
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                console.log(errorMessage)
-        });
-
-    
-    
+const userSignIn = async() =>{
+    const email = userEmail.value
+    const password = userPassword.value
+    signInWithEmailAndPassword(auth,email,password)
+    .then((userCredential) => {
+        const user = userCredential.user
+        alert("Signed in successfully!")
+        sessionStorage.setItem("user-info", JSON.stringify({
+            email : email,
+            isLoggedIn: true,
+        }))
+        window.location.replace("index.html");
     })
-
-function passwordMatch(x,y){
-    if (x !== y){
-        return false
-    }
-    return true
+    .catch((error) =>{
+        const errorCode = error.code
+        const errorMessage = error.message
+        console.log(errorCode + errorMessage)
+        alert("Signed failed! Check that you have correctly entered your email and password")
+        userEmail.innerHTML = ""
+        userPassword.innerHTML = ""
+    })
 }
+//give login button login function
+login.addEventListener("click", userSignIn)
 
-function validatePassword(x){
-    if(x.length < 6){
-        return false
-    }
-    return true
-}
 
-function validate_email(email){
-    let expression = /^[^@]+@\w+(\.\w+)+\w$/
-    if(expression.test(email)==true){
-        return true
-    }
-    return false
-}
+
+
+
+
 
 

@@ -39,21 +39,29 @@ register.addEventListener("click", async () =>{
 
     if (validate_email(email) == false){
         alert("Enter a valid email address")
+        document.getElementById('regPassword').innerHTML=""
+        document.getElementById('cPassword').innerHTML=""
         return
     }
 
     if(validatePassword(password) == false){
         alert("Your password must have more than 6 characters!")
+        document.getElementById('regPassword').innerHTML=""
+        document.getElementById('cPassword').innerHTML=""
         return
     }
 
     if(passwordMatch(password,cpassword) == false){
         alert("Both passwords don't match!")
+        document.getElementById('regPassword').innerHTML=""
+        document.getElementById('cPassword').innerHTML=""
         return
     }
 
     if(validate_dob(dob) == false){
         alert("You are too young to be on this website! Come back when you're older!")
+        document.getElementById('regPassword').innerHTML=""
+        document.getElementById('cPassword').innerHTML=""
         return
     }
 
@@ -77,13 +85,10 @@ register.addEventListener("click", async () =>{
             will_drink:[],
             will_not_drink:[],
             have_drank:[],
-
-
-            
         });
 
         alert("Account has been created!")
-       // window.location.assign("login.html")
+       window.location.assign("login.html")
     })
 
     .catch(function(error){

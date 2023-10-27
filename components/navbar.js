@@ -82,8 +82,8 @@ const navbar = {
                         <ul class="col-12 nav nav-pills flex-column mb-3">
                             <li :class="{'nav-item':true, 'd-none':!isLoggedIn}">
                                 <a :class="{'nav-link':true, 'active':page=='profile'}" href="profile.html">
-                                    <img class="img profile" src="https://t4.ftcdn.net/jpg/05/62/99/31/360_F_562993122_e7pGkeY8yMfXJcRmclsoIjtOoVDDgIlh.jpg">
-                                    <span class="align-middle">Profile</span>
+                                <i class="bi bi-person me-2"></i>
+                                <span class="align-middle pl-1">Profile</span>
                                 </a>
                             </li>
                             <li :class="{'nav-item':true, 'd-none':!isLoggedIn}">

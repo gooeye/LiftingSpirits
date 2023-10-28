@@ -56,9 +56,21 @@
             </div>
         </main>
       </div>
+    
 
-    <!-- Vue.js App -->
+    //session login
     <script>
+        var loginAuth = JSON.parse(sessionStorage.getItem("user-info"))
+        let isLoggedIn = false
+        if (loginAuth == null){
+            isLoggedIn = false
+        }
+        else{
+            isLoggedIn = true
+        }
+    </script>
+    <!-- Vue.js App -->
+    <script>  
         document.addEventListener( 'DOMContentLoaded', function() {
             var shadowRoot = document.querySelector('spline-viewer').shadowRoot;
             shadowRoot.querySelector('#logo').remove();
@@ -91,7 +103,7 @@
             data() {
                 return {
                     page: 'home',
-                    isLoggedIn: false,
+                    isLoggedIn: isLoggedIn,
                     model: null,
                     drinks: [
                         {

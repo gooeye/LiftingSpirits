@@ -90,6 +90,15 @@
 
     <!-- Vue.js App -->
     <script>
+        var loginAuth = JSON.parse(sessionStorage.getItem("user-info"))
+        let isLoggedIn = false
+        if (loginAuth == null){
+            isLoggedIn = false
+        }
+        else{
+            isLoggedIn = true
+        }
+
         document.addEventListener( 'DOMContentLoaded', function() {
             var splide = new Splide( '.splide', {
                 type   : 'loop',
@@ -143,8 +152,8 @@
                         img: "https://hips.hearstapps.com/hmg-prod/images/sangria-index-643044ca71f12.jpg?crop=0.502xw:1.00xh;0.210xw,0&resize=1200:*",
                     },
                     ],
-                    page: 'home',
-                    isLoggedIn: false,
+                    page: 'my_concoction',
+                    isLoggedIn: isLoggedIn,
                     model: null,
                 }
             },

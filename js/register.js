@@ -1,8 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp }  from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
 import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-auth.js";
-import { getDatabase,set,ref,update } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-database.js";
-import { getFirestore,collection, addDoc, doc, setDoc} from "https://www.gstatic.com/firebasejs/10.5.0/firebase-firestore.js";
+import { getFirestore,collection, setDoc, doc, addDoc} from "https://www.gstatic.com/firebasejs/10.5.0/firebase-firestore.js";
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -23,7 +22,6 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth();
-const realtime = getDatabase(app);
 const db = getFirestore(app);
 
 //registration function
@@ -65,14 +63,12 @@ register.addEventListener("click", async () =>{
         return
     }
 
-    //update realtime database---------------------------------------------------------------------------------------------
+    //update database---------------------------------------------------------------------------------------------
     createUserWithEmailAndPassword(auth,email,password)
     .then(function(userCredential){
         const user = userCredential.user
 
-        doc(collection(db,"users"))
-
-        setDoc(doc(db, "users", email), {
+        setDoc(doc(db,"users",email),{
             userid: user.uid,
             username: username,
             email: email,
@@ -85,8 +81,8 @@ register.addEventListener("click", async () =>{
             will_drink:[],
             will_not_drink:[],
             have_drank:[],
-        });
-
+        })
+    
         alert("Account has been created!")
        window.location.assign("login.html")
     })

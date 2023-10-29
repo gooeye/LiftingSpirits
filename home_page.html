@@ -22,7 +22,8 @@
 
 <body>
     <div id="app">
-        <main>
+        <main class="d-md-flex">
+            <vertical-navbar :page="page" :is-logged-in="isLoggedIn"></vertical-navbar>
             <div class="container-fluid">
                 <div class="row">
                     <vertical-navbar :page="page" :is-logged-in="isLoggedIn"></vertical-navbar>
@@ -184,6 +185,8 @@
         const app = Vue.createApp({
             data() {
                 return {
+                    page:'Home',
+                    isLoggedIn: isLoggedIn,
 
                 }
             },

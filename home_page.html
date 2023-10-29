@@ -21,12 +21,13 @@
 </head>
 
 <body>
+    <background></background>
     <div id="app">
         <main>
             <div class="container-fluid">
                 <div class="row">
                     <vertical-navbar :page="page" :is-logged-in="isLoggedIn"></vertical-navbar>
-                    <div class="container col-10 mt-4">
+                    <div class="container col-10 mt-4 background2 p-3 h-100 min-vh-100">
                         <div class="row">
                             <div class="col-lg-6 col-md-12">
                                 <!-- Top Drinks of the week -->
@@ -184,6 +185,8 @@
         const app = Vue.createApp({
             data() {
                 return {
+                    page:'Home',
+                    isLoggedIn: isLoggedIn,
 
                 }
             },

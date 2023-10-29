@@ -52,7 +52,7 @@
 <body>
     <div id="app">
         <main>
-            <div class="container-fluid">
+            <div class="container-fluid background2 p-3 h-100 min-vh-100">
                 <div class="row">
                     <vertical-navbar :page="page" :is-logged-in="isLoggedIn"></vertical-navbar>
                     <div class="d-flex align-items-center mb-3 pb-1">
@@ -154,7 +154,7 @@
             data() {
                 return {
                     page:'create_a_concoction',
-                    isLoggedIn: isLoggedIn,
+                    isLoggedIn: true,
 
                 }
             },

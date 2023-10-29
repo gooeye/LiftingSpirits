@@ -55,54 +55,56 @@
             <div class="container-fluid background2 p-3 h-100 min-vh-100">
                 <div class="row">
                     <vertical-navbar :page="page" :is-logged-in="isLoggedIn"></vertical-navbar>
-                    <div class="d-flex align-items-center mb-3 pb-1">
-                        <i class="bi bi-egg me-1 fs-3"></i>
-                        <span class="fs-1 mt-1 align-middle" style="font-weight: bold;">Create a Concoction!</span>
-                    </div>
-  
-                        <form>
-                            <!--Title-->
-                            <div class="mb-3">
-                                <label for="titleOfPost" class="form-label" style="color: #CC6E4A;">Title of Post:</label>
-                                <input type="text" class="form-control" id="titleOfPost" placeholder="Enter title of post" required>
-                            </div>
-                            <!--Name-->
-                            <div class="mb-3">
-                                <label for="nameOfDrink" class="form-label" style="color: #CC6E4A;">Name of Drink:</label>
-                                <input type="text" class="form-control" id="nameOfDrink" placeholder="Enter name of drink" required>
-                            </div>
-                            <!--Type-->
-                            <div class="mb-3">
-                                <label for="typeOfDrink" class="form-label" style="color: #CC6E4A;">Type:</label>
-                                <div class="dropdown-container">
-                                    <select class="form-control custom-dropdown" id="typeOfDrink">
-                                        <option class="placeholder-option" value="" disabled selected hidden>Please select one of the options</option>
-                                        <option value="cocktail">Cocktail</option>
-                                        <option value="mocktail">Mocktail</option>
-                                        <option value="beer">Beer</option>
-                                        <option value="wine">Wine</option>
-                                    </select>
+                    <div class="col-lg-10 col-md-9 col-12">
+                        <div class="d-flex align-items-center mb-3 pb-1">
+                            <i class="bi bi-egg me-1 fs-3"></i>
+                            <span class="fs-1 mt-1 align-middle" style="font-weight: bold;">Create a Concoction!</span>
+                        </div>
+      
+                            <form>
+                                <!--Title-->
+                                <div class="mb-3">
+                                    <label for="titleOfPost" class="form-label" style="color: #CC6E4A;">Title of Post:</label>
+                                    <input type="text" class="form-control" id="titleOfPost" placeholder="Enter title of post" required>
                                 </div>
-                            </div>
-                            <!--Ingredient -->
-                            <div class="mb-3" id="ingredients-form">
-                                <label for="ingredient-0" class="form-label" style="color: #CC6E4A;">Ingredients:</label>
-                                <div class="ingredient-input">
-                                    <input type="text" class="form-control" id="ingredient-0" placeholder="Enter ingredient" required>
+                                <!--Name-->
+                                <div class="mb-3">
+                                    <label for="nameOfDrink" class="form-label" style="color: #CC6E4A;">Name of Drink:</label>
+                                    <input type="text" class="form-control" id="nameOfDrink" placeholder="Enter name of drink" required>
                                 </div>
-                                <button type="button" onclick="addIngredient()" style="background: none; border: none; cursor: pointer;">➕</button>
-                            </div>
-                            <!--Images-->
-                            <div class="mb-3">
-                                <label for="uploadImages" class="form-label" style="color: #CC6E4A;">Upload Images:</label>
-                                <input type="file" class="form-control" id="uploadImages" accept="image/*" multiple>
-                            </div>
-                            <div class="text-end">
-                                <button type="submit" class="btn btn-dark btn-lg btn-block" >Create</button>
-                            </div>
-                            
-                        </form>
-                    </div>
+                                <!--Type-->
+                                <div class="mb-3">
+                                    <label for="typeOfDrink" class="form-label" style="color: #CC6E4A;">Type:</label>
+                                    <div class="dropdown-container">
+                                        <select class="form-control custom-dropdown" id="typeOfDrink">
+                                            <option class="placeholder-option" value="" disabled selected hidden>Please select one of the options</option>
+                                            <option value="cocktail">Cocktail</option>
+                                            <option value="mocktail">Mocktail</option>
+                                            <option value="beer">Beer</option>
+                                            <option value="wine">Wine</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <!--Ingredient -->
+                                <div class="mb-3" id="ingredients-form">
+                                    <label for="ingredient-0" class="form-label" style="color: #CC6E4A;">Ingredients:</label>
+                                    <div class="ingredient-input">
+                                        <input type="text" class="form-control" id="ingredient-0" placeholder="Enter ingredient" required>
+                                    </div>
+                                    <button type="button" onclick="addIngredient()" style="background: none; border: none; cursor: pointer;">➕</button>
+                                </div>
+                                <!--Images-->
+                                <div class="mb-3">
+                                    <label for="uploadImages" class="form-label" style="color: #CC6E4A;">Upload Images:</label>
+                                    <input type="file" class="form-control" id="uploadImages" accept="image/*" multiple>
+                                </div>
+                                <div class="text-end">
+                                    <button type="submit" class="btn btn-lg btn-block" style="background-color: #CC6E4A;color:white">Create</button>
+                                </div>
+                                
+                            </form>
+                        </div>
+            </div>
 
                         
 

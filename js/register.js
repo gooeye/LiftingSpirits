@@ -16,7 +16,6 @@ const firebaseConfig = {
   messagingSenderId: "223340916076",
   appId: "1:223340916076:web:6897d475b8789b0e8ad749",
   measurementId: "G-1EDMKV8YRT",
-  databaseURL: "https://liftingspirits1-default-rtdb.asia-southeast1.firebasedatabase.app/"
 };
 
 // Initialize Firebase
@@ -68,7 +67,9 @@ register.addEventListener("click", async () =>{
     .then(function(userCredential){
         const user = userCredential.user
 
-        setDoc(doc(db,"users",email),{
+        const userRef = doc(db, "users");
+
+        setDoc(userRef,email,{
             userid: user.uid,
             username: username,
             email: email,
@@ -84,7 +85,7 @@ register.addEventListener("click", async () =>{
         })
     
         alert("Account has been created!")
-       window.location.assign("login.html")
+        window.location.assign("login.html")
     })
 
     .catch(function(error){

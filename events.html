@@ -86,7 +86,7 @@
 
                                       <div v-if="event.expanded" class="my-2">
                                         <div class="card-text mb-2" >Date: {{event.date}}</div>
-                                        <div class="card-text mb-2 ">Location: {{event.location}}</div>
+                                        <div class="clickable location mb-2 " @click="showMap(event.location)">Location: {{event.location}}</div>
                                         <div class="card-text mb-2 " >Description: {{event.description}}</div>
                                         <div class="card-text mb-2 " >Cost: {{event.cost}}</div>
                                         <div class="card-text mb-2 " >Max Capacity: {{event.max}}</div>
@@ -150,7 +150,7 @@
                 {
                     name: "Whiskey Tasting Extravaganza",
                     date: "November 15,2023",
-                    location:"The Whiskey Haven, 123 Bourbon Street, Cityville",                        
+                    location:"The Louvre, Rue de Rivoli, 75001 Paris, France",                        
                     description:"Join us for an evening of fine whiskey tasting. Sample a selection of rare and premium whiskeys from around the world while learning about their history and production. Enjoy live music and gourmet snacks.",
                     cost:"$75 per person",
                     max:"40",
@@ -162,7 +162,7 @@
                 {
                     name: "Craft Beer Festival",
                     date: "March 8, 2024",
-                    location:"Brewtopia Park, 456 Ale Avenue, Hoptown",                        
+                    location:"Central Park, New York, NY, USA",                        
                     description:"Experience the best of craft beer at our annual festival. We'll have over 100 craft breweries showcasing their unique brews. Enjoy live music, food trucks, and beer-related games.",
                     cost:"$40 per person",
                     max:"500",
@@ -174,7 +174,7 @@
                 {
                     name: "Wine and Paint Night",
                     date: "September 22, 2023",
-                    location:"VinoArt Studio, 789 Merlot Lane, Winetown",                        
+                    location:"Sydney Opera House, Bennelong Point, Sydney NSW 2000, Australia",                        
                     description:"Sip on exquisite wines while unleashing your inner artist. Join us for a guided painting session and create your masterpiece. No prior painting experience required.",
                     cost:"$50 per person",
                     max:"30",
@@ -185,7 +185,7 @@
                 {
                     name: "Rum Cocktail Cruise",
                     date: "July 12, 2024",
-                    location:"Harbor Breeze Marina, 101 Rum Runner Way, Tropicana Bay",                        
+                    location:"Machu Picchu, Urubamba 08680, Peru",                        
                     description:"Set sail on a sunset cruise and enjoy a variety of rum-based cocktails and tropical vibes. The cruise includes a live reggae band, tropical snacks, and beautiful coastal views.",
                     cost:"$65 per person",
                     max:"60",
@@ -208,6 +208,25 @@
             toggleCard(index) {
                 this.created_events[index].expanded = !this.created_events[index].expanded;
             },
+
+            showMap(location) {
+                const geocoder = new google.maps.Geocoder();
+                geocoder.geocode({ address: location }, (results, status) => {
+                    if (status === 'OK' && results[0].geometry.location) {
+                        const map = new google.maps.Map(document.getElementById('map-' + index), {
+                            center: results[0].geometry.location,
+                            zoom: 15 // You can adjust the zoom level as needed
+                        });
+                        const marker = new google.maps.Marker({
+                            map: map,
+                            position: results[0].geometry.location
+                        });
+                    } else {
+                        console.error('Error geocoding address:', status);
+                    }
+                });
+            }
+
         }
     })
     app.component(
@@ -220,6 +239,8 @@
    
     <!-- Add Bootstrap JS via CDN (for Bootstrap features like dropdowns) -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap" async defer></script>
+
 </body>
 </html>
 

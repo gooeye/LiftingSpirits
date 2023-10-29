@@ -25,7 +25,7 @@
               <div class="col-lg-10 col-md-9 col-12 background2 p-3 h-100 min-vh-100" v-if="created_drinks.length > 1">
                             <div class="splide rounded" aria-label="Splide Basic HTML Example">
                                 <div class="splide__track">
-                                    <h3 class="p-1">My Concoctions</h3>
+                                    <h1 class="p-1">My Concoctions</h1>
                                     <ul class="splide__list">
                                         <li class="splide__slide"v-for="(drink,index) of created_drinks" >
                                             <div class="m-1 mb-4">
@@ -46,9 +46,9 @@
                                     <div class = "row gx-5">
                                         <div class = "col-lg-3 pt-3 col-sm-12">
                                             <h4 class = "text-white">{{selected_drink.name}}</h4>
-                                            <img :src="selected_drink.img" class="img-fluid rounded" alt="..." height="300" width="300" style="object-fit:fill;">
+                                            <img :src="selected_drink.img" class="img-fluid rounded" alt="..." style="object-fit:contain;">
                                         </div>
-                                        <div class = "col-lg-6 pt-3 col-sm-12">
+                                        <div class = "col-lg-3 pt-3 col-sm-12">
                                             <h4 class = "text-white">Ingredients</h4>
                                             <ul style="padding:0;list-style-type: none;">
                                                 <li class="pb-1" v-for = "i of selected_drink.ingredients">
@@ -56,6 +56,8 @@
                                                         &nbsp{{i}}
                                                 </li>
                                             </ul>
+                                        </div>
+                                        <div class = "col-lg-3 pt-3 col-sm-12">
                                             <h4 class = "text-white">How to Make</h4>
                                             <ul v-for = "(s,index) of selected_drink.steps" style="padding:0;list-style-type: none;">
                                                 <li>{{index+1}}. {{s}}</li>
@@ -67,7 +69,7 @@
                                                     <h5 class = "text-white" v-if="cart.length==0">Your Cart is empty</h5>
                                                     <ol class = "text-white" id="finalCart" v-else style="list-style-type: none;">
                                                         <li v-for="item of cart" class="pl-1 pb-2" ><i class="bi-circle"></i> {{item.name}}&nbsp&nbsp&nbsp x{{item.qty}}</li>
-                                                        <a class ="btn btn-dark" href="checkout.html">Checkout</a>
+                                                        <a class ="btn text-white p-1" href="checkout.html" style="background-color: #CC6E4A;"> <i class="bi bi-cart4"></i> Checkout</a>
                                                     </ol>
                                             </div>
                                         </div>

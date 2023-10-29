@@ -163,19 +163,19 @@
             methods: {
 
                 addCart(item){
-                    (this.cart).forEach( inside => {
-                            if(inside.name == item){
-                                inside.qty +=1
+                    editCart: {
+                        for (cartItems of this.cart) {
+                            if(cartItems.name == item) {
+                                cartItems.qty +=1;
+                                break editCart;
                             }
-                            return
-                    })
-                    var toAdd = {
-                        name: item,
-                        qty: 1,
-                    };
-
-                    (this.cart).push(toAdd)
-                    return
+                        }
+                        var toAdd = {
+                            name: item,
+                            qty: 1,
+                        };
+                        (this.cart).push(toAdd)
+                    }
                 },
 
                 selectDrink(index){

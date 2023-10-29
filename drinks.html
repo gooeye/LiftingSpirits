@@ -33,28 +33,15 @@
                       <div id="carouselExampleControls" class="carousel slide mx-auto"
                           data-bs-ride="carousel">
                           <div class="carousel-inner" >
-                              <div class="carousel-item active">
-                                <div class="card">
-                                    <img class="card-img-top" src="components/img/cocktail.jpg"
-                                        alt="cocktail">
+                            <div v-for="(drink,index) in created_drinks" :key="index" class="carousel-item" :class="{ active: index===0}">
+                                <div class="card" >
+                                    <img :src="drink.img" alt="Drink Image">
                                     <div class="card-body">
-                                        <h5 class="card-title text-white">Name: </h5>
-                                        <h6 class="card-subtitle mb-2 text-secondary">Drink Type: </h6>
+                                        <h5 class="card-title text-white">{{drink.name}}</h5>
+                                        <p class="text-white"> Type: {{drink.type}}</p>
                                     </div>
                                 </div>
-                               
-                              </div>
-                              <div class="carousel-item">
-                                  <div class="card">
-                                      <img class="card-img-top" src="components/img/cocktail2.jpg"
-                                          alt="cocktail2">
-                                      <div class="card-body">
-                                          <h5 class="card-title">Name: </h5>
-                                          <h6 class="card-subtitle mb-2 text-muted">Drink Type: </h6>
-                                      </div>
-                                  </div>
-                                  
-                              </div>
+                            </div>
                           </div>
                                
                              
@@ -63,7 +50,7 @@
                           <button class="carousel-control-prev" type="button"
                               data-bs-target="#carouselExampleControls" data-bs-slide="prev">
                               <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                              <span onclick="remove()" >Not interested</span>
+                              <span @click="remove()" >Not interested</span>
                           </button>
                           <button class="carousel-control-next" type="button"
                               data-bs-target="#carouselExampleControls" data-bs-slide="next">
@@ -85,7 +72,6 @@
 
 <script>
     function remove() {
-
     document.querySelector('.carousel-item.active').remove();
 }
 </script>
@@ -163,29 +149,9 @@
         },
 
         methods: {
-
-            addCart(item){
-                (this.cart).forEach( inside => {
-                        if(inside.name == item){
-                            inside.qty +=1
-                        }
-                        return
-                })
-                var toAdd = {
-                    name: item,
-                    qty: 1,
-                };
-
-                (this.cart).push(toAdd)
-                return
-            },
-
-            selectDrink(index){
-                this.selected_drink = this.created_drinks[index]
-                if(this.click == false){
-                    this.click = true
+            remove() {
+                    document.querySelector('.carousel-item.active').remove();
                 }
-            },
         }
     })
     app.component(

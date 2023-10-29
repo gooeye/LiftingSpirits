@@ -47,6 +47,13 @@ const navbar = {
                                     <span class="align-middle">Events</span>
                                 </a>
                             </li>
+                            <li class="nav-item">
+                                <a :class="{'nav-link':true, 'active':page=='createevents'}" href="createevents.html">
+                                    <i class="bi bi-calendar-event me-2"></i>
+                                    <span class="align-middle"> Create Events</span>
+                                </a>
+                            </li>
+                            
                             <li class="category mt-3 my-2 ms-1">
                                 Community
                             </li>

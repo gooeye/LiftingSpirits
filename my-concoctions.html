@@ -44,11 +44,11 @@
                             <div class = "container" v-else>
                                 <hr class ="rounded bg-light" style="border-top: 8px solid;border-radius: 5px;">
                                     <div class = "row gx-5">
-                                        <div class = "col-3 pt-3">
+                                        <div class = "col-lg-3 pt-3 col-sm-12">
                                             <h4 class = "text-white">{{selected_drink.name}}</h4>
-                                            <img :src="selected_drink.img" class="rounded" alt="..." height="300" width="300" style="object-fit:fill;">
+                                            <img :src="selected_drink.img" class="img-fluid rounded" alt="..." height="300" width="300" style="object-fit:fill;">
                                         </div>
-                                        <div class = "col-6 pt-3">
+                                        <div class = "col-lg-6 pt-3 col-sm-12">
                                             <h4 class = "text-white">Ingredients</h4>
                                             <ul style="padding:0;list-style-type: none;">
                                                 <li class="pb-1" v-for = "i of selected_drink.ingredients">
@@ -61,7 +61,7 @@
                                                 <li>{{index+1}}. {{s}}</li>
                                             </ul>
                                         </div>
-                                        <div class = "col-3 h-auto pt-3 background2 rounded-end">
+                                        <div class = "col-lg-3 h-auto pt-3 background2 rounded-end col-sm-12">
                                             <div class = "row">
                                                 <h4 class = "text-white pl-0">My Cart</h4>
                                                     <h5 class = "text-white" v-if="cart.length==0">Your Cart is empty</h5>

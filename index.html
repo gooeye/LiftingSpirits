@@ -27,7 +27,7 @@
                 <div style="height: 480px;" class="row flex-row align-items-center px-5 g-4">
                     <spline-viewer url="https://prod.spline.design/uz2CcItbK6738Dh1/scene.splinecode" event-target="global" class="col-6"></spline-viewer>
                     <div class="col-6">
-                        <h1 class="display-5 fw-bold lh-1 mb-3">Big Header Text!</h1>
+                        <h1 class="display-5 fw-bold lh-1 mb-3">Welcome to Lifiting Spirits!</h1>
                         <p class="lead">Get started today with LiftingSpirits to explore drinking with like-minded people!</p>
                     </div>
                 </div>
@@ -38,7 +38,7 @@
                             <li v-for="drink in drinks" class="splide__slide">
                                 <div class="m-1 mb-4">
                                     <div class="card shadow-lg">
-                                        <img :src="drink.img" class="card-img" alt="..." height="200" width="150" style="object-fit: cover;">
+                                        <img :src="drink.img" class="card-img" alt="..." height="200" width="150" style="object-fit: fill;">
                                     </div>
                                     <div class="px-2">
                                         <span style="font-size: 12px;" class="float-end">
@@ -57,8 +57,7 @@
         </main>
       </div>
     
-
-    //session login
+    <!-- Session Login -->
     <script>
         var loginAuth = JSON.parse(sessionStorage.getItem("user-info"))
         let isLoggedIn = false
@@ -104,7 +103,6 @@
                 return {
                     page: 'home',
                     isLoggedIn: isLoggedIn,
-                    model: null,
                     drinks: [
                         {
                             img: "https://www.petitefleursg.com//image/cache/catalog/271376_pizzolato_ros_extra_dry_m-use_nv_pp-700x700.jpg",

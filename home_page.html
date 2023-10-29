@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lifting Spirits | Home</title>
+
+    <!-- Import CSS1 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+    <link href=" https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css " rel="stylesheet">
+    <link href="styles/style.css" rel="stylesheet">
+
+    <!-- Import JS -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src=" https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js "></script>
+    <script src="components/navbar.js"></script>
+    <script type="module" src="https://unpkg.com/@splinetool/viewer/build/spline-viewer.js"></script>
+
+</head>
+
+<body>
+    <background></background>
+    <div id="app">
+        <main>
+            <div class="container-fluid">
+                <div class="row">
+                    <vertical-navbar :page="page" :is-logged-in="isLoggedIn"></vertical-navbar>
+                    <div class="container col-10 mt-4 background2 p-3 h-100 min-vh-100">
+                        <div class="row">
+                            <div class="col-lg-6 col-md-12">
+                                <!-- Top Drinks of the week -->
+                                <h2 class="d-none d-md-block" style="color: black; font-size: 1.5rem;">Top Drinks of the Week!
+                                </h2>
+                                <div class="row">
+                                    <!-- Drink #1 -->
+                                    <div class="col-lg-3 col-md-3 mb-3">
+                                        <div class="card">
+                                        <!-- Image goes here -->
+                                        <img src="path_to_image1.jpg" class="card-img-top" alt="Drink 1 Image"> 
+                                            <div class="card-body">
+                                                <h5 class="card-title" style="color: #CC6E4A;">Drink Title 1
+                                                </h5>
+                                                <a href="#" class="btn btn-primary"
+                                                    style="background-color: #CC6E4A;">View Drink</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Drink 2 -->
+                                    <div class="col-lg-3 col-md-3 mb-3">
+                                        <div class="card">
+                                        <!-- Image goes here -->
+                                        <img src="path_to_image2.jpg" class="card-img-top" alt="Drink 2 Image">
+                                            <div class="card-body">
+                                                <h5 class="card-title" style="color: #CC6E4A;">Drink Title 2
+                                                </h5>
+                                                
+                                                <a href="#" class="btn btn-primary"
+                                                    style="background-color: #CC6E4A;">View Drink</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Drink 3 -->
+                                    <div class="col-lg-3 col-md-3 mb-3">
+                                        <div class="card">
+                                        <!-- Image goes here -->
+                                        <img src="path_to_image3.jpg" class="card-img-top" alt="Drink 3 Image">
+                                            <div class="card-body">
+                                                <h5 class="card-title" style="color: #CC6E4A;">Drink Title 3
+                                                </h5>
+                                                
+                                                <a href="#" class="btn btn-primary"
+                                                    style="background-color: #CC6E4A;">View Drink</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                     <!-- Drink 4 -->
+                                     <div class="col-lg-3 col-md-3 mb-3">
+                                            <div class="card">
+                                                <!-- Image goes here -->
+                                                <img src="path_to_image2.jpg" class="card-img-top" alt="Drink 2 Image">
+                                                <div class="card-body">
+                                                    <h5 class="card-title" style="color: #CC6E4A;">Drink Title 4
+                                                    </h5>
+                                                    
+                                                    <a href="#" class="btn btn-primary"
+                                                        style="background-color: #CC6E4A;">View Drink</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <!--New row for drink list and upcoming events side column-->
+                        <div class="row mt-5">
+                            <!-- Drinks List Column -->
+                            <div class="col-lg-8 col-md-12"> 
+                                <h2 style="color: black; font-size: 1.5rem;">Drinks Playlist</h2>
+                                <!-- Drink List Row 1 -->
+                                <a href="path_placeholder" class="text-decoration-none"> 
+                                    <div class="row border mb-2 p-2 align-items-center"> 
+                                        <div class="col-6" style="color: #7C5241;">List Name 1</div>
+                                        <div class="col-6 text-right" style="color: #CC6E4A;"> Name of User 1</div>
+                                    </div>
+                                </a>
+                                <!-- Drink List Row 2-->
+                                <a href="path_placeholder" class="text-decoration-none"> 
+                                    <div class="row border mb-2 p-2 align-items-center"> 
+                                        <div class="col-6" style="color: #7C5241;">List Name 2</div>
+                                        <div class="col-6 text-right" style="color: #CC6E4A;"> Name of User 2</div>
+                                    </div>
+                                </a>
+                                <!-- Drink List Row 3-->
+                                <a href="path_placeholder" class="text-decoration-none"> 
+                                    <div class="row border mb-2 p-2 align-items-center"> 
+                                        <div class="col-6" style="color: #7C5241;">List Name 3</div>
+                                        <div class="col-6 text-right" style="color: #CC6E4A;"> Name of User 3</div>
+                                    </div>
+                                </a>
+                                <!-- Drink List Row 4-->
+                                <a href="path_placeholder" class="text-decoration-none"> 
+                                    <div class="row border mb-2 p-2 align-items-center"> 
+                                        <div class="col-6" style="color: #7C5241;">List Name 4</div>
+                                        <div class="col-6 text-right" style="color: #CC6E4A;"> Name of User 4</div>
+                                    </div>
+                                </a>
+                                <!-- Drink List Row 5-->
+                                <a href="path_placeholder" class="text-decoration-none"> 
+                                    <div class="row border mb-2 p-2 align-items-center"> 
+                                        <div class="col-6" style="color: #7C5241;">List Name 5</div>
+                                        <div class="col-6 text-right" style="color: #CC6E4A;"> Name of User 5</div>
+                                    </div>
+                                </a>
+                            </div>
+                    
+                            <!-- Side Column for Upcoming Events -->
+                            <div class="col-lg-4 col-md-12"> <!-- Reduced from col-lg-6 to col-lg-4 -->
+                                <h2 style="color: black; font-size: 1.5rem;">Upcoming Events</h2>
+                                <!-- Event Card 1 -->
+                                <div class="card mb-3">
+                                    <img src="path_to_event_image.jpg" class="card-img-top" alt="Event Image">
+                                    <div class="card-body">
+                                        <h5 class="card-title" style="color: #CC6E4A;">Event Title 1</h5>
+                                        <p class="card-text" style="color: #7C5241;">Event Description 1</p>
+                                        <a href="#" class="btn btn-primary" style="background-color: #CC6E4A;">Join Event</a>
+                                    </div>
+                                </div>
+                                <!-- Event Card 2 -->
+                                <div class="card mb-3">
+                                    <img src="path_to_event_image.jpg" class="card-img-top" alt="Event Image">
+                                    <div class="card-body">
+                                        <h5 class="card-title" style="color: #CC6E4A;">Event Title 2</h5>
+                                        <p class="card-text" style="color: #7C5241;">Event Description 2</p>
+                                        <a href="#" class="btn btn-primary" style="background-color: #CC6E4A;">Join Event</a>
+                                    </div>
+                                </div>
+                                <!-- Event Card 3 -->
+                                <div class="card mb-3">
+                                    <img src="path_to_event_image.jpg" class="card-img-top" alt="Event Image">
+                                    <div class="card-body">
+                                        <h5 class="card-title" style="color: #CC6E4A;">Event Title 3</h5>
+                                        <p class="card-text" style="color: #7C5241;">Event Description 3</p>
+                                        <a href="#" class="btn btn-primary" style="background-color: #CC6E4A;">Join Event</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+
+
+
+
+        </main>
+    </div>
+
+    <!-- Vue.js App -->
+    <script>
+
+        const app = Vue.createApp({
+            data() {
+                return {
+                    page:'Home',
+                    isLoggedIn: isLoggedIn,
+
+                }
+            },
+        })
+        app.component(
+            'vertical-navbar', navbar
+        )
+        vm = app.mount("#app")
+    </script>
+
+    <!-- Add Bootstrap JS via CDN (for Bootstrap features like dropdowns) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"></script>
+</body>
+
+</html>

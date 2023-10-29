@@ -19,10 +19,8 @@
 </head>
 <body>
     <div id="app">
-        <main>
-            <div class="container-fluid">
-                <div class="row">
-                    <vertical-navbar :page="page" :is-logged-in="isLoggedIn"></vertical-navbar>
+        <main class="d-md-flex">
+            <vertical-navbar :page="page" :is-logged-in="isLoggedIn"></vertical-navbar>
               <!-- Content Area -->
               <div class="col-lg-10 col-md-9 col-12 background2 p-3 h-100 min-vh-100" v-if="created_drinks.length > 1">
                             <div class="splide rounded" aria-label="Splide Basic HTML Example">
@@ -43,40 +41,38 @@
                             <div class = "row" v-if="!click">
                                 <h1>Click on a drink card to show its full recipe</h1>
                             </div>
-                            <div class = "row p-3" v-else>
+                            <div class = "container" v-else>
                                 <hr class ="rounded bg-light" style="border-top: 8px solid;border-radius: 5px;">
-                                <div class = "container col-9 h-auto rounded-start p-0">
                                     <div class = "row gx-5">
-                                        <div class = "container col-3 pt-3 justify-content-start">
+                                        <div class = "col-3 pt-3">
                                             <h4 class = "text-white">{{selected_drink.name}}</h4>
-                                            <img :src="selected_drink.img" class="rounded" alt="..." height="300" width="300" style="object-fit: cover;">
+                                            <img :src="selected_drink.img" class="rounded" alt="..." height="300" width="300" style="object-fit:fill;">
                                         </div>
-                                        <div class = "container col-6 pt-3 justify-content-start">
+                                        <div class = "col-6 pt-3">
                                             <h4 class = "text-white">Ingredients</h4>
-                                                <ul style="padding:0;list-style-type: none;">
-                                                    <li class="pb-1" v-for = "i of selected_drink.ingredients">
-                                                        <button class="btn btn-outline-light rounded btn-sm" v-bind:value = i @click="addCart(i)">+</button>
+                                            <ul style="padding:0;list-style-type: none;">
+                                                <li class="pb-1" v-for = "i of selected_drink.ingredients">
+                                                <button class="btn btn-outline-light rounded btn-sm" v-bind:value = i @click="addCart(i)">+</button>
                                                         &nbsp{{i}}
-                                                    </li>
-                                                </ul>
+                                                </li>
+                                            </ul>
                                             <h4 class = "text-white">How to Make</h4>
                                             <ul v-for = "(s,index) of selected_drink.steps" style="padding:0;list-style-type: none;">
                                                 <li>{{index+1}}. {{s}}</li>
                                             </ul>
                                         </div>
+                                        <div class = "col-3 h-auto pt-3 background2 rounded-end">
+                                            <div class = "row">
+                                                <h4 class = "text-white pl-0">My Cart</h4>
+                                                    <h5 class = "text-white" v-if="cart.length==0">Your Cart is empty</h5>
+                                                    <ol class = "text-white" id="finalCart" v-else style="list-style-type: none;">
+                                                        <li v-for="item of cart" class="pl-1 pb-2" ><i class="bi-circle"></i> {{item.name}}&nbsp&nbsp&nbsp x{{item.qty}}</li>
+                                                        <a class ="btn btn-dark" href="checkout.html">Checkout</a>
+                                                    </ol>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class = "container col-3 h-auto pt-3 background2 rounded-end">
-                                    <div class = "row">
-                                        <h4 class = "text-white pl-0">My Cart</h4>
-                                            <h5 class = "text-white" v-if="cart.length==0">Your Cart is empty</h5>
-                                            <ol class = "text-white" id="finalCart" v-else style="list-style-type: none;">
-                                                <li v-for="item of cart" class="pl-1 pb-2" ><i class="bi-circle"></i> {{item.name}}&nbsp&nbsp&nbsp x{{item.qty}}</li>
-                                                <button class ="btn btn-dark" href="checkout.html">Checkout</button>
-                                            </ol>
-                                    </div>
-                                </div>
-                            </div>
                     </div>
                     <div class="container col-10" v-else>
                         <div class="background rounded h-100 p-4 text-center align-self-center">
@@ -84,7 +80,6 @@
                             <button class ="btn btn-dark" href="#">Create a concoction!</button>
                         </div>
                     </div>
-            </div>
         </main>
       </div>
 
@@ -155,7 +150,6 @@
                     ],
                     page: 'my_concoction',
                     isLoggedIn: isLoggedIn,
-                    model: null,
                 }
             },
 

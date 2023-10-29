@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lifting Spirits | Home</title>
+
+    <!-- Import CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+    <link href=" https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css " rel="stylesheet">
+    <link href="styles/style.css" rel="stylesheet">
+
+    <!-- Import JS -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src=" https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js "></script>
+    <script src="components/navbar.js"></script>
+
+    <style>
+        <style>
+        .drink-card {
+            width: 250px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            margin: 20px;
+            cursor: pointer;
+        }
+
+        .drink-card img {
+            width: 100%;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+    </style>
+
+        
+
+      </style>
+    
+</head>
+<body>
+
+    <div id="app">
+        <main>
+            <div class="container-fluid">
+                <div class="row">
+                        <vertical-navbar :page="page" :is-logged-in="isLoggedIn"></vertical-navbar>
+                
+                    <div class="col-lg-10 col-md-9 col-12 background2 p-3 h-100 min-vh-100" >
+                        
+                        <h3> My Drinks </h3>
+
+                        <h5> Sort by: </h5>
+                        <button class="btn btn-secondary mx-2" @click="sortDrinks('All')">All</button>
+                        <button class="btn btn-secondary mx-2" @click="sortDrinks('Beer')">Beer</button>
+                        <button class="btn btn-secondary mx-2 " @click="sortDrinks('Whiskey')">Whiskey</button>
+                        <button class="btn btn-secondary mx-2 "@click="sortDrinks('Rum')">Rum</button>
+                       
+
+
+                        <div class="container"> 
+                            <div class="row">
+                                <div class = "col-md-4 my-3"  v-for="(drink, index) in displayedDrinks" :key="index">
+                                    <div class="drink-card" data-bs-toggle="collapse" :data-bs-target="'#drink' + index">
+                                        <img :src="drink.img" alt="Drink Img">
+                                        <div class="card-body">
+                                            <h5 class="card-title">{{drink.name}}</h5>
+                                            <div :id="'drink' + index" class="collapse">
+                                                <div>Type: {{drink.type}}</div>
+                                                <div>Ingredients: {{drink.ingredients.join(',')}}</div>
+                                                <div>Steps: </div>
+                                                <ul>
+                                                    <li v-for="(step,stepIndex) in drink.steps" :key="stepIndex">{{step}}</li>
+                                                </ul>
+
+                                                <p>Status: {{drink.status}}</p>
+                                                <button class="btn btn-primary" @click="moveToTriedAndTested(index)">Move to Tried and Tested</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        
+
+                    </div>
+                        
+                </div>
+
+
+
+                
+        </main>
+      </div>
+
+
+   
+
+
+
+<script>
+    var loginAuth = JSON.parse(sessionStorage.getItem("user-info"))
+    let isLoggedIn = false
+    if (loginAuth == null){
+        isLoggedIn = false
+    }
+    else{
+        isLoggedIn = true
+    }
+
+    document.addEventListener( 'DOMContentLoaded', function() {
+        var splide = new Splide( '.splide', {
+            type   : 'loop',
+            drag   : 'free',
+            snap   : true,
+            Height: 200,
+            Width: 200,
+            perPage: 3,
+        } );
+
+        splide.mount();
+    });
+
+    const app = Vue.createApp({
+        data() {
+            return {
+            
+                selectedEventIndex: -1,
+                
+                
+                //events made by users
+                my_list : [
+                {
+                    name: "Mojito",
+                    type: "Beer",
+                    ingredients:["lime","rum","mint","ice"],                        
+                    steps:["Muddle the mint","Mix and measure to your liking","Stir with ice"],
+                    img: "https://cdn.loveandlemons.com/wp-content/uploads/2020/07/mojito.jpg",
+                    status: "To Try",
+                },
+
+                {
+                    name: "Sangria",
+                    type: "Rum",
+                    ingredients:["Orange","Apple","Sugar syrup","Brandy","Rioja wine","Ice"],                        
+                    steps:["Cut the fruits","Mix and measure to your liking","Stir with ice"],
+                    img: "https://hips.hearstapps.com/hmg-prod/images/sangria-index-643044ca71f12.jpg?crop=0.502xw:1.00xh;0.210xw,0&resize=1200:*",
+                    status: "To Try",
+                },
+
+                {
+                    name: "Whiskey Sour",
+                    type: "Whiskey",
+                    ingredients:["Bourdon","Lemon juice","Sugar syrup","Egg white","Angosutra bitters"],                        
+                    steps:["Add bourbon, lemon juice, simple syrup and egg white, if using, to a shaker, and dry-shake for 30 seconds without ice."
+                    ,"Add ice and shake again for 15–20 seconds, until well-chilled.",
+                    "Strain into a rocks glass over fresh ice, or into a coupe without ice.",
+                    "Garnish with 3–4 drops of Angostura bitters."],
+                    img: "https://hips.hearstapps.com/hmg-prod/images/sangria-index-643044ca71f12.jpg?crop=0.502xw:1.00xh;0.210xw,0&resize=1200:*",
+                    status: "To Try",
+                },
+                ],
+                displayedDrinks: [],
+                isLoggedIn: isLoggedIn,
+                model: null,
+            }
+        },
+
+        computed: {
+        },
+
+        methods: {
+
+            sortDrinks(type){
+                if (type==='All'){
+                    this.displayedDrinks =[...this.my_list];
+                } else{
+                    this.displayedDrinks = this.my_list.filter(drink => drink.type === type);
+                }
+            },
+
+            moveToTriedAndTested(index) {
+                // Ensure that the status is being updated correctly
+                this.displayedDrinks[index].status = 'Tried and Tested';
+            },
+        }
+    })
+    app.component(
+        'vertical-navbar', navbar
+    )
+    vm = app.mount("#app")
+
+</script>
+
+   
+    <!-- Add Bootstrap JS via CDN (for Bootstrap features like dropdowns) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

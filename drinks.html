@@ -1,125 +1,228 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lifting Spirits | Home</title>
 
-     <!-- Bootstrap CSS -->
-     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" 
-     rel="stylesheet" 
-     integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" 
-     crossorigin="anonymous">
+    <!-- Import CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+    <link href=" https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css " rel="stylesheet">
+    <link href="styles/style.css" rel="stylesheet">
 
-     <style>
-        #header{
-            font-family:Verdana, Geneva, Tahoma, sans-serif;
-            background-color: #111618;
-            color: #E4EAEC;
-        }
-
-        a{
-            text-decoration: none;
-            border: 3px solid black;
-            border-radius: 10px;
-            padding:10px;
-            margin:10px;
-            color: #E4EAEC;
-            background-color: #CC6E4A;
-        }
-
-
-     </style>
-
+    <!-- Import JS -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src=" https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js "></script>
+    <script src="components/navbar.js"></script>
+    
 </head>
-
 <body>
-    <vertical-navbar :page="page" :is-logged-in="isLoggedIn"></vertical-navbar>
-
-
-
-    <div class="jumbotron text-center py-4" id="header">
-        <h1> Swipe to find your favourite drinks! </h1>
-    </div>
-
-    <div class="my-4 text-center"> 
-        <a href = "mylist.html">My List</a>
-    </div>
-    <div class="row">
-          <!-- row carousel -->
-          <div class="col-sm-3 text-white">
-            filler
-
-          </div>
-          <div class="col-sm-6">
-            <div id="carouselExampleControls" class="carousel slide mx-auto"
-                data-bs-ride="carousel">
-                <div class="carousel-inner">
-                    <div class="carousel-item active">
-                        <!-- set 1 slide as default active -->
-                        <!-- Jisoo -->
-                        <div class="card">
-                            <img class="card-img-top" src="components/img/cocktail.jpg"
-                                alt="cocktail">
-                            <div class="card-body">
-                                <h5 class="card-title">Name: </h5>
-                                <h6 class="card-subtitle mb-2 text-muted">Drink Type: </h6>
-                            </div>
-                        </div>
-                     
+    <div id="app">
+        <main>
+            <div class="container-fluid">
+                <div class="row">
+                    <vertical-navbar :page="page" :is-logged-in="isLoggedIn"></vertical-navbar>
+              <!-- Content Area -->
+              <div class="col-lg-10 col-md-9 col-12 background2 p-3 h-100 min-vh-100" v-if="created_drinks.length > 1">
+                <div class="row">
+                    <h3 class="p-1">Swipe to find your favourite drinks! </h3>
+                    <a href="mylist.html" class="py-3 mb-4" style="text-decoration: none; border:3px solid black; background-color: #CC6E4A ; border-radius:10px;">My List</a>
+                    <!-- row carousel -->
+                    <div class="col-sm-6 ">
+                      <div id="carouselExampleControls" class="carousel slide mx-auto"
+                          data-bs-ride="carousel">
+                          <div class="carousel-inner" >
+                              <div class="carousel-item active">
+                                <div class="card">
+                                    <img class="card-img-top" src="components/img/cocktail.jpg"
+                                        alt="cocktail">
+                                    <div class="card-body">
+                                        <h5 class="card-title text-white">Name: </h5>
+                                        <h6 class="card-subtitle mb-2 text-secondary">Drink Type: </h6>
+                                    </div>
+                                </div>
+                               
+                              </div>
+                              <div class="carousel-item">
+                                  <div class="card">
+                                      <img class="card-img-top" src="components/img/cocktail2.jpg"
+                                          alt="cocktail2">
+                                      <div class="card-body">
+                                          <h5 class="card-title">Name: </h5>
+                                          <h6 class="card-subtitle mb-2 text-muted">Drink Type: </h6>
+                                      </div>
+                                  </div>
+                                  
+                              </div>
+                          </div>
+                               
+                             
+                          
+                          <!-- Controls -->
+                          <button class="carousel-control-prev" type="button"
+                              data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                              <span onclick="remove()" >Not interested</span>
+                          </button>
+                          <button class="carousel-control-next" type="button"
+                              data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                              <span >Hell Yes!</span>
+                          </button>
+                      </div>
+                      
+          
+                  </div>
+              </div>
                     </div>
-                    <div class="carousel-item ">
-                        <!-- Jennie -->
-                        <div class="card">
-                            <img class="card-img-top" src="components/img/cocktail2.jpg"
-                                alt="cocktail2">
-                            <div class="card-body">
-                                <h5 class="card-title">Name: </h5>
-                                <h6 class="card-subtitle mb-2 text-muted">Drink Type: </h6>
-                            </div>
-                        </div>
-                        
-                    </div>
-                </div>
-                     
-                   
-                
-                <!-- Controls -->
-                <button class="carousel-control-prev" type="button"
-                    data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span onclick="remove()" >Not interested</span>
-                </button>
-                <button class="carousel-control-next" type="button"
-                    data-bs-target="#carouselExampleControls" data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span >Hell Yes!</span>
-                </button>
+                    
             </div>
-            
+        </main>
+      </div>
 
-        </div>
-    </div>
 
-    <script>
-        function remove() {
 
-        document.querySelector('.carousel-item.active').remove();
+<script>
+    function remove() {
+
+    document.querySelector('.carousel-item.active').remove();
+}
+</script>
+
+<script>
+    var loginAuth = JSON.parse(sessionStorage.getItem("user-info"))
+    let isLoggedIn = false
+    if (loginAuth == null){
+        isLoggedIn = false
+    }
+    else{
+        isLoggedIn = true
     }
 
+    document.addEventListener( 'DOMContentLoaded', function() {
+        var splide = new Splide( '.splide', {
+            type   : 'loop',
+            drag   : 'free',
+            snap   : true,
+            Height: 200,
+            Width: 200,
+            perPage: 3,
+        } );
 
-    //dk how to add the items to a list 
+        splide.mount();
+    });
 
+    const app = Vue.createApp({
+        data() {
+            return {
+                //shopping cart
+                cart : [],
+                //boolean when card is not selected
+                click : false,
+                //pick drink from list of created drinks
+                selected_drink : {},
+                //test
+                
+                //drinks made by user called from firestore api
+                created_drinks : [
+                {
+                    name: "Mojito",
+                    type: "Cocktail",
+                    ingredients:["lime","rum","mint","ice"],                        
+                    steps:["Muddle the mint","Mix and measure to your liking","Stir with ice"],
+                    img: "https://cdn.loveandlemons.com/wp-content/uploads/2020/07/mojito.jpg",
+                },
 
-    </script>
+                {
+                    name: "Sangria",
+                    type: "Cocktail",
+                    ingredients:["Orange","Apple","Sugar syrup","Brandy","Rioja wine","Ice"],                        
+                    steps:["Cut the fruits","Mix and measure to your liking","Stir with ice"],
+                    img: "https://hips.hearstapps.com/hmg-prod/images/sangria-index-643044ca71f12.jpg?crop=0.502xw:1.00xh;0.210xw,0&resize=1200:*",
+                },
 
+                {
+                    name: "Whiskey Sour",
+                    type: "Cocktail",
+                    ingredients:["Bourdon","Lemon juice","Sugar syrup","Egg white","Angosutra bitters"],                        
+                    steps:["Add bourbon, lemon juice, simple syrup and egg white, if using, to a shaker, and dry-shake for 30 seconds without ice."
+                    ,"Add ice and shake again for 15–20 seconds, until well-chilled.",
+                    "Strain into a rocks glass over fresh ice, or into a coupe without ice.",
+                    "Garnish with 3–4 drops of Angostura bitters."],
+                    img: "https://hips.hearstapps.com/hmg-prod/images/sangria-index-643044ca71f12.jpg?crop=0.502xw:1.00xh;0.210xw,0&resize=1200:*",
+                },
+                ],
+                page: 'my_concoction',
+                isLoggedIn: isLoggedIn,
+                model: null,
+            }
+        },
 
-    <!-- Bundled Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" 
-    integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" 
-    crossorigin="anonymous"></script>
+        computed: {
+        },
 
+        methods: {
 
+            addCart(item){
+                (this.cart).forEach( inside => {
+                        if(inside.name == item){
+                            inside.qty +=1
+                        }
+                        return
+                })
+                var toAdd = {
+                    name: item,
+                    qty: 1,
+                };
 
+                (this.cart).push(toAdd)
+                return
+            },
 
+            selectDrink(index){
+                this.selected_drink = this.created_drinks[index]
+                if(this.click == false){
+                    this.click = true
+                }
+            },
+        }
+    })
+    app.component(
+        'vertical-navbar', navbar
+    )
+    vm = app.mount("#app")
 
+</script>
+
+   
+    <!-- Add Bootstrap JS via CDN (for Bootstrap features like dropdowns) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"></script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

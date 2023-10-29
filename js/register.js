@@ -67,9 +67,9 @@ register.addEventListener("click", async () =>{
     .then(function(userCredential){
         const user = userCredential.user
 
-        const userRef = doc(db, "users");
+        const userRef = doc(db, "users",email);
 
-        setDoc(userRef,email,{
+        setDoc(userRef,{
             userid: user.uid,
             username: username,
             email: email,

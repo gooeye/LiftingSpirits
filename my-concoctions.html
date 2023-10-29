@@ -72,6 +72,7 @@
                                             <h5 class = "text-white" v-if="cart.length==0">Your Cart is empty</h5>
                                             <ol class = "text-white" id="finalCart" v-else style="list-style-type: none;">
                                                 <li v-for="item of cart" class="pl-1 pb-2" ><i class="bi-circle"></i> {{item.name}}&nbsp&nbsp&nbsp x{{item.qty}}</li>
+                                                <button class ="btn btn-dark" href="checkout.html">Checkout</button>
                                             </ol>
                                     </div>
                                 </div>
@@ -97,7 +98,8 @@
         else{
             isLoggedIn = true
         }
-
+    </script>
+    <script>
         document.addEventListener( 'DOMContentLoaded', function() {
             var splide = new Splide( '.splide', {
                 type   : 'loop',
@@ -167,6 +169,7 @@
                         for (cartItems of this.cart) {
                             if(cartItems.name == item) {
                                 cartItems.qty +=1;
+                                sessionStorage.setItem("checkout",JSON.stringify({cart: this.cart}))
                                 break editCart;
                             }
                         }
@@ -175,6 +178,7 @@
                             qty: 1,
                         };
                         (this.cart).push(toAdd)
+                        sessionStorage.setItem("checkout",JSON.stringify({cart: this.cart}))
                     }
                 },
 

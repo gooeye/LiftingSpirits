@@ -81,7 +81,7 @@ register.addEventListener("click", async () =>{
             created_drinks:[],
             will_drink:[],
             will_not_drink:[],
-            have_drank:[],
+            friends:[],
         })
     
         alert("Account has been created!")

@@ -1,13 +1,8 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp }  from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
-import { 
-    getAuth, 
-    onAuthStateChanged, 
-    signInWithEmailAndPassword, 
-    createUserWithEmailAndPassword, 
-    signOut 
-    } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-auth.js";
+import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-auth.js";
 import { getDatabase,set,ref,update } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-database.js";
+import { getFirestore, collection, setDoc, doc, addDoc, getDoc , query} from "https://www.gstatic.com/firebasejs/10.5.0/firebase-firestore.js";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -27,6 +22,7 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth();
+const db = getFirestore(app);
 
 //get html 
 var userEmail = document.getElementById("email")
@@ -44,11 +40,20 @@ const userSignIn = async() =>{
     .then((userCredential) => {
         const user = userCredential.user
         alert("Signed in successfully!")
-        sessionStorage.setItem("user-info", JSON.stringify({
-            email : email,
-            isLoggedIn: true,
-        }))
-        window.location.replace("index.html");
+
+        const userRef = doc(db,"users",email)
+        getDoc(userRef).then((doc) => {
+            if (doc.exists()) {
+                sessionStorage.setItem("user_info", JSON.stringify({
+                    email : email,
+                    username: (doc.data()).username,
+                    isLoggedIn: true,
+                    
+                }))
+                window.location.replace("index.html");
+            }
+        })
+
     })
     .catch((error) =>{
         const errorCode = error.code

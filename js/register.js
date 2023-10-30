@@ -85,8 +85,6 @@ register.addEventListener("click", async () =>{
         })
     
         alert("Account has been created!")
-<<<<<<< Updated upstream
-=======
         // const docSnap = await getDoc(userRef);
         const checkData = setTimeout(() => {
             getDoc(userRef).then((doc) => {
@@ -103,7 +101,6 @@ register.addEventListener("click", async () =>{
             });
         }, 1000);
         
->>>>>>> Stashed changes
     })
 
     .catch(function(error){

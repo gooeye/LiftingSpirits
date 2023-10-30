@@ -1,7 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp }  from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
 import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-auth.js";
-import { getFirestore,collection, setDoc, doc, addDoc} from "https://www.gstatic.com/firebasejs/10.5.0/firebase-firestore.js";
+import { getFirestore, collection, setDoc, doc, addDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-firestore.js";
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -64,10 +64,10 @@ register.addEventListener("click", async () =>{
 
     //update database---------------------------------------------------------------------------------------------
     createUserWithEmailAndPassword(auth,email,password)
-    .then(function(userCredential){
+    .then(async function(userCredential){
         const user = userCredential.user
 
-        const userRef = doc(db, "users",email);
+        const userRef = doc(db, "users", email);
 
         setDoc(userRef,{
             userid: user.uid,
@@ -85,6 +85,25 @@ register.addEventListener("click", async () =>{
         })
     
         alert("Account has been created!")
+<<<<<<< Updated upstream
+=======
+        // const docSnap = await getDoc(userRef);
+        const checkData = setTimeout(() => {
+            getDoc(userRef).then((doc) => {
+                if (doc.exists()) {
+                    console.log("Document data:", doc.data());
+                    clearTimeout(checkData);
+                    window.location.assign("login.html")
+                } else {
+                    // doc.data() will be undefined in this case
+                    console.log("No such document!");
+                }
+            }).catch((error) => {
+                console.log("Error getting document:", error);
+            });
+        }, 1000);
+        
+>>>>>>> Stashed changes
     })
 
     .catch(function(error){

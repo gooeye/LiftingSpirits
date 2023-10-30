@@ -85,7 +85,6 @@ register.addEventListener("click", async () =>{
         })
     
         alert("Account has been created!")
-        window.location.assign("login.html")
     })
 
     .catch(function(error){

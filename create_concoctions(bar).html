@@ -17,35 +17,6 @@
     <script src=" https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js "></script>
     <script src="components/navbar.js"></script>
     <script type="module" src="https://unpkg.com/@splinetool/viewer/build/spline-viewer.js"></script>
-    <style>
-        .dropdown-container {
-            position: relative;
-        }
-
-        .custom-dropdown {
-            appearance: none;
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            width:100%;
-            padding-right: 2rem; 
-        }
-
-        .dropdown-container::after {
-            content: '▼'; 
-            position: absolute;
-            top: 50%;
-            right: 1rem; 
-            transform: translateY(-50%);
-            pointer-events: none; 
-        }
-        .placeholder-option {
-            color: #808080; 
-        }
-        .custom-dropdown:focus .placeholder-option {
-            color: initial;
-            font-style: normal;
-        }
-    </style>
 
 </head>
 
@@ -63,10 +34,12 @@
       
                             <form>
                                 <!--Title-->
+                                <!--
                                 <div class="mb-3">
                                     <label for="titleOfPost" class="form-label" style="color: #CC6E4A;">Title of Post:</label>
                                     <input type="text" class="form-control" id="titleOfPost" placeholder="Enter title of post" required>
                                 </div>
+                                -->
                                 <!--Name-->
                                 <div class="mb-3">
                                     <label for="nameOfDrink" class="form-label" style="color: #CC6E4A;">Name of Drink:</label>
@@ -74,15 +47,14 @@
                                 </div>
                                 <!--Type-->
                                 <div class="mb-3">
-                                    <label for="typeOfDrink" class="form-label" style="color: #CC6E4A;">Type:</label>
-                                    <div class="dropdown-container">
-                                        <select class="form-control custom-dropdown" id="typeOfDrink">
-                                            <option class="placeholder-option" value="" disabled selected hidden>Please select one of the options</option>
-                                            <option value="cocktail">Cocktail</option>
-                                            <option value="mocktail">Mocktail</option>
-                                            <option value="beer">Beer</option>
-                                            <option value="wine">Wine</option>
-                                        </select>
+                                    <label for="typeOfDrink" class="form-label" style="color: #CC6E4A;">Type of Drink:</label>
+                                    <div>
+                                        <input type="radio" id="cocktail" value="cocktail">
+                                        <label for="cocktail">Cocktail</label>
+                                    </div>
+                                    <div>
+                                        <input type="radio" id="mocktail" value="mocktail">
+                                        <label for="mocktail">Mocktail</label>
                                     </div>
                                 </div>
                                 <!--Ingredient -->

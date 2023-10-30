@@ -17,13 +17,17 @@
     <script src=" https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js "></script>
     <script src="components/navbar.js"></script>
     <script type="module" src="https://unpkg.com/@splinetool/viewer/build/spline-viewer.js"></script>
-
+    <style>
+        h2 {
+            color: white;
+        }
+    </style>
 </head>
 
 <body>
     <div id="app">
         <main>
-            <div class="container-fluid">
+            <div class="container-fluid background2">
                 <div class="row">
                     <vertical-navbar :page="page" :is-logged-in="isLoggedIn"></vertical-navbar>
                     <div class="container col-10 mt-4">
@@ -36,16 +40,18 @@
                                     <img src="https://via.placeholder.com/800x400" class="card-img-top"
                                         alt="Top Interest Thread Image">
                                     <div class="card-body">
-                                        <h2 class="card-title text-center" style="color: #000; font-size: 1.5rem;">{{ topThread.title }}</h2>
+                                        <h2 class="card-title text-center" style="color:white; font-size: 1.5rem;">{{
+                                            topThread.title }}</h2>
                                         <p class="card-text" style="color: #7C5241;">{{ topThread.description }}</p>
-                                        <p class="card-text" style="color: #7C5241;">Posted by: {{ topThread.author }}</p>
+                                        <p class="card-text" style="color: #7C5241;">Posted by: {{ topThread.author }}
+                                        </p>
                                         <p class="card-text" style="color: #7C5241;">Posted on: {{ topThread.date }}</p>
                                         <a href="#" class="btn btn-primary" style="background-color: #CC6E4A;">View
                                             Thread</a>
                                     </div>
                                 </div>
                                 <!-- Popular Threads -->
-                                <h2 class="d-none d-md-block" style="color: black; font-size: 1.5rem;">Popular Threads
+                                <h2 class="d-none d-md-block" style="color: white; font-size: 1.5rem;">Popular Threads
                                 </h2>
                                 <div class="row">
                                     <!-- Popular Thread 1 -->
@@ -53,14 +59,18 @@
                                         <div class="card">
                                             <div class="card-body">
                                                 <h5 class="card-title" style="color: #CC6E4A;">{{ thread.title }}</h5>
-                <p class="card-text" style="color: #7C5241;">{{ thread.description }}</p>
-                <p class="card-text" style="color: #7C5241;">Posted by: {{ thread.author }}</p>
-                <p class="card-text" style="color: #7C5241;">Posted on: {{ thread.date }}</p>
-                <a href="#" class="btn btn-primary" style="background-color: #CC6E4A;">View Thread</a>
+                                                <p class="card-text" style="color: #7C5241;">{{ thread.description }}
+                                                </p>
+                                                <p class="card-text" style="color: #7C5241;">Posted by: {{ thread.author
+                                                    }}</p>
+                                                <p class="card-text" style="color: #7C5241;">Posted on: {{ thread.date
+                                                    }}</p>
+                                                <a href="#" class="btn btn-primary"
+                                                    style="background-color: #CC6E4A;">View Thread</a>
                                             </div>
                                         </div>
                                     </div>
-                                    
+
                                 </div>
                             </div>
                             <!-- Trending Threads and Search Field -->
@@ -71,7 +81,8 @@
                                             Trending Threads</h2>
                                         <!-- Trending Threads List -->
                                         <ul class="list-group" style="color: #7C5241;">
-                                            <li class="list-group-item" v-for="thread in trendingThreads" :key="thread">{{ thread }}</li>
+                                            <li class="list-group-item" v-for="thread in trendingThreads" :key="thread">
+                                                {{ thread }}</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -79,8 +90,8 @@
                                 <div class="input-group mb-3">
                                     <input type="text" class="form-control" placeholder="Search for threads..."
                                         aria-label="Search for threads..." aria-describedby="button-search">
-                                    <button class="btn btn-primary" style="min-width: 100px;" type="button"
-                                        id="button-search">Search</button>
+                                    <a href="postsearch.html"><button  class="btn btn-primary" style="min-width: 100px;" type="button"
+                                        id="button-search">Search</button></a> 
                                 </div>
                             </div>
                         </div>
@@ -98,43 +109,43 @@
     <!-- Vue.js App -->
     <script>
 
-const app = Vue.createApp({
-    data() {
-        return {
-            topThread: {
-                title: "Top Interest Thread",
-                description: "Description of the top interest thread. This thread is particularly interesting and engaging for users. It contains valuable information and discussions about various topics.",
-                author: "John Doe",
-                date: "October 31, 2023"
-            },
-            popularThreads: [
-                {
-                    title: "Popular Thread Title 1",
-                    description: "Description of Popular Thread 1. This thread is widely popular among our users. It covers interesting topics and discussions.",
-                    author: "Jane Smith",
-                    date: "October 30, 2023"
-                },
-                {
-                    title: "Popular Thread Title 2",
-                    description: "Description of Popular Thread 2. This thread is widely popular among our users. It covers interesting topics and discussions.",
-                    author: "Alex Johnson",
-                    date: "October 29, 2023"
-                },
-                {
-                    title: "Popular Thread Title 3",
-                    description: "Description of Popular Thread 3. This thread is widely popular among our users. It covers interesting topics and discussions.",
-                    author: "Michael Brown",
-                    date: "October 28, 2023"
-                }
-            ],
-            trendingThreads: [
-                "Trending Thread 1 - Description of Trending Thread 1.",
-                "Trending Thread 2 - Description of Trending Thread 2.",
-                "Trending Thread 3 - Description of Trending Thread 3."
-            ]
-        };
-    }
-});
+        const app = Vue.createApp({
+            data() {
+                return {
+                    topThread: {
+                        title: "Top Interest Thread",
+                        description: "Description of the top interest thread. This thread is particularly interesting and engaging for users. It contains valuable information and discussions about various topics.",
+                        author: "John Doe",
+                        date: "October 31, 2023"
+                    },
+                    popularThreads: [
+                        {
+                            title: "Popular Thread Title 1",
+                            description: "Description of Popular Thread 1. This thread is widely popular among our users. It covers interesting topics and discussions.",
+                            author: "Jane Smith",
+                            date: "October 30, 2023"
+                        },
+                        {
+                            title: "Popular Thread Title 2",
+                            description: "Description of Popular Thread 2. This thread is widely popular among our users. It covers interesting topics and discussions.",
+                            author: "Alex Johnson",
+                            date: "October 29, 2023"
+                        },
+                        {
+                            title: "Popular Thread Title 3",
+                            description: "Description of Popular Thread 3. This thread is widely popular among our users. It covers interesting topics and discussions.",
+                            author: "Michael Brown",
+                            date: "October 28, 2023"
+                        }
+                    ],
+                    trendingThreads: [
+                        "Trending Thread 1 - Description of Trending Thread 1.",
+                        "Trending Thread 2 - Description of Trending Thread 2.",
+                        "Trending Thread 3 - Description of Trending Thread 3."
+                    ]
+                };
+            }
+        });
         app.component(
             'vertical-navbar', navbar
         )

@@ -25,7 +25,7 @@
               <div class="col-lg-10 col-md-9 col-12 background2 p-3 h-100 min-vh-100" v-if="created_drinks.length > 1">
                             <div class="splide rounded" aria-label="Splide Basic HTML Example">
                                 <div class="splide__track">
-                                    <h1 class="p-1">My Concoctions</h1>
+                                    <h1 class="p-2">My Concoctions</h1>
                                     <ul class="splide__list">
                                         <li class="splide__slide"v-for="(drink,index) of created_drinks" >
                                             <div class="m-1 mb-4">
@@ -39,7 +39,7 @@
                                 </div>
                             </div>
                             <div class = "row" v-if="!click">
-                                <h1>Click on a drink card to show its full recipe</h1>
+                                <h1 class = "p-3">Click on a drink card to show its full recipe</h1>
                             </div>
                             <div class = "container" v-else>
                                 <hr class ="rounded bg-light" style="border-top: 8px solid;border-radius: 5px;">
@@ -52,7 +52,7 @@
                                             <h4 class = "text-white">Ingredients</h4>
                                             <ul style="padding:0;list-style-type: none;">
                                                 <li class="pb-1" v-for = "i of selected_drink.ingredients">
-                                                <button class="btn btn-outline-light rounded btn-sm" v-bind:value = i @click="addCart(i)">+</button>
+                                                <button class="btn btn-outline-dark rounded btn-sm text-white" v-bind:value = i @click="addCart(i)" style="background-color: #CC6E4A;">+</button>
                                                         &nbsp{{i}}
                                                 </li>
                                             </ul>
@@ -118,6 +118,34 @@
 
                     page: 'my_concoction',
                     isLoggedIn: true,
+                    created_drinks : [
+                    {
+                        name: "Mojito",
+                        type: "Cocktail",
+                        ingredients:["lime","rum","mint","ice"],                        
+                        steps:["Muddle the mint","Mix and measure to your liking","Stir with ice"],
+                        img: "https://cdn.loveandlemons.com/wp-content/uploads/2020/07/mojito.jpg",
+                    },
+
+                    {
+                        name: "Sangria",
+                        type: "Cocktail",
+                        ingredients:["Orange","Apple","Sugar syrup","Brandy","Rioja wine","Ice"],                        
+                        steps:["Cut the fruits","Mix and measure to your liking","Stir with ice"],
+                        img: "https://hips.hearstapps.com/hmg-prod/images/sangria-index-643044ca71f12.jpg?crop=0.502xw:1.00xh;0.210xw,0&resize=1200:*",
+                    },
+
+                    {
+                        name: "Whiskey Sour",
+                        type: "Cocktail",
+                        ingredients:["Bourdon","Lemon juice","Sugar syrup","Egg white","Angosutra bitters"],                        
+                        steps:["Add bourbon, lemon juice, simple syrup and egg white, if using, to a shaker, and dry-shake for 30 seconds without ice."
+                        ,"Add ice and shake again for 15–20 seconds, until well-chilled.",
+                        "Strain into a rocks glass over fresh ice, or into a coupe without ice.",
+                        "Garnish with 3–4 drops of Angostura bitters."],
+                        img: "https://hips.hearstapps.com/hmg-prod/images/sangria-index-643044ca71f12.jpg?crop=0.502xw:1.00xh;0.210xw,0&resize=1200:*",
+                    },
+                    ],
                 }
             },
 

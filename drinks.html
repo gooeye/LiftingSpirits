@@ -31,13 +31,13 @@
                     <h1 class="p-2">Swipe to find your favourite drinks!</h1>
                     <a href="mylist.html" class="py-3 mb-4" style="text-decoration: none; border:3px solid black; background-color: #CC6E4A ; border-radius:10px;">My List</a>
                     <!-- row carousel -->
-                    <div class="col-sm-6 ">
+                    <div class="col-6 offset-3" >
                       <div id="carouselExampleControls" class="carousel slide mx-auto"
                           data-bs-ride="carousel">
                           <div class="carousel-inner" >
                             <div v-for="(drink,index) in created_drinks" :key="index" class="carousel-item" :class="{ active: index===0}">
                                 <div class="card" >
-                                    <img :src="drink.img" alt="Drink Image">
+                                    <img :src="drink.img" alt="Drink Image" >
                                     <div class="card-body">
                                         <h5 class="card-title text-white">{{drink.name}}</h5>
                                         <p class="text-white"> Type: {{drink.type}}</p>
@@ -57,7 +57,7 @@
                           <button class="carousel-control-next" type="button"
                               data-bs-target="#carouselExampleControls" data-bs-slide="next">
                               <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                              <span >Hell Yes!</span>
+                              <span @click="addToMyList(created_drinks[index])" >Hell Yes!</span>
                           </button>
                       </div>
                      
@@ -111,43 +111,37 @@
     const app = Vue.createApp({
         data() {
             return {
-                //shopping cart
-                cart : [],
-                //boolean when card is not selected
-                click : false,
-                //pick drink from list of created drinks
-                selected_drink : {},
-                //test
+                myList:[],
                
-                //drinks made by user called from firestore api
                 created_drinks : [
                 {
                     name: "Mojito",
-                    type: "Cocktail",
+                    type: "Beer",
                     ingredients:["lime","rum","mint","ice"],                        
                     steps:["Muddle the mint","Mix and measure to your liking","Stir with ice"],
                     img: "https://cdn.loveandlemons.com/wp-content/uploads/2020/07/mojito.jpg",
+                    status: "To Try",
                 },
-
 
                 {
                     name: "Sangria",
-                    type: "Cocktail",
+                    type: "Rum",
                     ingredients:["Orange","Apple","Sugar syrup","Brandy","Rioja wine","Ice"],                        
                     steps:["Cut the fruits","Mix and measure to your liking","Stir with ice"],
                     img: "https://hips.hearstapps.com/hmg-prod/images/sangria-index-643044ca71f12.jpg?crop=0.502xw:1.00xh;0.210xw,0&resize=1200:*",
+                    status: "To Try",
                 },
-
 
                 {
                     name: "Whiskey Sour",
-                    type: "Cocktail",
+                    type: "Whiskey",
                     ingredients:["Bourdon","Lemon juice","Sugar syrup","Egg white","Angosutra bitters"],                        
                     steps:["Add bourbon, lemon juice, simple syrup and egg white, if using, to a shaker, and dry-shake for 30 seconds without ice."
                     ,"Add ice and shake again for 15–20 seconds, until well-chilled.",
                     "Strain into a rocks glass over fresh ice, or into a coupe without ice.",
                     "Garnish with 3–4 drops of Angostura bitters."],
                     img: "https://hips.hearstapps.com/hmg-prod/images/sangria-index-643044ca71f12.jpg?crop=0.502xw:1.00xh;0.210xw,0&resize=1200:*",
+                    status: "To Try",
                 },
                 ],
                 page: 'my_concoction',
@@ -164,7 +158,10 @@
         methods: {
             remove() {
                     document.querySelector('.carousel-item.active').remove();
-                }
+                },
+            addToMyList(drink){
+                this.myList.push(drink);
+            }
         }
     })
     app.component(

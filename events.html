@@ -47,6 +47,7 @@
 
         }
 
+      
         
 
       </style>
@@ -61,13 +62,28 @@
                         <vertical-navbar :page="page" :is-logged-in="isLoggedIn"></vertical-navbar>
                 
                     <div class="col-lg-10 col-md-9 col-12 background2 p-3 h-100 min-vh-100" >
-                        <div class="row">
+                    
+
+                        <div class="container">
                             <h1 class="p-2">Your Events</h1>
-                            <div class="box" onclick="joinevent()">
-                                <div class="plus">+</div>
-                                <p>Join an event to see it here</p>
+                            <h6>Join an Event to see it here</h6>
+                            <div class="row">
+                                <div class="col-md-4" v-for="joinedEvent in joinedEvents">
+                                    <div class="card bg-light smaller-card">
+                                        <!-- Smaller version of the card for joined event -->
+                                        <!-- Display event details here using {{ joinedEvent.propertyName }} -->
+                                        <img :src="joinedEvent.img" class="card-img-top small-card-img">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Name: {{joinedEvent.name}}</h5>
+                                            <h6 class="card-subtitle">Date: {{joinedEvent.date}}</h6>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
+                        
+                        
+                        
 
                         <div class="row">
                             <h1 class="p-2 pt-4"> All Upcoming Events </h1>
@@ -80,7 +96,7 @@
 
                             <div class="row mb-3 ">
                                 <div class="card bg-light "  @click="toggleCard(index)">
-                                    <img :src="event.img" class="card-img-top" alt="..." height="200" style="object-fit: cover;">
+                                    <img :src="event.img" class="card-img-top" alt="..." style="object-fit: cover;">
                                     <div class="card-body">
                                       <h5 class="card-title">{{event.name}}</h5>
 
@@ -91,7 +107,7 @@
                                         <div class="card-text mb-2 " >Cost: {{event.cost}}</div>
                                         <div class="card-text mb-2 " >Max Capacity: {{event.max}}</div>
                                         <div class="card-text mb-2 " >Organiser: {{event.organiser}}</div>
-                                        <button class="btn btn-primary"> Join Event Now </button>
+                                        <button class="btn btn-primary" @click="joinEvent(event)">Join Event Now</button>
                                       </div>
                                     </div>
                                   </div>
@@ -116,6 +132,9 @@
 
 
 <script>
+
+
+
     var loginAuth = JSON.parse(sessionStorage.getItem("user-info"))
     let isLoggedIn = false
     if (loginAuth == null){
@@ -141,6 +160,8 @@
     const app = Vue.createApp({
         data() {
             return {
+
+                joinedEvents: [],
             
                 selectedEventIndex: -1,
                 
@@ -225,7 +246,13 @@
                         console.error('Error geocoding address:', status);
                     }
                 });
+            },
+
+            joinEvent(event){
+                this.joinedEvents.unshift(event);
             }
+
+            
 
         }
     })

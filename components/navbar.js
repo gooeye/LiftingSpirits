@@ -19,60 +19,60 @@ const navbar = {
                     </button>
                 </div>
                 <div class="collapse navbar-collapse flex-column justify-content-between h-100" id="collapsibleNavbar">
-                        <ul class="col-12 nav nav-pills flex-column mb-auto">
-                            <li class="nav-item">
-                                <a :class="{'nav-link':true, 'active':page=='home'}" href="index.html">
-                                    <i class="bi bi-house me-2"></i>
-                                    <span class="align-middle">Home</span>
-                                </a>
-                            </li>
-                            <li class="category mt-3 my-2 ms-1">
-                                Discover
-                            </li>
-                            <li class="nav-item">
-                                <a :class="{'nav-link':true, 'active':page=='drinks'}" href="drinks.html">
-                                    <i class="bi bi-cup-straw me-2"></i>
-                                    <span class="align-middle">Drinks</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a :class="{'nav-link':true, 'active':page=='events'}" href="events.html">
-                                    <i class="bi bi-calendar-event me-2"></i>
-                                    <span class="align-middle">Events</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a :class="{'nav-link':true, 'active':page=='createevents'}" href="create_events.html">
-                                    <i class="bi bi-calendar-event me-2"></i>
-                                    <span class="align-middle">Create Events</span>
-                                </a>
-                            </li>
-                            
-                            <li class="category mt-3 my-2 ms-1">
-                                Community
-                            </li>
-                            <li class="nav-item">
-                                <a :class="{'nav-link':true, 'active':page=='friends'}" href="friends.html">
-                                    <i class="bi bi-people me-2"></i>
-                                    <span class="align-middle">Activity</span>
-                                </a>
-                            </li>
-                            <li class="category mt-3 my-2 ms-1">
-                                Concoctions
-                            </li>
-                            <li class="nav-item">
-                                <a :class="{'nav-link':true, 'active':page=='concoctions'}" href="my_concoctions.html">
-                                    <i class="bi bi-list-nested me-2"></i>
-                                    <span class="align-middle">My Concoctions</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a :class="{'nav-link':true, 'active':page=='create'}" href="create_concoction.html">
-                                    <i class="bi bi-plus-square me-2"></i>
-                                    <span class="align-middle">Create a concoction</span>
-                                </a>
-                            </li>
-                        </ul>
+                    <ul class="col-12 nav nav-pills flex-column mb-auto">
+                        <li class="nav-item">
+                            <a :class="{'nav-link':true, 'active':page=='home'}" href="index.html">
+                                <i class="bi bi-house me-2"></i>
+                                <span class="align-middle">Home</span>
+                            </a>
+                        </li>
+                        <li class="category mt-3 my-2 ms-1">
+                            Discover
+                        </li>
+                        <li class="nav-item">
+                            <a :class="{'nav-link':true, 'active':page=='drinks'}" href="drinks.html">
+                                <i class="bi bi-cup-straw me-2"></i>
+                                <span class="align-middle">Drinks</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a :class="{'nav-link':true, 'active':page=='events'}" href="events.html">
+                                <i class="bi bi-calendar-event me-2"></i>
+                                <span class="align-middle">Events</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a :class="{'nav-link':true, 'active':page=='createevents'}" href="create_events.html">
+                                <i class="bi bi-calendar-event me-2"></i>
+                                <span class="align-middle">Create Events</span>
+                            </a>
+                        </li>
+                        
+                        <li class="category mt-3 my-2 ms-1">
+                            Community
+                        </li>
+                        <li class="nav-item">
+                            <a :class="{'nav-link':true, 'active':page=='friends'}" href="friends.html">
+                                <i class="bi bi-people me-2"></i>
+                                <span class="align-middle">Activity</span>
+                            </a>
+                        </li>
+                        <li class="category mt-3 my-2 ms-1">
+                            Concoctions
+                        </li>
+                        <li class="nav-item">
+                            <a :class="{'nav-link':true, 'active':page=='concoctions'}" href="my_concoctions.html">
+                                <i class="bi bi-list-nested me-2"></i>
+                                <span class="align-middle">My Concoctions</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a :class="{'nav-link':true, 'active':page=='create'}" href="create_concoction.html">
+                                <i class="bi bi-plus-square me-2"></i>
+                                <span class="align-middle">Create a concoction</span>
+                            </a>
+                        </li>
+                    </ul>
                     <div class="container p-0">
                         <ul class="col-12 nav nav-pills flex-column mb-3">
                             <li :class="{'nav-item':true, 'd-none':!isLoggedIn}">

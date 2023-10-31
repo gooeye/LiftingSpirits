@@ -23,76 +23,81 @@
             <vertical-navbar :page="page" :is-logged-in="isLoggedIn"></vertical-navbar>
               <!-- Content Area -->
               <div class="col-lg-10 col-md-9 col-12 background2 p-3 h-100 min-vh-100" v-if="created_drinks.length > 1">
-                            <div class="splide rounded" aria-label="Splide Basic HTML Example">
-                                <div class="splide__track">
-                                    <h1 class="p-2">My Concoctions</h1>
-                                    <ul class="splide__list">
-                                        <li class="splide__slide"v-for="(drink,index) of created_drinks" >
-                                            <div class="m-1 mb-4">
-                                                <div class="card">
-                                                    <img :src="drink.img" class="card-img-top" alt="..." height="200" style="object-fit: cover;" @click = selectDrink(index)>
-                                                </div>
-                                                <div style="font-size: 18px;" class="card-header text-white text-center p-0">{{drink.name}}</div>
-                                            </div>
+                    <div class="splide rounded" aria-label="Splide Basic HTML Example">
+                        <div class="splide__track">
+                            <h1 class="p-2">My Concoctions</h1>
+                            <ul class="splide__list">
+                                <li class="splide__slide"v-for="(drink,index) of created_drinks" >
+                                    <div class="m-1 mb-4">
+                                        <div class="card">
+                                            <img :src="drink.img" class="card-img-top" alt="..." height="200" style="object-fit: cover;" @click = selectDrink(index)>
+                                        </div>
+                                        <div style="font-size: 18px;" class="card-header text-white text-center p-0">{{drink.name}}</div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class = "row" v-if="!click">
+                        <h1 class = "p-3">Click on a drink card to show its full recipe</h1>
+                    </div>
+                    <div class = "container" v-else>
+                        <hr class ="rounded bg-light" style="border-top: 8px solid;border-radius: 5px;">
+                            <div class = "row gx-5">
+                                <div class = "col-lg-3 pt-3 col-sm-12">
+                                    <h4 class = "text-white">{{selected_drink.name}}</h4>
+                                    <img :src="selected_drink.img" class="img-fluid rounded" alt="..." style="object-fit:contain;">
+                                </div>
+                                <div class = "col-lg-3 pt-3 col-sm-12">
+                                    <h4 class = "text-white">Ingredients</h4>
+                                    <ul style="padding:0;list-style-type: none;">
+                                        <li class="pb-1" v-for = "i of selected_drink.ingredients">
+                                        <button class="btn btn-outline-dark rounded btn-sm text-white" v-bind:value = i @click="addCart(i)" style="background-color: #CC6E4A;">+</button>
+                                                &nbsp{{i}}
                                         </li>
                                     </ul>
                                 </div>
-                            </div>
-                            <div class = "row" v-if="!click">
-                                <h1 class = "p-3">Click on a drink card to show its full recipe</h1>
-                            </div>
-                            <div class = "container" v-else>
-                                <hr class ="rounded bg-light" style="border-top: 8px solid;border-radius: 5px;">
-                                    <div class = "row gx-5">
-                                        <div class = "col-lg-3 pt-3 col-sm-12">
-                                            <h4 class = "text-white">{{selected_drink.name}}</h4>
-                                            <img :src="selected_drink.img" class="img-fluid rounded" alt="..." style="object-fit:contain;">
-                                        </div>
-                                        <div class = "col-lg-3 pt-3 col-sm-12">
-                                            <h4 class = "text-white">Ingredients</h4>
-                                            <ul style="padding:0;list-style-type: none;">
-                                                <li class="pb-1" v-for = "i of selected_drink.ingredients">
-                                                <button class="btn btn-outline-dark rounded btn-sm text-white" v-bind:value = i @click="addCart(i)" style="background-color: #CC6E4A;">+</button>
-                                                        &nbsp{{i}}
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <div class = "col-lg-3 pt-3 col-sm-12">
-                                            <h4 class = "text-white">How to Make</h4>
-                                            <ul v-for = "(s,index) of selected_drink.steps" style="padding:0;list-style-type: none;">
-                                                <li>{{index+1}}. {{s}}</li>
-                                            </ul>
-                                        </div>
-                                        <div class = "col-lg-3 h-auto pt-3 background2 rounded-end col-sm-12">
-                                            <div class = "row">
-                                                <h4 class = "text-white pl-0">My Cart</h4>
-                                                    <h6 class = "text-white-50" v-if="cart.length==0">Empty</h6>
-                                                    <ol class = "text-white" id="finalCart" v-else style="list-style-type: none;">
-                                                        <li v-for="item of cart" class="pl-1 pb-2" ><i class="bi-circle"></i> {{item.name}}&nbsp&nbsp&nbsp x{{item.qty}}</li>
-                                                        <a class ="btn text-white p-1" href="checkout.html" style="background-color: #CC6E4A;"> <i class="bi bi-cart4"></i> Checkout</a>
-                                                    </ol>
-                                            </div>
-                                        </div>
+                                <div class = "col-lg-3 pt-3 col-sm-12">
+                                    <h4 class = "text-white">How to Make</h4>
+                                    <ul v-for = "(s,index) of selected_drink.steps" style="padding:0;list-style-type: none;">
+                                        <li>{{index+1}}. {{s}}</li>
+                                    </ul>
+                                </div>
+                                <div class = "col-lg-3 h-auto pt-3 background2 rounded-end col-sm-12">
+                                    <div class = "row">
+                                        <h4 class = "text-white pl-0">My Cart</h4>
+                                            <h6 class = "text-white-50" v-if="cart.length==0">Empty</h6>
+                                            <ol class = "text-white" id="finalCart" v-else style="list-style-type: none;">
+                                                <li v-for="item of cart" class="pl-1 pb-2" ><i class="bi-circle"></i> {{item.name}}&nbsp&nbsp&nbsp x{{item.qty}}</li>
+                                                <a class ="btn text-white p-1" href="checkout.html" style="background-color: #CC6E4A;"> <i class="bi bi-cart4"></i> Checkout</a>
+                                            </ol>
                                     </div>
                                 </div>
+                            </div>
                     </div>
-                    <div class="container col-10" v-else>
-                        <div class="background rounded h-100 p-4 text-center align-self-center">
-                            <h2>You haven't created any drinks yet!</h2>
-                            <button class ="btn btn-dark" href="#">Create a concoction!</button>
-                        </div>
-                    </div>
+            </div>
+            <div class="container col-10" v-else>
+                <div class="background rounded h-100 p-4 text-center align-self-center">
+                    <h2>You haven't created any drinks yet!</h2>
+                    <button class ="btn btn-dark" href="#">Create a concoction!</button>
+                </div>
+            </div>
         </main>
       </div>
 
     <!-- Vue.js App -->
-    <script src="your-module.js" type="module"></script>
+    <!-- <script src="your-module.js" type="module"></script> -->
     <script type="module">
         import {created_drinks} from "./js/my_concoctions.js" 
         const drinks = created_drinks
-        document.addEventListener( 'DOMContentLoaded', function() {
+        console.log(drinks)
+        function loadSplide (num) {
+            let type = 'slide'
+            if (num > 3) {
+                type = 'loop'
+            }
             var splide = new Splide( '.splide', {
-                type   : 'loop',
+                type   : type,
                 drag   : 'free',
                 snap   : true,
                 Height: 200,
@@ -101,7 +106,7 @@
             } );
     
             splide.mount();
-        });
+        }
 
         const app = Vue.createApp({
             data() {
@@ -112,7 +117,6 @@
                     click : false,
                     //pick drink from list of created drinks
                     selected_drink : {},
-                    //test
                     
                     //drinks made by user called from firestore api
 
@@ -129,7 +133,7 @@
 
                 addCart(item){
                     editCart: {
-                        for (cartItems of this.cart) {
+                        for (let cartItems of this.cart) {
                             if(cartItems.name == item) {
                                 cartItems.qty +=1;
                                 sessionStorage.setItem("checkout",JSON.stringify({cart: this.cart}))
@@ -156,8 +160,9 @@
         app.component(
             'vertical-navbar', navbar
         )
-        vm = app.mount("#app")
-
+        var vm = app.mount("#app")
+        // console.log(vm.created_drinks.length, "hi")
+        loadSplide()
     </script>
 
     <!-- Add Bootstrap JS via CDN (for Bootstrap features like dropdowns) -->

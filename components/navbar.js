@@ -44,7 +44,7 @@ const navbar = {
                             <li class="nav-item">
                                 <a :class="{'nav-link':true, 'active':page=='createevents'}" href="create_events.html">
                                     <i class="bi bi-calendar-event me-2"></i>
-                                    <span class="align-middle"> Create Events</span>
+                                    <span class="align-middle">Create Events</span>
                                 </a>
                             </li>
                             
@@ -54,7 +54,7 @@ const navbar = {
                             <li class="nav-item">
                                 <a :class="{'nav-link':true, 'active':page=='friends'}" href="friends.html">
                                     <i class="bi bi-people me-2"></i>
-                                    <span class="align-middle">Friends</span>
+                                    <span class="align-middle">Activity</span>
                                 </a>
                             </li>
                             <li class="category mt-3 my-2 ms-1">

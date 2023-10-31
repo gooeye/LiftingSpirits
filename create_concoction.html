@@ -17,110 +17,76 @@
     <script src=" https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js "></script>
     <script src="components/navbar.js"></script>
     <script type="module" src="https://unpkg.com/@splinetool/viewer/build/spline-viewer.js"></script>
-    
 
 </head>
 
 <body>
     <div id="app">
-        <main>
-            <div class="container-fluid background2 p-3 h-100 min-vh-100">
-                <div class="row">
-                    <vertical-navbar :page="page" :is-logged-in="isLoggedIn"></vertical-navbar>
-                    <div class="col-lg-10 col-md-9 col-12">
-                        <div class="d-flex align-items-center mb-3 pb-1">
-                            <span class="fs-1 mt-1 align-middle" style="font-weight: bold;">Create a Concoction!</span>
-                        </div>
-                        
-      
-                            <form>
-                                <!--Title-->
-                                <!--
-                                <div class="mb-3">
-                                    <label for="titleOfPost" class="form-label" style="color: #CC6E4A;">Title of Post:</label>
-                                    <input type="text" class="form-control" id="titleOfPost" placeholder="Enter title of post" required>
-                                </div>
-                                -->
-                                <!--Name-->
-                                <div class="mb-3">
-                                    <label for="nameOfDrink" class="form-label" style="color: #CC6E4A;">Name of Drink:</label>
-                                    <input type="text" class="form-control" id="nameOfDrink" placeholder="Enter name of drink" required>
-                                </div>
-                                <!--Type-->
-                                <div class="mb-3">
-                                    <label for="typeOfDrink" class="form-label" style="color: #CC6E4A;">Type of Drink:</label>
-                                    <div>
-                                        <input type="radio" id="cocktail" value="cocktail">
-                                        <label for="cocktail">Cocktail</label>
-                                    </div>
-                                    <div>
-                                        <input type="radio" id="mocktail" value="mocktail">
-                                        <label for="mocktail">Mocktail</label>
-                                    </div>
-                                </div>
-                                <!--Ingredient -->
-                                <div class="mb-3" id="ingredients-form">
-                                    <label for="ingredient-0" class="form-label" style="color: #CC6E4A;">Ingredients:</label>
-                                    <div class="ingredient-input">
-                                        <input type="text" class="form-control" id="ingredient-0" placeholder="Enter ingredient" required>
-                                    </div>
-                                    <button type="button" onclick="addIngredient()" style="background: none; border: none; cursor: pointer;">➕</button>
-                                </div>
-                                <!--Images-->
-                                <div class="mb-3">
-                                    <label for="uploadImages" class="form-label" style="color: #CC6E4A;">Upload Images:</label>
-                                    <input type="file" class="form-control" id="uploadImages" accept="image/*" multiple>
-                                </div>
-                                <div class="text-end">
-                                    <button type="submit" class="btn btn-lg btn-block" style="background-color: #CC6E4A;color:white">Create</button>
-                                </div>
-                                
-                            </form>
-                        </div>
-            </div>
-
-                        
-
+        <main class="d-md-flex">
+            <vertical-navbar :page="page" :is-logged-in="isLoggedIn"></vertical-navbar>
+              <!-- Content Area -->
+              <div class="col-lg-10 col-md-9 col-12 background2 p-3 h-100 min-vh-100">
+                    <h1 class="p-2">Create a concoction</h1>
+                    <div class="col-12 p-2 pb-2">
+                        <label for="fname" class="form-label" style="color: #CC6E4A;">Name of Drink</label>
+                        <input type="text" class="form-control" id="name" placeholder="Enter the name of your drink" required>
                     </div>
-                </div>
-
-            </div>
-
-
-
-
-
+                    <div class="col-12 p-2 pb-2">
+                        <label class="form-label" style="color: #CC6E4A;" >Type of Drink</label><br>
+                        <div class="form-check-inline">
+                            <input class="form-check-input" type="radio" name="cocktail" id="cocktail" value="cocktail" required>
+                            <label class="form-check-label" for="cocktail">&nbsp Cocktail</label>
+                        </div>
+                        <div class="form-check-inline">
+                            <input class="form-check-input" type="radio" name="mocktail" id="nocktail" value="mocktail" required>
+                            <label class="form-check-label" for="mocktail">&nbsp Mocktail</label>
+                        </div>                     
+                    </div>
+                    <div class="col-12 p-2 pb-2">
+                        <label for="ingredients" class="form-label" style="color: #CC6E4A;">Ingredients</label>
+                        <textarea class="form-control" id="ingredients" rows="1" placeholder="Seperate each ingredient with a comma"></textarea>
+                    </div>
+                    <div class="col-12 p-2 pb-2">
+                        <label for="steps" class="form-label" style="color: #CC6E4A;">How to Make</label>
+                        <textarea class="form-control" id="steps" rows="5" placeholder="Seperate each step with a comma"></textarea>
+                    </div>
+                    <div class="col-lg-6 col-12 p-2 pb-2">
+                        <div class="form-check-inline pb-2">
+                            <input class="form-check-input" type="checkbox" value="" v-model="show" id="bar" @change="show()">
+                            <label class="form-check-label" for="bar">&nbsp Are you a bar owner?</label>
+                        </div>
+                        <div v-if="show" class="pt-2 pb-2">
+                            <input type="text" class="form-control" id="bar" placeholder="Enter the name of your bar" required>
+                        </div>
+                    </div>
+                    <div class="col-12 p-2 pb-2">
+                        <label for="uploadImages" class="form-label" style="color: #CC6E4A;">Upload Image</label>
+                        <input type="file" class="form-control" id="uploadImages" accept="image/*">
+                    </div>
+                    <div class="col-lg-3 col-12 p-2 pb-2">
+                        <button type="submit" class="btn btn-lg btn-block" style="background-color: #CC6E4A;color:white">Create</button>
+                    </div>
+              </div>
         </main>
     </div>
 
-    <!-- Vue.js App -->
     <script>
-        let ingredientCount = 1;
-
-        function addIngredient() {
-            // Create new input element
-            const newInput = document.createElement('input');
-            newInput.type = "text";
-            newInput.className = "form-control mt-2";
-            newInput.id = "ingredient-" + ingredientCount;
-            newInput.placeholder = "Enter ingredient";
-            newInput.required = true;
-
-            // Append new input to the form
-            const formDiv = document.querySelector("#ingredients-form .ingredient-input");
-            formDiv.appendChild(newInput);
-
-            ingredientCount++;
-        }
 
         const app = Vue.createApp({
             data() {
                 return {
                     page:'create_a_concoction',
                     isLoggedIn: true,
+                    show: false
 
                 }
             },
+
+            methods:{
+                show(){
+                    this.show = !this.show
+                }
+            }
         })
         app.component(
             'vertical-navbar', navbar

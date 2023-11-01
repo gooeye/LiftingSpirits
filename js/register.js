@@ -71,7 +71,7 @@ register.addEventListener("click", async () =>{
 
         setDoc(userRef,{
             userid: user.uid,
-            username: username,
+            username: username.toLowerCase(),
             email: email,
             dob: new Date(dob) ,
 

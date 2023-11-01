@@ -175,6 +175,12 @@
     <script type="module">
         import { loginAuth, isLoggedIn } from "./js/check_login.js"
         
+        if (loginAuth) {
+            var username = loginAuth.username
+        } else {
+            var username = null
+        }
+
         const router = VueRouter.createRouter({
             history: VueRouter.createWebHistory(),
             mode: 'history',
@@ -306,7 +312,7 @@
                     ],
                     profileBanner: "https://static.wikia.nocookie.net/mariokart/images/7/7d/MK8_WiiMooMooMeadows.jpg",
                     profileIcon: "https://static.wikia.nocookie.net/mariokart/images/7/7d/MK8_WiiMooMooMeadows.jpg",
-                    username: loginAuth.username,
+                    username: username,
                     isHome: window.location.pathname=="/index.html" || window.location.pathname=="/"
                 }
             },

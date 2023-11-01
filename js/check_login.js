@@ -3,7 +3,7 @@ export var isLoggedIn
 export var loginAuth = JSON.parse(sessionStorage.getItem("user_info"))
     isLoggedIn = false
     if (loginAuth == null){
-        if (window.location.pathname != "/index.html") window.location.replace("/index.html");
+        if (window.location.pathname != "/index.html" && window.location.pathname != "/") window.location.replace("/");
         isLoggedIn = false
     }
     else{

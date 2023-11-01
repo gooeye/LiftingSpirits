@@ -16,7 +16,7 @@ const User = {
         </div>
     `
 }
-const routes = [{ 
-    path: '/profile/:id', component: User,
-    path: '/', component: {template: ""}
-}]
+const routes = [
+    {path: '/user/:id', component: User},
+    {path: '/', component: {template: ""}}
+]

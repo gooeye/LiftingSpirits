@@ -1,6 +1,7 @@
 const navbar = {
     props: {
         'page' : String,
+        'username' : String,
         'isLoggedIn' : Boolean,
     },
     template: `
@@ -21,7 +22,7 @@ const navbar = {
                 <div class="collapse navbar-collapse flex-column justify-content-between h-100" id="collapsibleNavbar">
                     <ul class="col-12 nav nav-pills flex-column mb-auto">
                         <li class="nav-item">
-                            <a :class="{'nav-link':true, 'active':page=='home'}" href="index.html">
+                            <a :class="{'nav-link':true, 'active':page=='home'}" href="/">
                                 <i class="bi bi-house me-2"></i>
                                 <span class="align-middle">Home</span>
                             </a>
@@ -30,19 +31,19 @@ const navbar = {
                             Discover
                         </li>
                         <li class="nav-item">
-                            <a :class="{'nav-link':true, 'active':page=='drinks'}" href="drinks.html">
+                            <a :class="{'nav-link':true, 'active':page=='drinks'}" href="/drinks.html">
                                 <i class="bi bi-cup-straw me-2"></i>
                                 <span class="align-middle">Drinks</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a :class="{'nav-link':true, 'active':page=='events'}" href="events.html">
+                            <a :class="{'nav-link':true, 'active':page=='events'}" href="/events.html">
                                 <i class="bi bi-calendar-event me-2"></i>
                                 <span class="align-middle">Events</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a :class="{'nav-link':true, 'active':page=='createevents'}" href="create_events.html">
+                            <a :class="{'nav-link':true, 'active':page=='createevents'}" href="/create_events.html">
                                 <i class="bi bi-calendar-event me-2"></i>
                                 <span class="align-middle">Create Events</span>
                             </a>
@@ -52,7 +53,7 @@ const navbar = {
                             Community
                         </li>
                         <li class="nav-item">
-                            <a :class="{'nav-link':true, 'active':page=='friends'}" href="friends.html">
+                            <a :class="{'nav-link':true, 'active':page=='friends'}" href="/friends.html">
                                 <i class="bi bi-people me-2"></i>
                                 <span class="align-middle">Activity</span>
                             </a>
@@ -61,13 +62,13 @@ const navbar = {
                             Concoctions
                         </li>
                         <li class="nav-item">
-                            <a :class="{'nav-link':true, 'active':page=='concoctions'}" href="my_concoctions.html">
+                            <a :class="{'nav-link':true, 'active':page=='concoctions'}" href="/my_concoctions.html">
                                 <i class="bi bi-list-nested me-2"></i>
                                 <span class="align-middle">My Concoctions</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a :class="{'nav-link':true, 'active':page=='create'}" href="create_concoction.html">
+                            <a :class="{'nav-link':true, 'active':page=='create'}" href="/create_concoction.html">
                                 <i class="bi bi-plus-square me-2"></i>
                                 <span class="align-middle">Create a concoction</span>
                             </a>
@@ -75,11 +76,11 @@ const navbar = {
                     </ul>
                     <div class="container p-0">
                         <ul class="col-12 nav nav-pills flex-column mb-3">
-                            <li :class="{'nav-item':true, 'd-none':!isLoggedIn}">
-                                <a :class="{'nav-link':true, 'active':page=='profile'}" href="profile.html">
-                                <i class="bi bi-person me-2"></i>
-                                <span class="align-middle pl-1">Profile</span>
-                                </a>
+                            <li :class="{'nav-item':true, 'd-none':!isLoggedIn}" @click="$emit('navigate')">
+                                <router-link :class="{'nav-link':true, 'active':page=='profile'}" :to="'/user/' + username">
+                                    <i class="bi bi-person me-2"></i>
+                                    <span class="align-middle pl-1">Profile</span>
+                                </router-link>
                             </li>
                             <li :class="{'nav-item':true, 'd-none':!isLoggedIn}">
                                 <a :class="{'nav-link':true}" href="#">
@@ -88,12 +89,12 @@ const navbar = {
                                 </a>
                             </li>
                             <li :class="{'nav-item':true, 'd-none':isLoggedIn}">
-                                <a class="nav-link text-center" href="login.html">
+                                <a class="nav-link text-center" href="/login.html">
                                     <span class="align-middle">Log in</span>
                                 </a>
                             </li>
                             <li :class="{'nav-item':true, 'my-1':true, 'd-none':isLoggedIn}">
-                                <a class="nav-link text-center active" href="register.html">
+                                <a class="nav-link text-center active" href="/register.html">
                                     <span class="align-middle">Create an account</span>
                                 </a>
                             </li>

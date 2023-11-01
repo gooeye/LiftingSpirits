@@ -26,7 +26,7 @@
 <body>
     <div id="app">
         <main class="d-md-flex">
-            <vertical-navbar :page="page" :is-logged-in="isLoggedIn"></vertical-navbar>
+            <vertical-navbar :page="page" :is-logged-in="isLoggedIn" :username="username" @navigate="() => {isHome=!isHome; console.log(isHome)}"></vertical-navbar>
             <!-- Content Area -->
             <div class="col-lg-10 col-md-9 col-12 background2 p-3 h-100 min-vh-100" v-if='isHome'>
                 <div style="height: 480px;" class="row flex-row align-items-center px-5 g-4">
@@ -167,6 +167,9 @@
                         </div>
                     </div>
                 </div>
+            </div>
+            <div class="col-lg-10 col-md-9 col-12 background2 h-100 min-vh-100" v-if='!isHome'>
+                <router-view :profile-banner="profileBanner" :profile-icon="profileIcon"></router-view>
             </div>
         </main>
     </div>

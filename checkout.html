@@ -132,13 +132,16 @@
 
         </main>
     </div>
-    <script>
+    <script type="module">
+        import {price_cart} from "./js/checkout.js" 
+        const cart = price_cart
+
         const app = Vue.createApp({ 
             data() { 
                 return { 
                     page: 'checkout',
                     isLoggedIn: false,
-                    cart : (JSON.parse(sessionStorage.getItem('checkout'))).cart,
+                    cart : cart,
                 };
             }, 
             computed:{
@@ -165,7 +168,7 @@
         app.component(
             'vertical-navbar', navbar
         )
-        vm = app.mount("#app")
+        var vm = app.mount("#app")
 
     </script>
 

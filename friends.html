@@ -46,7 +46,7 @@
                                         <p class="card-text" style="color: #7C5241;">Posted by: {{ topPost.author }}
                                         </p>
                                         <p class="card-text" style="color: #7C5241;">Posted on: {{ topPost.date }}</p>
-                                        <a href="#" @click="setAndViewPost(post)" class="btn btn-primary" style="background-color: #CC6E4A;">View Post</a>
+                                        <button @click="setAndViewPost(topPost)" class="btn btn-primary" style="background-color: #CC6E4A;">View Post</button>
                                     </div>
                                 </div>
                                 <!-- Popular Posts -->
@@ -68,7 +68,7 @@
                                                     }}</p>
                                                 <p class="card-text" style="color: #7C5241;">Posted on: {{ post.date
                                                     }}</p>
-                                                    <<a href="#" @click="setAndViewPost(post)" class="btn btn-primary" style="background-color: #CC6E4A;">View Post</a>
+                                                    <button @click="setAndViewPost(post)" class="btn btn-primary" style="background-color: #CC6E4A;">View Post</button>
                                             </div>
                                         </div>
                                     </div>
@@ -83,8 +83,9 @@
                                             Trending Posts</h2>
                                         <!-- Trending Posts List -->
                                         <ul class="list-group" style="color: #7C5241;">
-                                            <li class="list-group-item" v-for="posts in trendingPosts" :key="post">
+                                            <li class="list-group-item" v-for="post in trendingPosts" :key="post">
                                                 {{ post }}</li>
+                                            
                                         </ul>
                                     </div>
                                 </div>
@@ -106,7 +107,8 @@
 
 
         </main>
-    </div>
+ 
+    
     <!-- Create Post Modal -->
     <div class="modal fade" id="createPostModal" tabindex="-1" aria-labelledby="createPostModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -183,14 +185,19 @@
             </div>
         </div>
     </div>
-
+</div>
     <!-- Vue.js App -->
     <script>
 
         const app = Vue.createApp({
             data() {
                 return {
-                    currentPost: null,
+                    currentPost: {
+                        title: "",
+                        description: "",
+                        author: "",
+                        date: ""
+                    },
                     topPost: {
                         title: "Top Trending Post",
                         description: "Description of the top interest post. This post is particularly interesting and engaging for users. It contains valuable information and discussions about various topics.",
@@ -223,14 +230,17 @@
                         "Trending Post 3 - Description of Trending Post 3."
                     ]
                 };
-            };
+            },
             methods: {
                 setAndViewPost(post) {
-                    this.currentPost = post;
-                    // Use Bootstrap's JS to programmatically open the modal
-                    new bootstrap.Modal(document.getElementById('viewPostModal')).show();
+                    this.currentPost = post; // directly assign the post
+                    console.log(this.currentPost); // <-- Add this line here
+                    this.$nextTick(() => {
+                        let modal = new bootstrap.Modal(document.getElementById('viewPostModal'));
+                        modal.show();
+                    });
                 }
-            }
+            }                     
         });
         app.component(
             'vertical-navbar', navbar

@@ -234,9 +234,7 @@
             },
             methods: {
                 setAndViewPost(post) {
-                    this.$set(this, 'currentPost', post);;
-            
-                    // Ensure Vue updates the DOM before opening the modal
+                    this.$set(this, 'currentPost', post);
                     this.$nextTick(() => {
                         let modal = new bootstrap.Modal(document.getElementById('viewPostModal'));
                         modal.show();

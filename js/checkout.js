@@ -19,7 +19,6 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const auth = getAuth();
 const db = getFirestore(app);
 
 //get users cart
@@ -28,17 +27,24 @@ const user_infoObj = JSON.parse(user_info)
 
 const cart = (JSON.parse(sessionStorage.getItem('checkout'))).cart
 
-const q = query(collection(db, "inventory"), where("name", "==", username));
-const drinks = await getDocs(q);
 
 
 var price_cart = []
+
 for(let item of cart){
   const q = query(collection(db, "inventory"), where("name", "==", item.name));
   const x = await getDocs(q)
 
   x.forEach(add => {
-    price_cart.push(x.data())
+
+    var y = {
+      name: item.name,
+      qty: item.qty,
+      price: (x.data()).price,
+    }
+
+    price_cart.push(y)
+
   });
 }
 

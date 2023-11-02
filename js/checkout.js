@@ -40,7 +40,7 @@ for(let item of cart){
     var y = {
       name: item.name,
       qty: item.qty,
-      price: (x.data()).price,
+      price: (add.data()).price,
     }
 
     price_cart.push(y)

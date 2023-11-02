@@ -26,6 +26,7 @@
                         <h1 class="pb-2">Order Summary</h1>
                         <ul style="list-style-type: none;padding:0">
                             <li v-for="item in cart"class="pl-1 pb-2"><i class="bi-circle"></i> {{item.name}}&nbsp&nbsp x{{item.qty}}</li>
+                            <hr class ="rounded bg-light" style="border-top: 8px solid;border-radius: 5px;">
                         </ul>
                     </div>
                     <div class ="col-lg-9 order-md-1">
@@ -155,7 +156,7 @@
                 },
 
                 confirm() {
-                    const form = document.getElementById("form");
+                    var form = document.getElementById("form");
                     if (form.checkValidity()) {
                         window.location.href = "confirm.html";
                     } 

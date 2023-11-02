@@ -236,11 +236,12 @@
                 setAndViewPost(post) {
                     this.currentPost = post; // directly assign the post
                     this.$nextTick(() => {
-                        let modal = new bootstrap.Modal(document.getElementById('viewPostModal'));
-                        modal.show();
+                        let modalElement = document.getElementById('viewPostModal');
+                        let modalInstance = bootstrap.Modal.getInstance(modalElement) || new bootstrap.Modal(modalElement);
+                        modalInstance.show();
                     });
                 }
-            }            
+            }                       
         });
         app.component(
             'vertical-navbar', navbar

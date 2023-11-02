@@ -50,7 +50,13 @@
                         <label for="steps" class="form-label" style="color: #CC6E4A;">How to Make</label>
                         <textarea class="form-control" id="steps" rows="3" placeholder="Seperate each step with a comma"></textarea>
                     </div>
-
+                    <div class="col-12 p-2 pb-2">
+                        <input class="form-check-input" type="checkbox" id="available" @change="showBox">
+                        <label class="form-check-label" for="available" >&nbspIs your drink available at a bar?</label>
+                        <div class="col-lg-6 col-12 pt-2" v-if="show">
+                            <input type="text" class="form-control" id="bar" placeholder="Enter the name of the bar" required>
+                        </div>
+                    </div>
                     <div class="col-12 p-2 pb-2">
                         <label for="uploadImages" class="form-label" style="color: #CC6E4A;">Upload Images:</label>
                         <input type="file" class="form-control" id="uploadImages" accept="image/*">
@@ -68,14 +74,14 @@
             data() {
                 return {
                     page:'create_a_concoction',
-                    isLoggedIn: true,
+                    isLoggedIn: false,
                     show: false
 
                 }
             },
 
             methods:{
-                show(){
+                showBox(){
                     this.show = !this.show
                 }
             }

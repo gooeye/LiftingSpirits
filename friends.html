@@ -228,11 +228,13 @@
             methods: {
                 setAndViewPost(post) {
                     this.currentPost = post;
-                    // Use Bootstrap's JS to programmatically open the modal
-                    let modal = new bootstrap.Modal(document.getElementById('viewPostModal'));
-                    modal.show();
+            
+                    // Ensure Vue updates the DOM before opening the modal
+                    this.$nextTick(() => {
+                        let modal = new bootstrap.Modal(document.getElementById('viewPostModal'));
+                        modal.show();
+                    });
                 }
-            }
         });
         app.component(
             'vertical-navbar', navbar

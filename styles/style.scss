@@ -2,9 +2,9 @@
 
 // Colors
 $text: #E4EAEC;
-$background: #111618;
-$background2: #222222;
-$background3: #111618;
+$background: #211F1F;
+$background2: #302828;
+$background3: #3B3030;
 $accent: #CC6E4A;
 $primary: #7C5241;
 $text-secondary: #494949;
@@ -39,19 +39,37 @@ body {
 }
 
 @media only screen and (min-width: 768px) {
-    nav {
+    #sidebar {
         height: 100vh;
     }
 } 
 
-nav::-webkit-scrollbar {
+table {
+    width: 100%;
+}
+
+#sidebar::-webkit-scrollbar {
     display: none; /* for Chrome, Safari and Opera */
 }
 
-nav{
+#sidebar {
     overflow-y: scroll;
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */
+}
+
+.link-fancy {
+    background: linear-gradient(45deg, $accent, #d14545) no-repeat right bottom / 0 var(--bg-h);
+    transition: background-size 350ms;
+    text-decoration: none;
+    color: inherit;
+    line-height: 1;
+    padding-bottom: 2px;
+    --bg-h: 2px;
+}
+.link-fancy:where(:hover, :focus-visible) {
+    background-size: 100% var(--bg-h);
+    background-position-x: left;
 }
 
 h1 {

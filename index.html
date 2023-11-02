@@ -26,9 +26,9 @@
 <body>
     <div id="app">
         <main class="d-md-flex">
-            <vertical-navbar :page="page" :is-logged-in="isLoggedIn" :username="username" @navigate="() => {isHome=!isHome; console.log(isHome)}"></vertical-navbar>
+            <vertical-navbar :page="page" :is-logged-in="isLoggedIn" :username="username" @navigate="() => {isHome=!isHome; page='profile';}"></vertical-navbar>
             <!-- Content Area -->
-            <div class="col-lg-10 col-md-9 col-12 background2 p-3 h-100 min-vh-100" v-if='isHome'>
+            <div class="col-lg-10 col-md-9 col-12 background2 p-3 h-100 min-vh-100 shadow-sm" v-if='isHome'>
                 <div style="height: 480px;" class="row flex-row align-items-center px-5 g-4">
                     <spline-viewer url="https://prod.spline.design/uz2CcItbK6738Dh1/scene.splinecode" event-target="global" class="col-6"></spline-viewer>
                     <div class="col-6">
@@ -171,7 +171,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-10 col-md-9 col-12 background2 h-100 min-vh-100" v-if='!isHome'>
+            <div class="col-lg-10 col-md-9 col-12 background2 h-100 min-vh-100 shadow-sm" v-if='!isHome'>
                 <router-view :profile-banner="profileBanner" :profile-icon="profileIcon"></router-view>
             </div>
         </main>
@@ -241,6 +241,14 @@
         } else {
             var username = null
         }
+        console.log(loginAuth)
+        let isHome = false
+        let page = "profile"
+        if (window.location.pathname=="/index.html" || window.location.pathname=="/") {
+            isHome = true
+            page = "home"
+            // console.log (isHome, page)
+        }
 
         const router = VueRouter.createRouter({
             history: VueRouter.createWebHistory(),
@@ -273,11 +281,11 @@
             } );
     
             splide.mount();
-        }
+        };
         const app = Vue.createApp({
             data() {
                 return {
-                    page: 'home',
+                    page: page,
                     isLoggedIn: isLoggedIn,
                     drinks: [
                         {
@@ -374,7 +382,7 @@
                     profileBanner: "https://static.wikia.nocookie.net/mariokart/images/7/7d/MK8_WiiMooMooMeadows.jpg",
                     profileIcon: "https://static.wikia.nocookie.net/mariokart/images/7/7d/MK8_WiiMooMooMeadows.jpg",
                     username: username,
-                    isHome: window.location.pathname=="/index.html" || window.location.pathname=="/"
+                    isHome: isHome
                 }
             },
         })

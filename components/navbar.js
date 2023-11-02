@@ -5,7 +5,7 @@ const navbar = {
         'isLoggedIn' : Boolean,
     },
     template: `
-        <nav class="col-md-3 col-lg-2 col-12 navbar navbar-expand-md sticky-top p-0 d-flex justify-content-between flex-column background" id="sidebar" style="z-index:-10">
+        <nav class="col-md-3 col-lg-2 col-12 navbar navbar-expand-md sticky-top p-0 d-flex justify-content-between flex-column background" id="sidebar" style="">
             <div class="col-12 d-flex flex-column justify-content-between p-2 h-100">
                 <div class="w-75 row col-sm-11 col-md-12 navbar-brand d-md-block my-3 fs-5 align-self-center text-md-center text-left">
                     <div class="col-10 col-md-12 d-flex flex-column justify-content-center mx-auto">

@@ -15,7 +15,6 @@
     <!-- Import JS -->
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script src=" https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js "></script>
-    <script type="module" src="https://unpkg.com/@splinetool/viewer/build/spline-viewer.js"></script>
     <style>
         h2 {
             color: white;
@@ -178,9 +177,13 @@
     </div>
 </div>
     <!-- Vue.js App -->
-    <script>
+    <script type="module">
+        import navbar from "/components/navbar.js"
 
         const app = Vue.createApp({
+            components: {
+                'vertical-navbar': navbar
+            },
             data() {
                 return {
                     currentPost: {
@@ -233,9 +236,6 @@
                 }
             }                     
         });
-        app.component(
-            'vertical-navbar', navbar
-        )
         var vm = app.mount("#app")
     </script>
 

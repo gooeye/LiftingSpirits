@@ -101,6 +101,7 @@
                                       <div v-if="event.expanded" class="my-2">
                                         <div class="card-text mb-2" >Date: {{event.date}}</div>
                                         <div class="card-text mb-2 clickable" @click="showMap(event.location, index)">Location: {{event.location}}</div>
+                                        <button @click="showMapWithPinpoint(event.location)">Show Map</button>
                                         <div class="card-text mb-2" style="height: 300px" :id="'map-container-' + index"></div>
                                         <div class="card-text mb-2 " >Description: {{event.description}}</div>
                                         <div class="card-text mb-2 " >Cost: {{event.cost}}</div>
@@ -216,25 +217,27 @@
                 this.created_events[index].expanded = !this.created_events[index].expanded;
             },
 
-            showMap(location, index) {
+            showMapWithPinpoint(location) {
                 const geocoder = new google.maps.Geocoder();
-                const mapContainer = document.getElementById('map-container-' + index);
+                const mapContainer = document.getElementById('map-container'); // Assuming you have a map container element with this ID
 
                 geocoder.geocode({ address: location }, (results, status) => {
                     if (status === 'OK' && results[0].geometry.location) {
                         const map = new google.maps.Map(mapContainer, {
                             center: results[0].geometry.location,
-                            zoom: 15 
+                            zoom: 15, // You can adjust the zoom level as needed
                         });
                         const marker = new google.maps.Marker({
+                            position: results[0].geometry.location,
                             map: map,
-                            position: results[0].geometry.location
+                            title: location, // You can set a title for the marker
                         });
                     } else {
                         console.error('Error geocoding address:', status);
                     }
                 });
-            },
+            }
+,
 
             joinEvent(event){
                 this.joinedEvents.unshift(event);

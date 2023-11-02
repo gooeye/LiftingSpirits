@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,43 +17,54 @@
     <script src=" https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js "></script>
 
     <style>
+        #map {
+
+            height: 400px;
+            /* The height is 400 pixels */
+            width: 100%;
+            /* The width is the width of the web page */
+            border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Style for the info window content */
+#content {
+   
+    padding: 10px;
+}
+
         .box {
-          width: 250px;
-          height: 150px;
-          border: 3px dashed white;
-          border-radius: 10px;
-          position: relative;
-          margin-left:20px;
-          background-color: #898b8ca2 ;
-        }
-      
-        .plus {
-          position: absolute;
-          top: 30%;
-          left: 45%;
-          font-size: 40px;
-          color: white;
-       
-          
+            width: 250px;
+            height: 150px;
+            border: 3px dashed white;
+            border-radius: 10px;
+            position: relative;
+            margin-left: 20px;
+            background-color: #898b8ca2;
         }
 
-        p{
-            position:absolute;
-            top:65%;
-            bottom:30%;
+        .plus {
+            position: absolute;
+            top: 30%;
+            left: 45%;
+            font-size: 40px;
+            color: white;
+
+
+        }
+
+        p {
+            position: absolute;
+            top: 65%;
+            bottom: 30%;
             left: 20px;
             font-size: 17px;
             color: rgb(222, 221, 221);
 
         }
+    </style>
 
-
-      
-        
-
-      </style>
-
-<script>
+    <!-- <script>
     function initMap() {
         var mapOptions = {
             center: { lat: 37.7749, lng: -122.4194 },
@@ -61,164 +73,187 @@
 
         var map = new google.maps.Map(document.getElementById('map-container'), mapOptions);
     }
-</script>
-    
+</script> -->
+
 </head>
+
 <body>
 
     <div id="app">
         <main>
             <div class="container-fluid">
                 <div class="row">
-                        <vertical-navbar :page="page" :is-logged-in="isLoggedIn"></vertical-navbar>
-                    <div class="col-lg-10 col-md-9 col-12 background2 p-3 h-100 min-vh-100" >
-                            <h1 class="ps-2">Your Events</h1>
-                            <h6 class = "ps-2">Join an Event to see it here</h6>
-                                <div class="col-md-4" v-for="joinedEvent in joinedEvents">
-                                    <div class="card bg-light smaller-card">
-                                        <!-- Smaller version of the card for joined event -->
-                                        <!-- Display event details here using {{ joinedEvent.propertyName }} -->
-                                        <img :src="joinedEvent.img" class="card-img-top small-card-img">
-                                        <div class="card-body">
-                                            <h5 class="card-title">Name: {{joinedEvent.name}}</h5>
-                                            <h6 class="card-subtitle">Date: {{joinedEvent.date}}</h6>
-                                        </div>
-                                    </div>
+                    <vertical-navbar :page="page" :is-logged-in="isLoggedIn"></vertical-navbar>
+                    <div class="col-lg-10 col-md-9 col-12 background2 p-3 h-100 min-vh-100">
+                        <h1 class="ps-2">Your Events</h1>
+                        <h6 class="ps-2">Join an Event to see it here</h6>
+                        <div class="col-md-4" v-for="joinedEvent in joinedEvents">
+                            <div class="card bg-light smaller-card">
+                                <!-- Smaller version of the card for joined event -->
+                                <!-- Display event details here using {{ joinedEvent.propertyName }} -->
+                                <img :src="joinedEvent.img" class="card-img-top small-card-img">
+                                <div class="card-body">
+                                    <h5 class="card-title">Name: {{joinedEvent.name}}</h5>
+                                    <h6 class="card-subtitle">Date: {{joinedEvent.date}}</h6>
                                 </div>
-                        
-                            <h1 class="ps-2 pt-4"> All Upcoming Events </h1>
-                            <h6 class ="ps-2 mb-4">Click for more details </h6>
+                            </div>
+                        </div>
 
+                        <h1 class="ps-2 pt-4"> All Upcoming Events </h1>
+                        <h6 class="ps-2 mb-4">Click for more details </h6>
+                        
+                        <!--The div element for the map -->
+                        <div style="border-radius: 10px;
+                        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);" id="map"></div>
+                        <script>
+                            // Initialize and add the map
+                            function initMap() {
+                                // default: The location of SIS, SMU
+                                var lat = parseFloat(document.getElementById("lat").value);
+                                var lng = parseFloat(document.getElementById("lng").value);
+                                // var uluru = {lat: -25.344, lng: 131.036};
+                                var loc = { lat: lat, lng: lng };
+
+                                // The map, centered at SIS, SMU
+                                var map = new google.maps.Map(
+                                    // play with the zoom value to zoom in or out
+                                    document.getElementById('map'), { zoom: 14, center: loc });
+                                // The marker, positioned at SIS, SMU
+                                var marker = new google.maps.Marker({ position: loc, map: map });
+                            }
+                        </script>
+                        <script
+                            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDY6hhhPkpG3UR-wlPYGIvKn50JL_gHxPQ&callback=initMap"
+                            async defer></script>
+                        <input type="hidden" id="lat" name="lat" value="1.2973784" />
+                        <input type="hidden" id="lng" name="lng" value="103.8495219" />
                         <div class="container" v-for="(event,index) of created_events">
 
                             <div class="row mb-3 ">
-                                <div class="card bg-light "  @click="toggleCard(index)">
+                                <div class="card bg-light " @click="toggleCard(index)">
                                     <img :src="event.img" class="card-img-top" alt="..." style="object-fit: cover;">
                                     <div class="card-body">
-                                      <h5 class="card-title">{{event.name}}</h5>
+                                        <h5 class="card-title">{{event.name}}</h5>
+                                        <div v-if="event.expanded" class="my-2">
+                                            <div class="card-text mb-2">Date: {{event.date}}</div>
+                                            <div class="card-text mb-2 clickable">Location: {{event.location}}
+                                            </div>
+                                            <button class="btn"style="background-color:orange;" @click="getLoc(event.location)">Show On Map!</button>
 
-                                      <div v-if="event.expanded" class="my-2">
-                                        <div class="card-text mb-2" >Date: {{event.date}}</div>
-                                        <div class="card-text mb-2 clickable" @click="showMap(event.location, index)">Location: {{event.location}}</div>
-                                        <button @click="showMapWithPinpoint(event.location)">Show Map</button>
-                                        <div class="card-text mb-2" style="height: 300px" :id="'map-container-' + index"></div>
-                                        <div class="card-text mb-2 " >Description: {{event.description}}</div>
-                                        <div class="card-text mb-2 " >Cost: {{event.cost}}</div>
-                                        <div class="card-text mb-2 " >Max Capacity: {{event.max}}</div>
-                                        <div class="card-text mb-2 " >Organiser: {{event.organiser}}</div>
-                                        <button class="btn btn-primary" @click="joinEvent(event)">Join Event Now</button>
-                                      </div>
+                                            
+                                            <div class="card-text mb-2 ">Description: {{event.description}}</div>
+                                            <div class="card-text mb-2 ">Cost: {{event.cost}}</div>
+                                            <div class="card-text mb-2 ">Max Capacity: {{event.max}}</div>
+                                            <div class="card-text mb-2 ">Organiser: {{event.organiser}}</div>
+                                            <button class="btn"style="background-color:orange;" @click="joinEvent(event)">Join Event
+                                                Now</button>
+                                        </div>
                                     </div>
-                                  </div>
+                                </div>
                             </div>
                         </div>
-                    </div>        
-                </div>   
+                    </div>
+                </div>
         </main>
-      </div>
+    </div>
 
-<script type="module">
-    import navbar from "/components/navbar.js"
-
+<script>
 
 
-    var loginAuth = JSON.parse(sessionStorage.getItem("user-info"))
-    let isLoggedIn = false
-    if (loginAuth == null){
-        isLoggedIn = false
-    }
-    else{
-        isLoggedIn = true
-    }
 
-    document.addEventListener( 'DOMContentLoaded', function() {
-        var splide = new Splide( '.splide', {
-            type   : 'loop',
-            drag   : 'free',
-            snap   : true,
-            Height: 200,
-            Width: 200,
-            perPage: 3,
-        } );
+        var loginAuth = JSON.parse(sessionStorage.getItem("user-info"))
+        let isLoggedIn = false
+        if (loginAuth == null) {
+            isLoggedIn = false
+        }
+        else {
+            isLoggedIn = true
+        }
 
-        splide.mount();
-    });
+        document.addEventListener('DOMContentLoaded', function () {
+            var splide = new Splide('.splide', {
+                type: 'loop',
+                drag: 'free',
+                snap: true,
+                Height: 200,
+                Width: 200,
+                perPage: 3,
+            });
+
+            splide.mount();
+        });
 
     const app = Vue.createApp({
-        components: {
-            'vertical-navbar': navbar
-        },
         data() {
             return {
 
-                joinedEvents: [],
-            
-                selectedEventIndex: -1,
-                
-                
-                //events made by users
-                created_events : [
-                {
-                    name: "Whiskey Tasting Extravaganza",
-                    date: "November 15,2023",
-                    location:"The Louvre, Rue de Rivoli, 75001 Paris, France",                        
-                    description:"Join us for an evening of fine whiskey tasting. Sample a selection of rare and premium whiskeys from around the world while learning about their history and production. Enjoy live music and gourmet snacks.",
-                    cost:"$75 per person",
-                    max:"40",
-                    organiser:"Whiskey Connoisseurs Club",
-                    img:'components/img/whiskey.webp',
-                    expanded:false
-                },
+                    joinedEvents: [],
 
-                {
-                    name: "Craft Beer Festival",
-                    date: "March 8, 2024",
-                    location:"Central Park, New York, NY, USA",                        
-                    description:"Experience the best of craft beer at our annual festival. We'll have over 100 craft breweries showcasing their unique brews. Enjoy live music, food trucks, and beer-related games.",
-                    cost:"$40 per person",
-                    max:"500",
-                    organiser:"Brewmaster Events",
-                    img: "components/img/craftbeerfestival.avif",
-                    expanded:false
-                },
+                    selectedEventIndex: -1,
 
-                {
-                    name: "Wine and Paint Night",
-                    date: "September 22, 2023",
-                    location:"Sydney Opera House, Bennelong Point, Sydney NSW 2000, Australia",                        
-                    description:"Sip on exquisite wines while unleashing your inner artist. Join us for a guided painting session and create your masterpiece. No prior painting experience required.",
-                    cost:"$50 per person",
-                    max:"30",
-                    organiser:"VinoArt Creations",
-                    img: "components/img/wine&paint.png",
-                    expanded:false
-                },
-                {
-                    name: "Rum Cocktail Cruise",
-                    date: "July 12, 2024",
-                    location:"Machu Picchu, Urubamba 08680, Peru",                        
-                    description:"Set sail on a sunset cruise and enjoy a variety of rum-based cocktails and tropical vibes. The cruise includes a live reggae band, tropical snacks, and beautiful coastal views.",
-                    cost:"$65 per person",
-                    max:"60",
-                    organiser:"Tropicana Rum Adventures",
-                    img: "components/img/cocktailparty.jpg",
-                    expanded:false
-                },
-                ],
-                page: 'my_concoction',
-                isLoggedIn: isLoggedIn,
-                model: null,
-            }
-        },
 
-        computed: {
-        },
+                    //events made by users
+                    created_events: [
+                        {
+                            name: "Whiskey Tasting Extravaganza",
+                            date: "November 15,2023",
+                            location: "The Louvre, Rue de Rivoli, 75001 Paris, France",
+                            description: "Join us for an evening of fine whiskey tasting. Sample a selection of rare and premium whiskeys from around the world while learning about their history and production. Enjoy live music and gourmet snacks.",
+                            cost: "$75 per person",
+                            max: "40",
+                            organiser: "Whiskey Connoisseurs Club",
+                            img: 'components/img/whiskey.webp',
+                            expanded: false
+                        },
 
-        methods: {
-
-            toggleCard(index) {
-                this.created_events[index].expanded = !this.created_events[index].expanded;
+                        {
+                            name: "Craft Beer Festival",
+                            date: "March 8, 2024",
+                            location: "Central Park, New York, NY, USA",
+                            description: "Experience the best of craft beer at our annual festival. We'll have over 100 craft breweries showcasing their unique brews. Enjoy live music, food trucks, and beer-related games.",
+                            cost: "$40 per person",
+                            max: "500",
+                            organiser: "Brewmaster Events",
+                            img: "components/img/craftbeerfestival.avif",
+                            expanded: false
+                        },
+                        {
+                            name: "Wine and Paint Night",
+                            date: "September 22, 2023",
+                            location: "Sydney Opera House, Bennelong Point, Sydney NSW 2000, Australia",
+                            description: "Sip on exquisite wines while unleashing your inner artist. Join us for a guided painting session and create your masterpiece. No prior painting experience required.",
+                            cost: "$50 per person",
+                            max: "30",
+                            organiser: "VinoArt Creations",
+                            img: "components/img/wine&paint.png",
+                            expanded: false
+                        },
+                        {
+                            name: "Rum Cocktail Cruise",
+                            date: "July 12, 2024",
+                            location: "Machu Picchu, Urubamba 08680, Peru",
+                            description: "Set sail on a sunset cruise and enjoy a variety of rum-based cocktails and tropical vibes. The cruise includes a live reggae band, tropical snacks, and beautiful coastal views.",
+                            cost: "$65 per person",
+                            max: "60",
+                            organiser: "Tropicana Rum Adventures",
+                            img: "components/img/cocktailparty.jpg",
+                            expanded: false
+                        },
+                    ],
+                    page: 'my_concoction',
+                    isLoggedIn: isLoggedIn,
+                    model: null,
+                }
             },
+
+            computed: {
+            },
+
+            methods: {
+
+                toggleCard(index) {
+                    this.created_events[index].expanded = !this.created_events[index].expanded;
+                },
 
             showMapWithPinpoint(location) {
                 const geocoder = new google.maps.Geocoder();
@@ -250,7 +285,10 @@
 
         }
     })
-    var vm = app.mount("#app")
+    app.component(
+        'vertical-navbar', navbar
+    )
+    vm = app.mount("#app")
 
 </script>
    
@@ -265,23 +303,36 @@
 
 
 
+                    xhttp.open("GET", url, true);
+                    xhttp.send();
+                },
 
 
 
 
 
+                postcodeHelper(addr) {
+                    return addr["types"][0] == "postal_code";
+                },
 
 
 
 
 
+                joinEvent(event) {
+                    this.joinedEvents.unshift(event);
+                }
 
 
 
 
 
+<<<<<<< HEAD
+            
 
 
 
 
+</body>
 
+</html>

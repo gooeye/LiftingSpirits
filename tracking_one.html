@@ -85,14 +85,17 @@
         #app, html, body {
     height: 100%;
 }
+.background2 {
+  background-color: #222222;
+}
     </style>
 </head>
 
-<body>
-    <div id="app" class="min-vh-100 d-flex flex-column">
+<body class="background2">
+    <div id="app" class="min-vh-100 d-flex flex-column background2">
 
 
-        <div class="container-fluid">
+        <div class="container-fluid background2">
             <div class="row">
                 <vertical-navbar :page="page" :is-logged-in="isLoggedIn"></vertical-navbar>
                 <div class="container col-10 flex-grow-1 p-2 ps-0">
@@ -118,7 +121,7 @@
                                 </div>
                             </div>
                           
-                            <div class="col sticky bg-light py-4 rounded-top shadow">
+                            <div class="col sticky background2 py-4 rounded-top shadow">
                                 <div class="total-calories text-center">
                                     <h2 class="mb-3">Total Calories: <span class="text-danger">{{ totalCalories.toFixed(2) }}</span></h2>
                                 </div>
@@ -126,11 +129,11 @@
                                 <div class="equivalent-section text-center">
                                     <h2 class="mb-4">Equivalent Comparison</h2>
                                     <div class="equivalent-item">
-                                        <div class="text-dark">Number of Cheeseburgers:</div>
+                                        <div class="text-light">Number of Cheeseburgers:</div>
                                         <div class="font-weight-bold">{{ (totalCalories / 250).toFixed(2) }}</div>
                                     </div>
                                     <div class="equivalent-item">
-                                        <div class="text-dark">Minutes of Running:</div>
+                                        <div class="text-light">Minutes of Running:</div>
                                         <div class="font-weight-bold">{{ (totalCalories / 10).toFixed(2) }}</div>
                                     </div>
                                 </div>

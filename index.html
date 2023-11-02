@@ -3,18 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lifting Spirits | Home</title>
+    <title>Home | Lifting Spirits</title>
 
     <!-- Import CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" rel="stylesheet" >
     <link href=" https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css " rel="stylesheet">
-    <link href="styles/style.css" rel="stylesheet">
+    <link href="/styles/style.css" rel="stylesheet">
 
     <!-- Import JS -->
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-    <script src=" https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js "></script>
-    <script src="components/navbar.js"></script>
+    <script src=" https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
+    <script src="https://unpkg.com/@splinetool/viewer/build/spline-viewer.js" type="module"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/vue-router@4.0.15/dist/vue-router.global.js"></script>
+
+    <!-- Import Components -->
+    <script src="/components/navbar.js"></script>
+    <script src="/components/profile.js"></script>
     
 </head>
 <body>
@@ -32,12 +38,12 @@
                 </div>
                 <div class="splide rounded mx-auto" aria-label="Splide Basic HTML Example">
                     <div class="splide__track">
-                        <h4 class="p-1">Featured Drinks</h4>
+                        <h4 class="p-1">Top Drinks of the Week!</h4>
                         <ul class="splide__list">
                             <li v-for="drink in drinks" class="splide__slide">
                                 <div class="m-1 mb-4">
                                     <div class="card shadow-lg">
-                                        <img :src="drink.img" class="card-img" alt="..." height="200" width="150" style="object-fit: cover;">
+                                        <img :src="drink.img" class="card-img" alt="..." height="200" width="150" style="object-fit: fill;">
                                     </div>
                                     <div class="px-2">
                                         <span style="font-size: 12px;" class="float-end">
@@ -166,8 +172,8 @@
                 <router-view :profile-banner="profileBanner" :profile-icon="profileIcon"></router-view>
             </div>
         </main>
-      </div>
-
+    </div>
+    
     <!-- Vue.js App -->
     <script type="module">
         import { loginAuth, isLoggedIn } from "/js/check_login.js"
@@ -325,7 +331,13 @@
         app.component(
             'vertical-navbar', navbar
         )
-        vm = app.mount("#app")
+        app.use(router)
+        let vm = app.mount("#app")
+        if (vm.isHome) {
+            loadSplide()
+            var shadowRoot = document.querySelector('spline-viewer').shadowRoot;
+            shadowRoot.querySelector('#logo').remove();
+        }
     </script>
 
     <!-- Add Bootstrap JS via CDN (for Bootstrap features like dropdowns) -->

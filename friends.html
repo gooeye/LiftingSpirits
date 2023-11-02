@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lifting Spirits | Home</title>
+
+    <!-- Import CSS1 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+    <link href=" https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css " rel="stylesheet">
+    <link href="styles/style.css" rel="stylesheet">
+
+    <!-- Import JS -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src=" https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js "></script>
+    <script src="components/navbar.js"></script>
+    <script type="module" src="https://unpkg.com/@splinetool/viewer/build/spline-viewer.js"></script>
+    <style>
+        h2 {
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <main>
+            <div class="container-fluid background2">
+                <div class="row">
+                    <vertical-navbar :page="page" :is-logged-in="isLoggedIn"></vertical-navbar>
+                    <div class="container col-10 mt-4">
+                        <div class="row">
+                            <div class="col-lg-6 col-md-12">
+                                <!-- Top Interest Post -->
+                                <div class="card mb-4">
+                                    <h2 class="card-header text-center"
+                                        style="background-color: #CC6E4A; color: white;">{{ topPost.title }}</h2>
+                                    <img src="https://via.placeholder.com/800x400" class="card-img-top"
+                                        alt="Top Interest Post Image">
+                                    <div class="card-body">
+                                        <h2 class="card-title text-center" style="color:white; font-size: 1.5rem;">{{
+                                            topPost.title }}</h2>
+                                        <p class="card-text" style="color: #7C5241;">{{ topPost.description }}</p>
+                                        <p class="card-text" style="color: #7C5241;">Posted by: {{ topPost.author }}
+                                        </p>
+                                        <p class="card-text" style="color: #7C5241;">Posted on: {{ topPost.date }}</p>
+                                        <a href="#" class="btn btn-primary" style="background-color: #CC6E4A;">View
+                                            Post</a>
+                                    </div>
+                                </div>
+                                <!-- Popular Posts -->
+                                <h2 class="d-none d-md-block" style="color: white; font-size: 1.5rem;">Popular Posts
+                                </h2>
+                                <!-- Button trigger modal -->
+                                <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#createPostModal">
+                                Add Post +
+                                </button>
+                                <div class="row">
+                                    <!-- Popular Post 1 -->
+                                    <div class="col-12 mb-3" v-for="post in popularPosts" :key="post.title">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <h5 class="card-title" style="color: #CC6E4A;">{{ post.title }}</h5>
+                                                <p class="card-text" style="color: #7C5241;">{{ post.description }}
+                                                </p>
+                                                <p class="card-text" style="color: #7C5241;">Posted by: {{ post.author
+                                                    }}</p>
+                                                <p class="card-text" style="color: #7C5241;">Posted on: {{ post.date
+                                                    }}</p>
+                                                <a href="#" class="btn btn-primary"
+                                                    style="background-color: #CC6E4A;">View Post</a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <!-- Trending Posts and Search Field -->
+                            <div class="col-lg-6 col-md-12">
+                                <div class="card mb-4">
+                                    <div class="card-body">
+                                        <h2 class="card-title text-center" style="color: #CC6E4A; font-size: 1.5rem;">
+                                            Trending Posts</h2>
+                                        <!-- Trending Posts List -->
+                                        <ul class="list-group" style="color: #7C5241;">
+                                            <li class="list-group-item" v-for="posts in trendingPosts" :key="post">
+                                                {{ post }}</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <!-- Search Field for Posts -->
+                                <div class="input-group mb-3">
+                                    <input type="text" class="form-control" placeholder="Search for posts..."
+                                        aria-label="Search for posts..." aria-describedby="button-search">
+                                    <a href="postsearch.html"><button  class="btn btn-primary" style="min-width: 100px;" type="button"
+                                        id="button-search">Search</button></a> 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+
+
+
+        </main>
+    </div>
+    <!-- Create Post Modal -->
+    <div class="modal fade" id="createPostModal" tabindex="-1" aria-labelledby="createPostModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+        <div class="modal-content background 2">
+            <div class="modal-header">
+            <h5 class="modal-title" id="createPostModalLabel" style="color:#CC6E4A">Create a New Post</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+            <form>
+                <!-- Post Name -->
+                <div class="mb-3">
+                <label for="postName" class="form-label" style="color:#CC6E4A">Post Name</label>
+                <input type="text" class="form-control" id="postName" placeholder="Enter post name">
+                </div>
+                <!-- Post Description -->
+                <div class="mb-3">
+                <label for="postDescription" class="form-label" style="color:#CC6E4A">Post Description</label>
+                <textarea class="form-control" id="postDescription" rows="3" placeholder="Describe the post"></textarea>
+                </div>
+                <!-- Post Category -->
+                <div class="mb-3">
+                <label class="form-label" style="color:#CC6E4A">Post Category</label>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="postCategory" id="beer" value="Beer">
+                    <label class="form-check-label" for="beer" style="color:white">Beer</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="postCategory" id="wine" value="Wine">
+                    <label class="form-check-label" for="wine" style="color:white">Wine</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="postCategory" id="cocktail" value="Cocktail">
+                    <label class="form-check-label" for="cocktail" style="color:white">Cocktail</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="postCategory" id="mocktail" value="Mocktail">
+                    <label class="form-check-label" for="mocktail" style="color:white">Mocktail</label>
+                </div>
+                </div>
+                <!-- Post Image -->
+                <div class="mb-3">
+                <label for="postImage" class="form-label" style="color:#CC6E4A">Post Image</label>
+                <input type="file" class="form-control" id="postImage" accept="image/*">
+                </div>
+            </form>
+            </div>
+            <div class="modal-footer">
+            <a href="#"  ><button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button></a>
+            <a href="#" style="background-color: #CC6E4A;" ><button type="button" class="btn btn-primary">Create Post</button></a>
+            </div>
+        </div>
+        </div>
+    </div>
+
+    <!-- Vue.js App -->
+    <script>
+
+        const app = Vue.createApp({
+            data() {
+                return {
+                    topPost: {
+                        title: "Top Trending Post",
+                        description: "Description of the top interest post. This post is particularly interesting and engaging for users. It contains valuable information and discussions about various topics.",
+                        author: "John Doe",
+                        date: "October 31, 2023"
+                    },
+                    popularPosts: [
+                        {
+                            title: "Popular Post Title 1",
+                            description: "Description of Popular Post 1. This post is widely popular among our users. It covers interesting topics and discussions.",
+                            author: "Jane Smith",
+                            date: "October 30, 2023"
+                        },
+                        {
+                            title: "Popular Post Title 2",
+                            description: "Description of Popular Post 2. This post is widely popular among our users. It covers interesting topics and discussions.",
+                            author: "Alex Johnson",
+                            date: "October 29, 2023"
+                        },
+                        {
+                            title: "Popular Post Title 3",
+                            description: "Description of Popular Post 3. This post is widely popular among our users. It covers interesting topics and discussions.",
+                            author: "Michael Brown",
+                            date: "October 28, 2023"
+                        }
+                    ],
+                    trendingPosts: [
+                        "Trending Post 1 - Description of Trending Post 1.",
+                        "Trending Post 2 - Description of Trending Post 2.",
+                        "Trending Post 3 - Description of Trending Post 3."
+                    ]
+                };
+            }
+        });
+        app.component(
+            'vertical-navbar', navbar
+        )
+        vm = app.mount("#app")
+    </script>
+
+    <!-- Add Bootstrap JS via CDN (for Bootstrap features like dropdowns) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"></script>
+</body>
+
+</html>

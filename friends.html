@@ -53,6 +53,11 @@
                                 <!-- Popular Threads -->
                                 <h2 class="d-none d-md-block" style="color: white; font-size: 1.5rem;">Popular Threads
                                 </h2>
+                                <h2 class="d-none d-md-block" style="color: white; font-size: 1.5rem;">Popular Threads</h2>
+                                <!-- Button trigger modal -->
+                                <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#createThreadModal">
+                                Add Thread
+                                </button>
                                 <div class="row">
                                     <!-- Popular Thread 1 -->
                                     <div class="col-12 mb-3" v-for="thread in popularThreads" :key="thread.title">
@@ -104,6 +109,60 @@
 
 
         </main>
+    </div>
+    <!-- Create Thread Modal -->
+    <div class="modal fade" id="createThreadModal" tabindex="-1" aria-labelledby="createThreadModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="createThreadModalLabel">Create a New Thread</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+            <form>
+                <!-- Thread Name -->
+                <div class="mb-3">
+                <label for="threadName" class="form-label">Thread Name</label>
+                <input type="text" class="form-control" id="threadName" placeholder="Enter thread name">
+                </div>
+                <!-- Thread Description -->
+                <div class="mb-3">
+                <label for="threadDescription" class="form-label">Thread Description</label>
+                <textarea class="form-control" id="threadDescription" rows="3" placeholder="Describe the thread"></textarea>
+                </div>
+                <!-- Thread Category -->
+                <div class="mb-3">
+                <label class="form-label">Thread Category</label>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="threadCategory" id="beer" value="Beer">
+                    <label class="form-check-label" for="beer">Beer</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="threadCategory" id="wine" value="Wine">
+                    <label class="form-check-label" for="wine">Wine</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="threadCategory" id="cocktail" value="Cocktail">
+                    <label class="form-check-label" for="cocktail">Cocktail</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="threadCategory" id="mocktail" value="Mocktail">
+                    <label class="form-check-label" for="mocktail">Mocktail</label>
+                </div>
+                </div>
+                <!-- Thread Image -->
+                <div class="mb-3">
+                <label for="threadImage" class="form-label">Thread Image</label>
+                <input type="file" class="form-control" id="threadImage" accept="image/*">
+                </div>
+            </form>
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Create Thread</button>
+            </div>
+        </div>
+        </div>
     </div>
 
     <!-- Vue.js App -->

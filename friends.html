@@ -108,6 +108,7 @@
 
         </main>
     </div>
+    
     <!-- Create Post Modal -->
     <div class="modal fade" id="createPostModal" tabindex="-1" aria-labelledby="createPostModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -235,13 +236,13 @@
             methods: {
                 setAndViewPost(post) {
                     this.currentPost = post; // directly assign the post
+                    console.log(this.currentPost); // <-- Add this line here
                     this.$nextTick(() => {
-                        let modalElement = document.getElementById('viewPostModal');
-                        let modalInstance = bootstrap.Modal.getInstance(modalElement) || new bootstrap.Modal(modalElement);
-                        modalInstance.show();
+                        let modal = new bootstrap.Modal(document.getElementById('viewPostModal'));
+                        modal.show();
                     });
                 }
-            }                       
+            }                     
         });
         app.component(
             'vertical-navbar', navbar

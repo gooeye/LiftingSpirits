@@ -2,21 +2,8 @@
 import { initializeApp }  from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
 import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-auth.js";
 import { getFirestore, collection, setDoc, doc, addDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-firestore.js";
-
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-  apiKey: "AIzaSyByL2UivS9auwkM5vyc7REfo3uAjyjq_E0",
-  authDomain: "liftingspirits1.firebaseapp.com",
-  projectId: "liftingspirits1",
-  storageBucket: "liftingspirits1.appspot.com",
-  messagingSenderId: "223340916076",
-  appId: "1:223340916076:web:6897d475b8789b0e8ad749",
-  measurementId: "G-1EDMKV8YRT",
-};
+import { firebaseConfig } from "/js/config.js"
+import { emailExists } from "/js/users.js"
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
@@ -36,79 +23,75 @@ register.addEventListener("click", async () =>{
 
     if (validate_email(email) == false){
         alert("Enter a valid email address")
-        document.getElementById('regPassword').innerHTML=""
-        document.getElementById('cPassword').innerHTML=""
-        return
+        document.getElementById('regEmail').value=""
     }
-
-    if(validatePassword(password) == false){
+    else if(validatePassword(password) == false){
         alert("Your password must have more than 6 characters!")
-        document.getElementById('regPassword').innerHTML=""
-        document.getElementById('cPassword').innerHTML=""
-        return
+        document.getElementById('regPassword').value=""
+        document.getElementById('cPassword').value=""
     }
 
-    if(passwordMatch(password,cpassword) == false){
+    else if(passwordMatch(password,cpassword) == false){
         alert("Both passwords don't match!")
-        document.getElementById('regPassword').innerHTML=""
-        document.getElementById('cPassword').innerHTML=""
-        return
+        document.getElementById('regPassword').value=""
+        document.getElementById('cPassword').value=""
     }
 
-    if(validate_dob(dob) == false){
+    else if(validate_dob(dob) == false){
         alert("You are too young to be on this website! Come back when you're older!")
-        document.getElementById('regPassword').innerHTML=""
-        document.getElementById('cPassword').innerHTML=""
-        return
+        document.getElementById('regPassword').value=""
+        document.getElementById('cPassword').value=""
     }
+    else if(await emailExists(email)){
+        alert("This email is already in use!")
+        document.getElementById('regEmail').value=""
+    } else {
+        createUserWithEmailAndPassword(auth,email,password)
+        .then(async function(userCredential){
+            const user = userCredential.user
 
-    //update database---------------------------------------------------------------------------------------------
-    createUserWithEmailAndPassword(auth,email,password)
-    .then(async function(userCredential){
-        const user = userCredential.user
+            const userRef = doc(db, "users", email);
 
-        const userRef = doc(db, "users", email);
+            setDoc(userRef,{
+                userid: user.uid,
+                username: username.toLowerCase(),
+                email: email,
+                dob: new Date(dob) ,
 
-        setDoc(userRef,{
-            userid: user.uid,
-            username: username.toLowerCase(),
-            email: email,
-            dob: new Date(dob) ,
+                joined_events:[],
+                created_events:[],
 
-            joined_events:[],
-            created_events:[],
-
-            created_drinks:[],
-            will_drink:[],
-            will_not_drink:[],
-            friends:[],
-        })
-    
-        alert("Account has been created!")
-        // const docSnap = await getDoc(userRef);
-        const checkData = setTimeout(() => {
-            getDoc(userRef).then((doc) => {
-                if (doc.exists()) {
-                    console.log("Document data:", doc.data());
-                    clearTimeout(checkData);
-                    window.location.assign("login.html")
-                } else {
-                    // doc.data() will be undefined in this case
-                    console.log("No such document!");
-                }
-            }).catch((error) => {
-                console.log("Error getting document:", error);
-            });
-        }, 1000);
+                created_drinks:[],
+                will_drink:[],
+                will_not_drink:[],
+                friends:[],
+            })
         
-    })
+            alert("Account has been created!")
+            // const docSnap = await getDoc(userRef);
+            const checkData = setTimeout(() => {
+                getDoc(userRef).then((doc) => {
+                    if (doc.exists()) {
+                        console.log("Document data:", doc.data());
+                        clearTimeout(checkData);
+                        window.location.assign("login.html")
+                    } else {
+                        // doc.data() will be undefined in this case
+                        console.log("No such document!");
+                    }
+                }).catch((error) => {
+                    console.log("Error getting document:", error);
+                });
+            }, 1000);
+            
+        })
 
-    .catch(function(error){
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(errorMessage)
-    })
-    //---------------------------------------------------------------------------------------------------------------------
+        .catch(function(error){
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            console.log(errorMessage)
+        })
+    }
 })
 
 function passwordMatch(x,y){

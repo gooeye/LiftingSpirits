@@ -20,7 +20,6 @@
 
     <!-- Import Components -->
     <script src="/components/navbar.js"></script>
-    <script src="/components/profile.js"></script>
     
 </head>
 <body>
@@ -235,26 +234,23 @@
     <!-- Vue.js App -->
     <script type="module">
         import { loginAuth, isLoggedIn } from "/js/check_login.js"
+        import { getUserInfo } from "/js/users.js"
+        import { router } from "/js/router.js"
         
         if (loginAuth) {
             var username = loginAuth.username
         } else {
             var username = null
         }
-        console.log(loginAuth)
         let isHome = false
         let page = "profile"
         if (window.location.pathname=="/index.html" || window.location.pathname=="/") {
             isHome = true
             page = "home"
             // console.log (isHome, page)
+        } else {
+            
         }
-
-        const router = VueRouter.createRouter({
-            history: VueRouter.createWebHistory(),
-            mode: 'history',
-            routes, // short for `routes: routes`
-        })
         
         function loadSplide() {
             var splide = new Splide( '.splide', {

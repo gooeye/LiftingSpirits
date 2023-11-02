@@ -1,8 +1,8 @@
-const User = {
+export const user = {
     props: {
         'profileBanner' : String,
         'profileIcon' : String,
-        <!-- 'drinks'    : Object -->
+        'drinks'    : Object
     },
     template: `
         <div :style="{height: '200px', backgroundImage: 'url(' + profileBanner + ')',  backgroundRepeat: 'no-repeat', backgroundSize: 'cover'}" class="position-relative">
@@ -63,7 +63,3 @@ const User = {
         </div>
     `
 }
-const routes = [
-    {path: '/user/:id', component: User},
-    {path: '/', component: {template: ""}}
-]

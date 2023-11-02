@@ -143,14 +143,12 @@ function validate_dob(date){
     let cyear = current.getFullYear()
     let cmonth = current.getMonth()
     let cday = current.getDate()
-
-    let age = 0 
-
+    let age = 0
     if (cmonth < bmonth){
-        age = age = cyear - byear - 1
+        age = cyear - byear - 1
     }
     else if((cmonth >= bmonth && cday >= bday) ||(cmonth > bmonth)){
-        age =  age = cyear - byear
+        age = cyear - byear
     }
 
     if(age < 18){

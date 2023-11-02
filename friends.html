@@ -191,7 +191,12 @@
         const app = Vue.createApp({
             data() {
                 return {
-                    currentPost: null,
+                    currentPost: {
+                        title: "",
+                        description: "",
+                        author: "",
+                        date: ""
+                    },
                     topPost: {
                         title: "Top Trending Post",
                         description: "Description of the top interest post. This post is particularly interesting and engaging for users. It contains valuable information and discussions about various topics.",

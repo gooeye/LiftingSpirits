@@ -15,7 +15,6 @@
     <!-- Import JS -->
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script src=" https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js "></script>
-    <script src="components/navbar.js"></script>
     <script type="module" src="https://unpkg.com/@splinetool/viewer/build/spline-viewer.js"></script>
     <style>
         h2 {
@@ -237,7 +236,7 @@
         app.component(
             'vertical-navbar', navbar
         )
-        vm = app.mount("#app")
+        var vm = app.mount("#app")
     </script>
 
     <!-- Add Bootstrap JS via CDN (for Bootstrap features like dropdowns) -->

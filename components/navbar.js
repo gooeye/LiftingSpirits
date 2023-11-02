@@ -1,4 +1,4 @@
-const navbar = {
+export default {
     props: {
         'page' : String,
         'username' : String,

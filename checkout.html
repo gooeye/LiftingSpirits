@@ -13,7 +13,6 @@
 
     <!-- Import JS -->
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-    <script src="components/navbar.js"></script>
     
 </head>
 <body>
@@ -136,9 +135,14 @@
     </div>
     <script type="module">
         import {price_cart} from "./js/checkout.js" 
+        import navbar from "/components/navbar.js"
+
         const cart = price_cart
 
         const app = Vue.createApp({ 
+            components: {
+                'vertical-navbar': navbar
+            },
             data() { 
                 return { 
                     page: 'checkout',
@@ -173,11 +177,8 @@
                         window.location.href = "confirm.html";
                     } 
                 }
-                },
-            });
-        app.component(
-            'vertical-navbar', navbar
-        )
+            },
+        });
         var vm = app.mount("#app")
 
     </script>

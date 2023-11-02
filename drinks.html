@@ -16,7 +16,6 @@
     <!-- Import JS -->
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script src=" https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js "></script>
-    <script src="components/navbar.js"></script>
    
 </head>
 <body>
@@ -82,7 +81,8 @@
 </script>
 
 
-<script>
+<script type="module">
+    import navbar from "/components/navbar.js"
     var loginAuth = JSON.parse(sessionStorage.getItem("user-info"))
     let isLoggedIn = false
     if (loginAuth == null){
@@ -93,22 +93,10 @@
     }
 
 
-    document.addEventListener( 'DOMContentLoaded', function() {
-        var splide = new Splide( '.splide', {
-            type   : 'loop',
-            drag   : 'free',
-            snap   : true,
-            Height: 200,
-            Width: 200,
-            perPage: 3,
-        } );
-
-
-        splide.mount();
-    });
-
-
     const app = Vue.createApp({
+        components: {
+            'vertical-navbar': navbar
+        },
         data() {
             return {
                 myList:[],
@@ -164,10 +152,7 @@
             }
         }
     })
-    app.component(
-        'vertical-navbar', navbar
-    )
-    vm = app.mount("#app")
+    var vm = app.mount("#app")
 
 
 </script>

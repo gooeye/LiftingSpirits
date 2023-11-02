@@ -36,7 +36,7 @@ export const user = {
                 Activity Placeholder
             </div>
             <div class="container rounded-3 background3 p-4 shadow-sm mb-4" id="list">
-                List Placeholder
+                <h2 class="fs-4 mb-4">Your Drinks List</h2>
                 <table>
                     <thead>
                         <tr>
@@ -48,12 +48,13 @@ export const user = {
                         </tr>
                     </thead>
                     <tbody>
-                        <!-- <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                        </tr> -->
+                        <tr v-for="drink in drinks">
+                        <td></td>
+                        <td>{{ drink.name }}</td>
+                        <td>{{ drink.rating }}</td>
+                        <td>{{ drink.type }}</td>
+                        <td>{{ drink.status }}</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>

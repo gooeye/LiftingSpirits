@@ -46,6 +46,8 @@ body {
 
 table {
     width: 100%;
+    border-radius: .25rem;
+    background-color: rgba($background2, 80%);
 }
 
 #sidebar::-webkit-scrollbar {

@@ -62,7 +62,10 @@
 
                     <!-- Header for Drink Posts -->
                     <h2 style="color: white; font-size: 1.5rem;">Drinks Posts!</h2>
-                
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#createPostModal">
+                    + Add Post 
+                    </button>
                     <div class="row">
                         <!-- Main Content Column with Drink Posts -->
                         <div class="col-lg-8 col-md-12">
@@ -173,6 +176,61 @@
             </div>
         </main>
     </div>
+    <!-- Create Post Modal -->
+    <div class="modal fade" id="createPostModal" tabindex="-1" aria-labelledby="createPostModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+        <div class="modal-content background 2">
+            <div class="modal-header">
+            <h5 class="modal-title" id="createPostModalLabel" style="color:#CC6E4A">Create a New Post</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+            <form>
+                <!-- Post Name -->
+                <div class="mb-3">
+                <label for="postName" class="form-label" style="color:#CC6E4A">Post Name</label>
+                <input type="text" class="form-control" id="postName" placeholder="Enter post name">
+                </div>
+                <!-- Post Description -->
+                <div class="mb-3">
+                <label for="postDescription" class="form-label" style="color:#CC6E4A">Post Description</label>
+                <textarea class="form-control" id="postDescription" rows="3" placeholder="Describe the post"></textarea>
+                </div>
+                <!-- Post Category -->
+                <div class="mb-3">
+                <label class="form-label" style="color:#CC6E4A">Post Category</label>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="postCategory" id="beer" value="Beer">
+                    <label class="form-check-label" for="beer" style="color:white">Beer</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="postCategory" id="wine" value="Wine">
+                    <label class="form-check-label" for="wine" style="color:white">Wine</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="postCategory" id="cocktail" value="Cocktail">
+                    <label class="form-check-label" for="cocktail" style="color:white">Cocktail</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="postCategory" id="mocktail" value="Mocktail">
+                    <label class="form-check-label" for="mocktail" style="color:white">Mocktail</label>
+                </div>
+                </div>
+                <!-- Post Image -->
+                <div class="mb-3">
+                <label for="postImage" class="form-label" style="color:#CC6E4A">Post Image</label>
+                <input type="file" class="form-control" id="postImage" accept="image/*">
+                </div>
+            </form>
+            </div>
+            <div class="modal-footer">
+            <a href="#"  ><button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button></a>
+            <a href="#" style="background-color: #CC6E4A;" ><button type="button" class="btn btn-primary">Create Post</button></a>
+            </div>
+        </div>
+        </div>
+    </div>
+
     
     <!-- Vue.js App -->
     <script type="module">

@@ -46,8 +46,7 @@
                                         <p class="card-text" style="color: #7C5241;">Posted by: {{ topPost.author }}
                                         </p>
                                         <p class="card-text" style="color: #7C5241;">Posted on: {{ topPost.date }}</p>
-                                        <a href="#" class="btn btn-primary" style="background-color: #CC6E4A;">View
-                                            Post</a>
+                                        <button @click="setAndViewPost(topPost)" class="btn btn-primary" style="background-color: #CC6E4A;">View Post</button>
                                     </div>
                                 </div>
                                 <!-- Popular Posts -->
@@ -55,7 +54,7 @@
                                 </h2>
                                 <!-- Button trigger modal -->
                                 <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#createPostModal">
-                                Add Post
+                                + Add Post 
                                 </button>
                                 <div class="row">
                                     <!-- Popular Post 1 -->
@@ -69,8 +68,7 @@
                                                     }}</p>
                                                 <p class="card-text" style="color: #7C5241;">Posted on: {{ post.date
                                                     }}</p>
-                                                <a href="#" class="btn btn-primary"
-                                                    style="background-color: #CC6E4A;">View Post</a>
+                                                    <button @click="setAndViewPost(post)" class="btn btn-primary" style="background-color: #CC6E4A;">View Post</button>
                                             </div>
                                         </div>
                                     </div>
@@ -85,8 +83,9 @@
                                             Trending Posts</h2>
                                         <!-- Trending Posts List -->
                                         <ul class="list-group" style="color: #7C5241;">
-                                            <li class="list-group-item" v-for="posts in trendingPosts" :key="post">
+                                            <li class="list-group-item" v-for="post in trendingPosts" :key="post">
                                                 {{ post }}</li>
+                                            
                                         </ul>
                                     </div>
                                 </div>
@@ -108,68 +107,97 @@
 
 
         </main>
-    </div>
+ 
+    
     <!-- Create Post Modal -->
     <div class="modal fade" id="createPostModal" tabindex="-1" aria-labelledby="createPostModalLabel" aria-hidden="true">
         <div class="modal-dialog">
-        <div class="modal-content">
+        <div class="modal-content background 2">
             <div class="modal-header">
-            <h5 class="modal-title" id="createPostModalLabel">Create a New Post</h5>
+            <h5 class="modal-title" id="createPostModalLabel" style="color:#CC6E4A">Create a New Post</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
             <form>
                 <!-- Post Name -->
                 <div class="mb-3">
-                <label for="postName" class="form-label">Post Name</label>
+                <label for="postName" class="form-label" style="color:#CC6E4A">Post Name</label>
                 <input type="text" class="form-control" id="postName" placeholder="Enter post name">
                 </div>
                 <!-- Post Description -->
                 <div class="mb-3">
-                <label for="postDescription" class="form-label">Post Description</label>
+                <label for="postDescription" class="form-label" style="color:#CC6E4A">Post Description</label>
                 <textarea class="form-control" id="postDescription" rows="3" placeholder="Describe the post"></textarea>
                 </div>
                 <!-- Post Category -->
                 <div class="mb-3">
-                <label class="form-label">Post Category</label>
+                <label class="form-label" style="color:#CC6E4A">Post Category</label>
                 <div class="form-check">
                     <input class="form-check-input" type="radio" name="postCategory" id="beer" value="Beer">
-                    <label class="form-check-label" for="beer">Beer</label>
+                    <label class="form-check-label" for="beer" style="color:white">Beer</label>
                 </div>
                 <div class="form-check">
                     <input class="form-check-input" type="radio" name="postCategory" id="wine" value="Wine">
-                    <label class="form-check-label" for="wine">Wine</label>
+                    <label class="form-check-label" for="wine" style="color:white">Wine</label>
                 </div>
                 <div class="form-check">
                     <input class="form-check-input" type="radio" name="postCategory" id="cocktail" value="Cocktail">
-                    <label class="form-check-label" for="cocktail">Cocktail</label>
+                    <label class="form-check-label" for="cocktail" style="color:white">Cocktail</label>
                 </div>
                 <div class="form-check">
                     <input class="form-check-input" type="radio" name="postCategory" id="mocktail" value="Mocktail">
-                    <label class="form-check-label" for="mocktail">Mocktail</label>
+                    <label class="form-check-label" for="mocktail" style="color:white">Mocktail</label>
                 </div>
                 </div>
                 <!-- Post Image -->
                 <div class="mb-3">
-                <label for="postImage" class="form-label">Post Image</label>
+                <label for="postImage" class="form-label" style="color:#CC6E4A">Post Image</label>
                 <input type="file" class="form-control" id="postImage" accept="image/*">
                 </div>
             </form>
             </div>
             <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Create Post</button>
+            <a href="#"  ><button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button></a>
+            <a href="#" style="background-color: #CC6E4A;" ><button type="button" class="btn btn-primary">Create Post</button></a>
             </div>
         </div>
         </div>
     </div>
-
+    <!-- View Post Modal -->
+    <div class="modal fade" id="viewPostModal" tabindex="-1" aria-labelledby="viewPostModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content background2">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="viewPostModalLabel" style="color:#CC6E4A">{{ currentPost.title }}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <h6 style="color:#CC6E4A">Description:</h6>
+                    <p style="color:white">{{ currentPost.description }}</p>
+                    <h6 style="color:#CC6E4A">Author:</h6>
+                    <p style="color:white">{{ currentPost.author }}</p>
+                    <h6 style="color:#CC6E4A">Date:</h6>
+                    <p style="color:white">{{ currentPost.date }}</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
     <!-- Vue.js App -->
     <script>
 
         const app = Vue.createApp({
             data() {
                 return {
+                    currentPost: {
+                        title: "",
+                        description: "",
+                        author: "",
+                        date: ""
+                    },
                     topPost: {
                         title: "Top Trending Post",
                         description: "Description of the top interest post. This post is particularly interesting and engaging for users. It contains valuable information and discussions about various topics.",
@@ -202,7 +230,17 @@
                         "Trending Post 3 - Description of Trending Post 3."
                     ]
                 };
-            }
+            },
+            methods: {
+                setAndViewPost(post) {
+                    this.currentPost = post; // directly assign the post
+                    console.log(this.currentPost); // <-- Add this line here
+                    this.$nextTick(() => {
+                        let modal = new bootstrap.Modal(document.getElementById('viewPostModal'));
+                        modal.show();
+                    });
+                }
+            }                     
         });
         app.component(
             'vertical-navbar', navbar

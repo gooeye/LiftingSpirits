@@ -20,9 +20,16 @@
 <body>
     <div id="app">
         <main class="d-md-flex">
-            <vertical-navbar :page="page" :is-logged-in="isLoggedIn"></vertical-navbar>
+            <vertical-navbar :page="page" :is-logged-in="isLoggedIn" :username="username" @navigate="() => {isHome=!isHome; page='profile';}"></vertical-navbar>
             <!-- Content Area -->
-            <div class="col-lg-10 col-md-9 col-12 background2 p-3">
+            <div class="col-lg-10 col-md-9 col-12 background2 p-3 h-100 min-vh-100 shadow-sm" v-if='isHome'>
+                <div style="height: 480px;" class="row flex-row align-items-center px-5 g-4">
+                    <spline-viewer url="https://prod.spline.design/uz2CcItbK6738Dh1/scene.splinecode" event-target="global" class="col-6"></spline-viewer>
+                    <div class="col-6">
+                        <h1 class="display-5 fw-bold lh-1 mb-3">Welcome to Lifiting Spirits!</h1>
+                        <p class="lead">Get started today with LiftingSpirits to explore drinking with like-minded people!</p>
+                    </div>
+                </div>
                 <div class="splide rounded mx-auto" aria-label="Splide Basic HTML Example">
                     <div class="splide__track">
                         <h4 class="p-1">Featured Drinks</h4>
@@ -45,13 +52,146 @@
                         </ul>
                     </div>
                 </div>
+                <div class="container mt-5">
+
+                    <!-- Header for Drink Posts -->
+                    <h2 style="color: white; font-size: 1.5rem;">Drinks Posts!</h2>
+                
+                    <div class="row">
+                        <!-- Main Content Column with Drink Posts -->
+                        <div class="col-lg-8 col-md-12">
+                            <!-- Drink Post 1 -->
+                            <div class="col-lg-4 col-md-6 mb-3">
+                                <a href="path_placeholder" class="text-decoration-none">
+                                    <div class="card">
+                                        <img src="image_path_placeholder_1.jpg" alt="Drink Image 1" class="card-img-top">
+                                        <div class="card-body">
+                                            <h5 class="card-title" style="color: #7C5241;">Post Name 1</h5>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            <!-- Drink Post 2 -->
+                            <div class="col-lg-4 col-md-6 mb-3">
+                                <a href="path_placeholder" class="text-decoration-none">
+                                    <div class="card">
+                                        <img src="image_path_placeholder_2.jpg" alt="Drink Image 2" class="card-img-top">
+                                        <div class="card-body">
+                                            <h5 class="card-title" style="color: #7C5241;">Post Name 2</h5>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            <!-- Drink Post 3 -->
+                            <div class="col-lg-4 col-md-6 mb-3">
+                                <a href="path_placeholder" class="text-decoration-none">
+                                    <div class="card">
+                                        <img src="image_path_placeholder_3.jpg" alt="Drink Image 3" class="card-img-top">
+                                        <div class="card-body">
+                                            <h5 class="card-title" style="color: #7C5241;">Post Name 3</h5>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            <!-- Drink Post 4 -->
+                            <div class="col-lg-4 col-md-6 mb-3">
+                                <a href="path_placeholder" class="text-decoration-none">
+                                    <div class="card">
+                                        <img src="image_path_placeholder_4.jpg" alt="Drink Image 4" class="card-img-top">
+                                        <div class="card-body">
+                                            <h5 class="card-title" style="color: #7C5241;">Post Name 4</h5>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            <!-- Drink Post 5 -->
+                            <div class="col-lg-4 col-md-6 mb-3">
+                                <a href="path_placeholder" class="text-decoration-none">
+                                    <div class="card">
+                                        <img src="image_path_placeholder_5.jpg" alt="Drink Image 5" class="card-img-top">
+                                        <div class="card-body">
+                                            <h5 class="card-title" style="color: #7C5241;">Post Name 5</h5>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            <!-- Drink Post 6 -->
+                            <div class="col-lg-4 col-md-6 mb-3">
+                                <a href="path_placeholder" class="text-decoration-none">
+                                    <div class="card">
+                                        <img src="image_path_placeholder_6.jpg" alt="Drink Image 6" class="card-img-top">
+                                        <div class="card-body">
+                                            <h5 class="card-title" style="color: #7C5241;">Post Name 6</h5>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                
+                        <!-- Side Column for Upcoming Events -->
+                        <div class="col-lg-4 col-md-12">
+                            <h2 style="color: white; font-size: 1.5rem;">Upcoming Events</h2>
+                            <!-- Event Card 1 -->
+                            <div class="card mb-3">
+                                <img src="path_to_event_image.jpg" class="card-img-top" alt="Event Image">
+                                <div class="card-body">
+                                    <h5 class="card-title" style="color: #CC6E4A;">Event Title 1</h5>
+                                    <p class="card-text" style="color: #7C5241;">Event Description 1</p>
+                                    <a href="#" class="btn btn-primary" style="background-color: #CC6E4A;">Join Event</a>
+                                </div>
+                            </div>
+                            <!-- Event Card 2 -->
+                            <div class="card mb-3">
+                                <img src="path_to_event_image.jpg" class="card-img-top" alt="Event Image">
+                                <div class="card-body">
+                                    <h5 class="card-title" style="color: #CC6E4A;">Event Title 2</h5>
+                                    <p class="card-text" style="color: #7C5241;">Event Description 2</p>
+                                    <a href="#" class="btn btn-primary" style="background-color: #CC6E4A;">Join Event</a>
+                                </div>
+                            </div>
+                            <!-- Event Card 3 -->
+                            <div class="card mb-3">
+                                <img src="path_to_event_image.jpg" class="card-img-top" alt="Event Image">
+                                <div class="card-body">
+                                    <h5 class="card-title" style="color: #CC6E4A;">Event Title 3</h5>
+                                    <p class="card-text" style="color: #7C5241;">Event Description 3</p>
+                                    <a href="#" class="btn btn-primary" style="background-color: #CC6E4A;">Join Event</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-10 col-md-9 col-12 background2 h-100 min-vh-100 shadow-sm" v-if='!isHome'>
+                <router-view :profile-banner="profileBanner" :profile-icon="profileIcon"></router-view>
             </div>
         </main>
       </div>
 
     <!-- Vue.js App -->
-    <script>
-        document.addEventListener( 'DOMContentLoaded', function() {
+    <script type="module">
+        import { loginAuth, isLoggedIn } from "/js/check_login.js"
+        
+        if (loginAuth) {
+            var username = loginAuth.username
+        } else {
+            var username = null
+        }
+        let isHome = false
+        let page = "profile"
+        if (window.location.pathname=="/index.html" || window.location.pathname=="/") {
+            isHome = true
+            page = "home"
+            // console.log (isHome, page)
+        }
+
+        const router = VueRouter.createRouter({
+            history: VueRouter.createWebHistory(),
+            mode: 'history',
+            routes, // short for `routes: routes`
+        })
+        
+        function loadSplide() {
             var splide = new Splide( '.splide', {
                 type   : 'loop',
                 drag   : 'free',
@@ -76,11 +216,11 @@
             } );
     
             splide.mount();
-        } );
+        };
         const app = Vue.createApp({
             data() {
                 return {
-                    page: 'home',
+                    page: page,
                     isLoggedIn: false,
                     model: null,
                     drinks: [
@@ -174,7 +314,11 @@
                             type: "beer",
                             rating: 4
                         }
-                        ]
+                    ],
+                    profileBanner: "https://static.wikia.nocookie.net/mariokart/images/7/7d/MK8_WiiMooMooMeadows.jpg",
+                    profileIcon: "https://static.wikia.nocookie.net/mariokart/images/7/7d/MK8_WiiMooMooMeadows.jpg",
+                    username: username,
+                    isHome: isHome
                 }
             },
         })

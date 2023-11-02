@@ -17,7 +17,10 @@ const routes = [
     },
     {
         path: '/',
-        name: 'home',
+        component: {template: ``}
+    },
+    {
+        path: '/index.html',
         component: {template: ``}
     }
 ]

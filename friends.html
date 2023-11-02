@@ -46,8 +46,13 @@
                                         <p class="card-text" style="color: #7C5241;">Posted by: {{ topPost.author }}
                                         </p>
                                         <p class="card-text" style="color: #7C5241;">Posted on: {{ topPost.date }}</p>
-                                        <a href="#" class="btn btn-primary" style="background-color: #CC6E4A;">View
-                                            Post</a>
+                                        <a href="#" class="btn btn-primary"
+                                        style="background-color: #CC6E4A;" 
+                                        data-bs-toggle="modal" 
+                                        data-bs-target="#createPostModal" 
+                                        @click="setCurrentPost(post)">
+                                        View Post
+                                        </a>
                                     </div>
                                 </div>
                                 <!-- Popular Posts -->
@@ -69,8 +74,13 @@
                                                     }}</p>
                                                 <p class="card-text" style="color: #7C5241;">Posted on: {{ post.date
                                                     }}</p>
-                                                <a href="#" class="btn btn-primary"
-                                                    style="background-color: #CC6E4A;">View Post</a>
+                                                    <a href="#" class="btn btn-primary"
+                                                    style="background-color: #CC6E4A;" 
+                                                    data-bs-toggle="modal" 
+                                                    data-bs-target="#createPostModal" 
+                                                    @click="setCurrentPost(post)">
+                                                    View Post
+                                                 </a>
                                             </div>
                                         </div>
                                     </div>
@@ -163,6 +173,24 @@
         </div>
         </div>
     </div>
+    <div class="modal fade" id="viewPostModal" tabindex="-1" aria-labelledby="viewPostModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content background 2">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="viewPostModalLabel" style="color:#CC6E4A">{{ currentPost.title }}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p style="color: #7C5241;">{{ currentPost.description }}</p>
+                    <p style="color: #7C5241;">Posted by: {{ currentPost.author }}</p>
+                    <p style="color: #7C5241;">Posted on: {{ currentPost.date }}</p>
+                </div>
+                <div class="modal-footer">
+                    <a href="#"><button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button></a>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Vue.js App -->
     <script>
@@ -170,6 +198,7 @@
         const app = Vue.createApp({
             data() {
                 return {
+                    currentPost: null,
                     topPost: {
                         title: "Top Trending Post",
                         description: "Description of the top interest post. This post is particularly interesting and engaging for users. It contains valuable information and discussions about various topics.",
@@ -202,6 +231,11 @@
                         "Trending Post 3 - Description of Trending Post 3."
                     ]
                 };
+            };
+            methods:{
+                setCurrentPost(post){
+                    this.currentPost=post;
+                }
             }
         });
         app.component(

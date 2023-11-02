@@ -171,6 +171,8 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
+                    <h6 style="color:#CC6E4A">Title:</h6>
+                    <p style="color:white">{{ currentPost.title }}</p>
                     <h6 style="color:#CC6E4A">Description:</h6>
                     <p style="color:white">{{ currentPost.description }}</p>
                     <h6 style="color:#CC6E4A">Author:</h6>
@@ -232,7 +234,7 @@
             },
             methods: {
                 setAndViewPost(post) {
-                    this.currentPost = post;
+                    this.$set(this, 'currentPost', post);;
             
                     // Ensure Vue updates the DOM before opening the modal
                     this.$nextTick(() => {

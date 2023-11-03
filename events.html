@@ -15,6 +15,7 @@
     <!-- Import JS -->
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script src=" https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js "></script>
+    
 
     <style>
         #map {
@@ -97,9 +98,7 @@
                                     <h6 class="card-subtitle">Date: {{joinedEvent.date}}</h6>
                                 </div>
                             </div>
-                        </div>
-
-                        <h1 class="ps-2 pt-4"> All Upcoming Events </h1>
+                        </div><h1 class="ps-2 pt-4"> All Upcoming Events </h1>
                         <h6 class="ps-2 mb-4">Click for more details </h6>
                         
                         <!--The div element for the map -->
@@ -140,7 +139,7 @@
                                             </div>
                                             <button class="btn"style="background-color:orange;" @click="getLoc(event.location)">Show On Map!</button>
 
-                                            <!--testing-->
+                                            
                                             <div class="card-text mb-2 ">Description: {{event.description}}</div>
                                             <div class="card-text mb-2 ">Cost: {{event.cost}}</div>
                                             <div class="card-text mb-2 ">Max Capacity: {{event.max}}</div>
@@ -157,7 +156,7 @@
         </main>
     </div>
 
-<script>
+    <script type="module">
 
 
 
@@ -168,9 +167,7 @@
         }
         else {
             isLoggedIn = true
-        }
-
-        document.addEventListener('DOMContentLoaded', function () {
+        }document.addEventListener('DOMContentLoaded', function () {
             var splide = new Splide('.splide', {
                 type: 'loop',
                 drag: 'free',
@@ -183,9 +180,15 @@
             splide.mount();
         });
 
-    const app = Vue.createApp({
-        data() {
-            return {
+        
+        import navbar from "/components/navbar.js"
+
+        const app = Vue.createApp({
+            components: {
+                'vertical-navbar': navbar
+            },
+            data() {
+                return {
 
                     joinedEvents: [],
 
@@ -253,85 +256,172 @@
 
                 toggleCard(index) {
                     this.created_events[index].expanded = !this.created_events[index].expanded;
+                },// showMapWithPinpoint(location) {
+                //     const geocoder = new google.maps.Geocoder();
+                //     const mapContainer = document.getElementById('map-container'); // Assuming you have a map container element with this ID
+
+                //     geocoder.geocode({ address: location }, (results, status) => {
+                //         if (status === 'OK' && results[0].geometry.location) {
+                //             const map = new google.maps.Map(mapContainer, {
+                //                 center: results[0].geometry.location,
+                //                 zoom: 15, // You can adjust the zoom level as needed
+                //             });
+                //             const marker = new google.maps.Marker({
+                //                 position: results[0].geometry.location,
+                //                 map: map,
+                //                 title: location, // You can set a title for the marker
+                //             });
+                //         } else {
+                //             console.error('Error geocoding address:', status);
+                //         }
+                //     });
+                // }
+                // ,
+                initMap2() {
+                    // default: The location of SIS, SMU
+                    console.log("helloooooooo")
+                    var lat = parseFloat(document.getElementById("lat").value);
+                    var lng = parseFloat(document.getElementById("lng").value);
+                    // var uluru = {lat: -25.344, lng: 131.036};
+                    var loc = { lat: lat, lng: lng };
+
+                    // The map, centered at SIS, SMU
+                    var map = new google.maps.Map(
+                        // play with the zoom value to zoom in or out
+                        document.getElementById('map'), { zoom: 14, center: loc });
+                    // The marker, positioned at SIS, SMU
+                    var marker = new google.maps.Marker({ position: loc, map: map });
                 },
+                test1(){
+                    console.log("knn")
+                    var lat = parseFloat(document.getElementById("lat").value);
+                    var lng = parseFloat(document.getElementById("lng").value);
+                    // var uluru = {lat: -25.344, lng: 131.036};
+                    var loc = { lat: lat, lng: lng };
 
-            showMapWithPinpoint(location) {
-                const geocoder = new google.maps.Geocoder();
-                const mapContainer = document.getElementById('map-container'); // Assuming you have a map container element with this ID
+                    // The map, centered at SIS, SMU
+                    var map = new google.maps.Map(
+                        // play with the zoom value to zoom in or out
+                        document.getElementById('map'), { zoom: 14, center: loc });
+                    // The marker, positioned at SIS, SMU
+                    var marker = new google.maps.Marker({ position: loc, map: map });
+                },
+                getLoc(action) {
+                    console.log(action)
+                    this.test1();
+                    // var addr = encodeURI(document.getElementById("addr").value);
+                    // console.log(addr);
+                    var url = "https://maps.googleapis.com/maps/api/geocode/json?address=" + action + "&key=AIzaSyDY6hhhPkpG3UR-wlPYGIvKn50JL_gHxPQ";
+                    var xhttp = new XMLHttpRequest();
+                    var self = this;
+                    xhttp.onreadystatechange = function () {
+                        console.log("Ready state:", this.readyState);
+                        if (this.readyState == 4 && this.status == 200) {
+                           
+                            // following code may throw error if user input is invalid address
+                            // so we use try-catch block to handle errors
+                            try {
+                                
+                                // expected response is JSON data
+                                var data = JSON.parse(this.responseText);
+                                console.log(data,"data");var info = '';
+                                
+                                // display full address, given post code or partial addr
+                           
+                                info = self.getFullAddress(data);
+                                console.log("try")
+                            console.log(info,"info");
 
-                geocoder.geocode({ address: location }, (results, status) => {
-                    if (status === 'OK' && results[0].geometry.location) {
-                        const map = new google.maps.Map(mapContainer, {
-                            center: results[0].geometry.location,
-                            zoom: 15, // You can adjust the zoom level as needed
-                        });
-                        const marker = new google.maps.Marker({
-                            position: results[0].geometry.location,
-                            map: map,
-                            title: location, // You can set a title for the marker
-                        });
-                    } else {
-                        console.error('Error geocoding address:', status);
+
+                            // refresh the hidden input values with new lat lng coordinates
+                            var coordinate = self.getLatLng(data);
+                            console.log(coordinate,"jj")
+                            document.getElementById("lat").value = coordinate["lat"];
+                            document.getElementById("lng").value = coordinate["lng"];
+                            // now refresh the map
+                            self.initMap2();
+                        } catch (err) { // show error message
+                            // not a good idea to directly show err.message 
+                            // as it may contain sensitive info
+                            // document.getElementById("display").innerHTML = err.message;
+
+                            // show a predefined error message string
+
+                        }
                     }
-                });
-            }
-,
+                };
 
-            joinEvent(event){
+                xhttp.open("GET", url, true);
+                xhttp.send();
+            },
+
+
+            getFullAddress(data) {
+                console.log("getfulladdr")
+                var addr = data["results"][0]["formatted_address"];
+                var loc = this.getLatLng(data);
+                return addr + "<br> lat: " + loc["lat"] + ", lng: " + loc["lng"];
+            },
+
+            getLatLng(data) {
+                var location = data["results"][0]["geometry"]["location"];
+                return location;
+            },
+
+            getPostCode(data) {
+                var addrcomponents = data["results"][0]["address_components"];
+                var postcode = addrcomponents.filter(postcodeHelper);
+                // country is an array but there should be only one element
+                return postcode[0]["long_name"];
+            },
+
+            postcodeHelper(addr) {
+                return addr["types"][0] == "postal_code";
+            },
+
+
+            getKeys(data) {
+                // data["results"][0] is an object
+                // this gets the keys/properties of results[0] object
+                var keys = Object.keys(data["results"][0]);
+                for (key of keys) {
+                    // this prints --
+                    /*  address_components
+                        formatted_address
+                        geometry
+                        place_id
+                        plus_code
+                        types */
+                    document.getElementById("display").innerHTML += key + "<br>";
+                }
+            },
+
+            getCountry(data) {
+                // this is an array
+                var addrcomponents = data["results"][0]["address_components"];
+                // The filter() method creates a new array with array elements that passes a test.
+                var country = addrcomponents.filter(countryHelper);
+                // country is an array but there should be only one element
+                return country[0]["long_name"];
+            },
+
+            countryHelper(addr, index) {
+                return addr["types"][0] == "country";
+            },
+
+            joinEvent(event) {
                 this.joinedEvents.unshift(event);
             }
 
-            
+
 
         }
     })
-    app.component(
-        'vertical-navbar', navbar
-    )
+   
     vm = app.mount("#app")
 
-</script>
-   
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDY6hhhPkpG3UR-wlPYGIvKn50JL_gHxPQ&callback=initMap" async defer></script>
-
-</body>
-</html>
-
-
-
-
-
-
-                    xhttp.open("GET", url, true);
-                    xhttp.send();
-                },
-
-
-
-
-
-                postcodeHelper(addr) {
-                    return addr["types"][0] == "postal_code";
-                },
-
-
-
-
-
-                joinEvent(event) {
-                    this.joinedEvents.unshift(event);
-                }
-
-
-
-
-
-<<<<<<< HEAD
-            
-
-
-
+</script><script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"></script>
+<!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDY6hhhPkpG3UR-wlPYGIvKn50JL_gHxPQ&callback=initMap" async defer></script> -->
 
 </body>
 

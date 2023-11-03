@@ -26,10 +26,10 @@
                         <ul style="list-style-type: none;padding:0">
                             <li v-for="item in cart"class="pl-1 pb-2"><i class="bi-circle"></i> {{item.name}}&nbsp&nbsp x{{item.qty}}</li>
                         </ul>
-                        <hr class ="rounded bg-light pb-2" style="border-top: 8px solid;border-radius: 5px;">
+                        <hr class ="rounded bg-light pb-2" style="border-top: 4px solid;border-radius: 5px;">
                         <p class = "pb-1">Subtotal:             ${{total}}SGD</p>
                         <p class = "pb-1">Standard Shipping:    $10.00SGD</p>
-                        <p class = "pb-1">Total:    ${{total + 10}}SGD</p>
+                        <p class = "pb-1">Total:    ${{(total + 10).toFixed(2)}}SGD</p>
 
                     </div>
                     <div class ="col-lg-9 order-md-1">

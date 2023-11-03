@@ -15,7 +15,7 @@
     <!-- Import JS -->
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script src=" https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js "></script>
-    <script src="components/navbar.js"></script>
+    
     <style>
         .itemContainer {
             cursor: pointer;
@@ -144,9 +144,13 @@
                 </div>
             </div>
         </div>
+<script type="module">
+        import navbar from "/components/navbar.js"
 
-            <script>
-                const app = Vue.createApp({
+        const app = Vue.createApp({
+            components: {
+                'vertical-navbar': navbar
+            },
                     data() {
                         return {
                             totalCalories: 0,
@@ -168,7 +172,7 @@
                         }
                     }
                 });
-                app.component('vertical-navbar', navbar);
+                
                 app.mount('#app');
             </script>
 <!-- Add Bootstrap JS via CDN (for Bootstrap features like dropdowns) -->

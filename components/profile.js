@@ -204,7 +204,8 @@ export const user = {
                                 </div>
                             </div>
                             <!-- ... -->
-
+                            </div>
+                            </div>
                             <div class="col-md-3">
                             <div class="total-calories text-center">
                                 <h2 class="mb-3">Total Calories: <span class="text-danger">{{ totalCalories.toFixed(2) }}</span></h2>

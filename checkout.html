@@ -39,7 +39,7 @@
                               </tr>
                             </tbody>
                           </table>
-                        <hr class ="rounded bg-light pt-2 pb-2" style="border-top: 4px solid;border-radius: 5px;">
+                        <hr class ="rounded bg-light pt-2 pb-2" style="border-top: 2px solid;border-radius: 5px;">
                         <p class = "pb-1">Subtotal:             ${{subtotal}} SGD</p>
                         <p class = "pb-1">Standard Shipping:    $10.00 SGD</p>
                         <p class = "pb-1">Total:    ${{total}} SGD</p>
@@ -128,15 +128,15 @@
                                 </div>                  
                             </div>
 
-                            <div class="col-lg-4 col-4 pb-4">
+                            <div class="col-lg-3 col-4 pb-4">
                                 <label for="exDate" class="form-label">Expiry Date</label>
                                 <input type="text" class="form-control" maxlength="5" id="exDate" placeholder="mm/dd" required>                     
                             </div>
-                            <div class="col-lg-4 col-4 pb-4">
+                            <div class="col-lg-3 col-4 pb-4">
                                 <label for="code" class="form-label">CVV/CVC</label>
                                 <input type="text" class="form-control" maxlength="3" id="code" placeholder="..." required>                     
                             </div>
-                            <div class="col-lg-5 col-12 pb-4">
+                            <div class="col-lg-7 col-12 pb-4">
                                 <button type = "submit" class="btn text-white" style="background-color: #CC6E4A" @submit="verify()">Submit</button>                 
                             </div>
                         </form>
@@ -193,11 +193,12 @@
                     current.setDate(current.getDate() + 4)
 
                     let dateString = current.getFullYear() + ", " + months[current.getMonth()] + ", " + current.getDate() + ", " + daysOfWeek[current.getDay()]
-                    sessionStorage.setItem("deliverydate",JSON.stringify(
-                    {
-                        delivery:dateString,
-                    }
-                    ))
+                    const existingcart = JSON.parse(sessionStorage.getItem('order'))
+                    existingcart.delivery = dateString
+
+                    sessionStorage.setItem('order', JSON.stringify(existingcart));
+
+
                     return dateString
                 },
             },
@@ -295,7 +296,12 @@
                 }
 
                 form.classList.add('was-validated');
-                window.location.href="confirm.html"
+
+
+
+                setTimeout(function() {
+                window.location.href = "confirm.html";
+                }, 5000)
                 
             
         })

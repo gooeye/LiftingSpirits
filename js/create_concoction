@@ -48,14 +48,10 @@ function create(){
         steps: steps,
 
         bar: bar_name,
-        img: "drinks/"+img_name+".jpg"
 
     })
 
-    const imgref = ref(storage,"drinks/"+img_name+".jpg")
-    uploadBytes(imgref, img).then((snapshot) => {
-        console.log('Uploaded a blob or file!');
-    })
+
 
 }
 document.getElementById("create").addEventListener("click",create)

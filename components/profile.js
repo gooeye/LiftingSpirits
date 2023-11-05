@@ -1,8 +1,61 @@
 export const user = {
     props: {
         'profileBanner' : String,
-        'profileIcon' : String,
-        'drinks'    : Object
+        'profileIcon' : String
+    },
+    data() {
+        return {
+            drinks: [
+                {
+                    img: "https://www.petitefleursg.com//image/cache/catalog/271376_pizzolato_ros_extra_dry_m-use_nv_pp-700x700.jpg",
+                    name: "Pizzolato Rosé Extra Dry",
+                    type: "wine",
+                    rating: 3
+                },
+                {
+                    img: "https://cdn.loveandlemons.com/wp-content/uploads/2020/07/mojito.jpg",
+                    name: "Mojito",
+                    type: "cocktail",
+                    rating: 4
+                },
+                {
+                    img: "https://www.peakales.co.uk/cdn/shop/products/PA_Beer_Bottle_IPA_Front.jpg?v=1633509043",
+                    name: "IPA",
+                    type: "beer",
+                    rating: 5
+                },
+                {
+                    img: "https://hips.hearstapps.com/hmg-prod/images/sangria-index-643044ca71f12.jpg?crop=0.502xw:1.00xh;0.210xw,0&resize=1200:*",
+                    name: "Sangria",
+                    type: "cocktail",
+                    rating: 4
+                },
+                {
+                    img: "https://www.foodandwine.com/thmb/RdbOj6gOlRyV4cpvmmUK7bI0TP4=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/Wine-Guide-Cabernet-Sauvignon-FT-BLOG0622-2000-6b414113ef0449178e4ee5bf69ceeb5c.jpg",
+                    name: "Cabernet Sauvignon",
+                    type: "wine",
+                    rating: 4
+                },
+                {
+                    img: "https://www.petitefleursg.com//image/cache/catalog/271376_pizzolato_ros_extra_dry_m-use_nv_pp-700x700.jpg",
+                    name: "Piña Colada",
+                    type: "cocktail",
+                    rating: 4
+                },
+                {
+                    img: "https://www.petitefleursg.com//image/cache/catalog/271376_pizzolato_ros_extra_dry_m-use_nv_pp-700x700.jpg",
+                    name: "Stout",
+                    type: "beer",
+                    rating: 4
+                },
+                {
+                    img: "https://www.petitefleursg.com//image/cache/catalog/271376_pizzolato_ros_extra_dry_m-use_nv_pp-700x700.jpg",
+                    name: "Margarita",
+                    type: "cocktail",
+                    rating: 4
+                },
+            ]
+        }
     },
     template: `
         <div :style="{height: '200px', backgroundImage: 'url(' + profileBanner + ')',  backgroundRepeat: 'no-repeat', backgroundSize: 'cover'}" class="position-relative">

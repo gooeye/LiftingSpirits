@@ -22,7 +22,7 @@
 <body>
     <div id="app">
         <main class="d-md-flex">
-            <vertical-navbar :page="page" :is-logged-in="isLoggedIn" :username="username" @navigate="() => {isHome=!isHome; page='profile';}"></vertical-navbar>
+            <vertical-navbar :page="page" :is-logged-in="isLoggedIn" :username="username" @navigate="() => {isHome=false; page='profile';}"></vertical-navbar>
             <!-- Content Area -->
             <div class="col-lg-10 col-md-9 col-12 background2 p-3 h-100 min-vh-100 shadow-sm" v-if='isHome'>
                 <div style="height: 480px;" class="row flex-row align-items-center px-5 g-4">
@@ -205,6 +205,7 @@
         import { getUserInfo } from "/js/users.js"
         import { router } from "/js/router.js"
         import navbar from "/components/navbar.js"
+        import tracker from "/components/tracker.js"
         
         if (loginAuth) {
             var username = loginAuth.username
@@ -247,7 +248,8 @@
         };
         const app = Vue.createApp({
             components: {
-                'vertical-navbar': navbar
+                'vertical-navbar': navbar,
+                'tracker': navbar
             },
             data() {
                 return {
@@ -405,9 +407,6 @@
                 }
             } 
         })
-        app.component(
-            'vertical-navbar', navbar
-        )
         app.use(router)
         let vm = app.mount("#app")
         if (vm.isHome) {

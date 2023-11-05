@@ -183,21 +183,17 @@ export const user = {
                     </tbody>
                 </table>
             </div>
-            <div class="container rounded-3 background3 p-4 shadow-sm mb-4" id="tracking" >
-            <div id="app" class="min-vh-100 d-flex flex-column background2">
-
-
-        <div class="container-fluid background2">
-            <div class="row">
-            <div class="text-center mb-4">
-            <h1 class="display-4">Unit and Calorie Tracking</h1>
-            <p class="subText text-muted">You are advised to drink less than 14 units a week</p>
-        </div>
-        <div class="row row-cols-md-2 row-cols-sm-1">
-            <div class="col justify-content-center">
-                <div class="calorieTable">
-                    <div class="container">
-                        <div class="row justify-content-center row-cols-md-2 row-cols-sm-1">
+           
+            <div class="container rounded-3 background3 p-4 shadow-sm mb-4" id="tracking">
+            <div class="min-vh-100 d-flex flex-column">
+                <div class="container-fluid background2">
+                    <div class="row">
+                        <div class="col-md-9">
+                            <div class="text-center mb-4">
+                                <h1 class="display-4">Unit and Calorie Tracking</h1>
+                                <p class="subText">You are advised to drink less than 14 units a week</p>
+                            </div>
+                            <div class="row row-cols-md-2 row-cols-sm-1">
                             <!-- Your existing HTML content for drink items goes here -->
                             <div v-for="(item, index) in items" :key="index" class="col-md-4 itemContainer" @click="onItemClick(item)">
                                 <div class="col">
@@ -209,11 +205,10 @@ export const user = {
                             </div>
                             <!-- ... -->
 
-                            <!-- Total Calories Display -->
+                            <div class="col-md-3">
                             <div class="total-calories text-center">
                                 <h2 class="mb-3">Total Calories: <span class="text-danger">{{ totalCalories.toFixed(2) }}</span></h2>
                             </div>
-
                             <!-- Equivalent Comparison -->
                             <div class="equivalent-section text-center">
                                 <h2 class="mb-4">Equivalent Comparison</h2>
@@ -226,6 +221,7 @@ export const user = {
                                     <div class="font-weight-bold">{{ (totalCalories / 10).toFixed(2) }}</div>
                                 </div>
                             </div>
+                        </div>
                         </div>
                     </div>
                 </div></div></div></div>

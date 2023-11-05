@@ -50,7 +50,6 @@ function create(){
         bar: bar_name,
         img: "drinks/"+img_name+".jpg"
 
-
     })
 
     const imgref = ref(storage,"drinks/"+img_name+".jpg")

@@ -4,11 +4,11 @@ import tracking from "/components/tracker.js"
 export const user = {
     components: {
         'modal': modal,
-        'tracking':tracking
+        'tracking': tracking
     },
     props: {
-        'profileBanner' : String,
-        'profileIcon' : String
+        'profileBanner': String,
+        'profileIcon': String
     },
     data() {
         return {
@@ -79,7 +79,7 @@ export const user = {
         }
     },
     computed: {
-        drinksSelected () {
+        drinksSelected() {
             return this.selected.length
         }
     },

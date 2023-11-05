@@ -32,11 +32,11 @@
                     <div class="col-12 p-2 pb-2">
                         <label class="form-label" style="color: #CC6E4A;" >Type of Drink</label><br>
                         <div class="form-check-inline">
-                            <input class="form-check-input" type="radio" name="cocktail" id="cocktail" value="cocktail" required>
+                            <input class="form-check-input" type="radio" name="cocktail" id="drinktype" value="cocktail" required>
                             <label class="form-check-label" for="cocktail">&nbsp Cocktail</label>
                         </div>
                         <div class="form-check-inline">
-                            <input class="form-check-input" type="radio" name="mocktail" id="nocktail" value="mocktail" required>
+                            <input class="form-check-input" type="radio" name="mocktail" id="drinktype" value="mocktail" required>
                             <label class="form-check-label" for="mocktail">&nbsp Mocktail</label>
                         </div>                     
                     </div>
@@ -60,7 +60,7 @@
                         <input type="file" class="form-control" id="uploadImages" accept="image/*">
                     </div>
                     <div class="col-lg-3 col-12 p-2 pb-2">
-                        <button type="submit" class="btn btn-lg btn-block" style="background-color: #CC6E4A;color:white">Create</button>
+                        <button id = "create" class="btn btn-lg btn-block" style="background-color: #CC6E4A;color:white">Create</button>
                     </div>
               </div>
         </main>
@@ -93,6 +93,7 @@
 
     <!-- Add Bootstrap JS via CDN (for Bootstrap features like dropdowns) -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"></script>
+    <script defer type = "module" src = "./js/create_concoction.js" ></script> 
 </body>
 
 </html>

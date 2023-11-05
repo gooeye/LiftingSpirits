@@ -1,36 +1,62 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
 import { getFirestore, collection, setDoc, doc, addDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-firestore.js";
+import { getStorage, ref, uploadBytes} from "https://www.gstatic.com/firebasejs/10.5.0/firebase-storage.js";
 
 import { firebaseConfig } from "/js/config.js"
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app)
-
-var name = document.getElementById("name").value
-var eventdate = document.getElementById("eventDate").value
-var time = document.getElementById("eventTime").value
-var location = document.getElementById("eventLocation").value
-var desc  = document.getElementById("eventDescription").value
-var cost = document.getElementById("eventCost").value
-var max = document.getElementById("eventMaxOccupancy").value
-var image = document.getElementById("eventImage").value
+const storage = getStorage();
 
 
-const user_info = sessionStorage.getItem("user_info")
-const user_infoObj = JSON.parse(user_info)
+function create(){
+    var name = document.getElementById("name").value
+    var drinktype = document.getElementById("drinktype").value
 
-const eventRef = doc(db, "events", eventname);
+    var ingredients= document.getElementById("ingredients").value
+    ingredients = ingredients.split(',')
 
-setDoc(eventRef,{
-    name: eventname,
-    date: eventdate,
-    time: time,
-    
-    created: user_infoObj.username,
+    var steps = document.getElementById("steps").value
+    steps = steps.split(',')
 
-    location: location,
-    description: desc,
+    var bar_check = document.getElementById("available")
 
-    cost:cost,
-    max:max,
-})
+    if (bar_check.checked){
+        var bar_name = document.getElementById("bar")
+    }
+    else{
+        var bar_name = null
+    }
+
+    var img = document.getElementById("uploadImages").files[0]
+
+    var img_name = img.name
+
+
+    const user_info = sessionStorage.getItem("user_info")
+    const user_infoObj = JSON.parse(user_info)
+
+    const drinkRef = doc(db, "drinks", name);
+
+    setDoc(drinkRef,{
+        name: name,
+        type: drinktype,
+
+        creator: user_infoObj.username,
+
+        ingredients: ingredients,
+        steps: steps,
+
+        bar: bar_name,
+        img: "drinks/"+img_name+".jpg"
+
+
+    })
+
+    const imgref = ref(storage,"drinks/"+img_name+".jpg")
+    uploadBytes(imgref, img).then((snapshot) => {
+        console.log('Uploaded a blob or file!');
+    })
+
+}
+document.getElementById("create").addEventListener("click",create)

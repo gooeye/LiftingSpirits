@@ -168,7 +168,7 @@
             data() { 
                 return { 
                     page: 'checkout',
-                    isLoggedIn: true,
+                    isLoggedIn: false,
                     cart : cart,
                 };
             }, 
@@ -199,11 +199,12 @@
                     current.setDate(current.getDate() + 4)
 
                     let dateString = current.getFullYear() + ", " + months[current.getMonth()] + ", " + current.getDate() + ", " + daysOfWeek[current.getDay()]
-                    const existingcart = JSON.parse(sessionStorage.getItem('order'))
-                    existingcart.delivery = dateString
-
-                    sessionStorage.setItem('order', JSON.stringify(existingcart));
-
+                    
+                    if(sessionStorage.getItem('order') != null){
+                        const existingcart = JSON.parse(sessionStorage.getItem('order'))
+                        existingcart.delivery = dateString
+                        sessionStorage.setItem('order', JSON.stringify(existingcart));
+                    }
 
                     return dateString
                 },

@@ -11,9 +11,9 @@ const db = getFirestore(app);
 const user_info = sessionStorage.getItem("user_info")
 const user_infoObj = JSON.parse(user_info)
 
-const cart = (JSON.parse(sessionStorage.getItem('order'))).cart
-
-
+if(sessionStorage.getItem('order') != null){
+const order = (JSON.parse(sessionStorage.getItem('order'))).cart
+}
 
 var price_cart = []
 

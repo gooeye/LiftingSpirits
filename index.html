@@ -66,7 +66,7 @@
                         <!-- Main Content Column with Drink Posts -->
                         <div class="col-lg-8 col-md-12">
                             <!-- Drink Post 1 -->
-                            <!-- <div class="col-lg-4 col-md-6 mb-3" v-for="post in popularposts" :key="post.title">
+                            <div class="col-lg-4 col-md-6 mb-3" v-for="post in popularposts" :key="post.title">
                                 <div class="card">
                                     <div class="card-body">
                                         <h5 class="card-title" style="color: #7C5241;">{{ post.title }}</h5>
@@ -77,7 +77,7 @@
                                             <button @click="setAndViewPost(post)" class="btn btn-primary" style="background-color: #CC6E4A;">View Post</button>
                                     </div>
                                 </div>
-                            </div>-->
+                            </div>
                         </div>
                         <!-- Side Column for Upcoming Events -->
                         <div class="col-lg-4 col-md-12">
@@ -253,6 +253,13 @@
                 return {
                     page: page,
                     isLoggedIn: isLoggedIn,
+                    currentPost: {
+                        title: "",
+                        description: "",
+                        category: "",
+                        author: "",
+                        date: ""
+                    },
                     drinks: [
                         {
                             img: "https://www.petitefleursg.com//image/cache/catalog/271376_pizzolato_ros_extra_dry_m-use_nv_pp-700x700.jpg",

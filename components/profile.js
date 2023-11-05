@@ -10,6 +10,7 @@ export const user = {
     },
     data() {
         return {
+            selected: [],
             showModal: false,
             drinks: [
                 {
@@ -70,6 +71,16 @@ export const user = {
             ]
         }
     },
+    methods: {
+        select() {
+            this.selected = document.querySelectorAll('.drinkSel:checked')
+        }
+    },
+    computed: {
+        drinksSelected () {
+            return this.selected.length
+        }
+    },
     template: `
         <div :style="{height: '200px', backgroundImage: 'url(' + profileBanner + ')',  backgroundRepeat: 'no-repeat', backgroundSize: 'cover'}" class="position-relative">
             <div class="position-absolute bottom-0 left p-3 ps-5 w-100 d-flex align-items-center">
@@ -103,6 +114,13 @@ export const user = {
             </div>
             <div class="container rounded-3 background3 p-4 shadow-sm mb-4" id="list">
                 <h2 class="fs-4 mb-4">Your Drinks List</h2>
+                <div v-if="drinksSelected" class="drink-alert rounded container form-group">
+                    <span>{{ drinksSelected }} drink selected</span>
+                    <a>Select All</a>
+                    <span> · </span>
+                    <a>Select All</a>
+                    <div class="float-end"><button class=" btn btn-primary bg-orange">Move To</button></div>
+                </div>
                 <table>
                     <thead>
                         <tr>
@@ -115,7 +133,7 @@ export const user = {
                     </thead>
                     <tbody>
                         <tr v-for="drink in drinks">
-                        <td class="text-center"><input type="checkbox" class="check-fancy mx-auto"/></td>
+                        <td class="text-center"><input type="checkbox" class="check-fancy drinkSel mx-auto" @click="select"/></td>
                         <td><img :src="drink.img" height="50" width="45" style="object-fit:cover" class="rounded me-3"/>{{ drink.name }}</td>
                         <td v-if="drink.rating" class="text-center"><span class="bi bi-star-fill d-inline-block" style="vertical-align:2px; font-size:12px"></span> {{ drink.rating }}</td>
                         <td v-if="!drink.rating" class="text-center">
@@ -127,7 +145,11 @@ export const user = {
                                     <h3>Rate this drink</h3>
                                 </template>
                                 <template #body>
-                                    <div><input v-for="i in 5" class="check-rating-fancy" type="checkbox"/></div>
+                                    <span class="rating-parent">
+                                    <span class="star-parent" v-for="i in 5">
+                                    <input class="check-rating-fancy" type="checkbox" @click="select()"/>
+                                    </span>
+                                    </span>
                                 </template>
                                 <template #footer>
                                 <span></span>

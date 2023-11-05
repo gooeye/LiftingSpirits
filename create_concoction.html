@@ -27,32 +27,32 @@
                     <h1 class="p-2">Create a concoction</h1>
                     <div class="col-12 p-2 pb-2">
                         <label for="fname" class="form-label" style="color: #CC6E4A;">Name of Drink</label>
-                        <input type="text" class="form-control" id="name" placeholder="Enter the name of your drink" required>
+                        <input type="text" v-model="drink.name" class="form-control" id="name" placeholder="Enter the name of your drink" required>
                     </div>
                     <div class="col-12 p-2 pb-2">
                         <label class="form-label" style="color: #CC6E4A;" >Type of Drink</label><br>
                         <div class="form-check-inline">
-                            <input class="form-check-input" type="radio" name="cocktail" id="cocktail" value="cocktail" required>
+                            <input class="form-check-input" v-model="drink.type" type="radio" name="cocktail" id="cocktail" value="cocktail" required>
                             <label class="form-check-label" for="cocktail">&nbsp Cocktail</label>
                         </div>
                         <div class="form-check-inline">
-                            <input class="form-check-input" type="radio" name="mocktail" id="nocktail" value="mocktail" required>
+                            <input class="form-check-input" v-model="drink.type" type="radio" name="mocktail" id="nocktail" value="mocktail" required>
                             <label class="form-check-label" for="mocktail">&nbsp Mocktail</label>
                         </div>                     
                     </div>
                     <div class="col-12 p-2 pb-2">
                         <label for="ingredients" class="form-label" style="color: #CC6E4A;">Ingredients</label>
-                        <textarea class="form-control" id="ingredients" rows="3" placeholder="Seperate each ingredient with a comma"></textarea>
+                        <textarea class="form-control" id="ingredients" v-model="drink.ingredients" rows="3" placeholder="Seperate each ingredient with a comma"></textarea>
                     </div>
                     <div class="col-12 p-2 pb-2">
                         <label for="steps" class="form-label" style="color: #CC6E4A;">How to Make</label>
-                        <textarea class="form-control" id="steps" rows="3" placeholder="Seperate each step with a comma"></textarea>
+                        <textarea class="form-control" id="steps" v-model="drink.steps" rows="3" placeholder="Seperate each step with a comma"></textarea>
                     </div>
                     <div class="col-12 p-2 pb-2">
                         <input class="form-check-input" type="checkbox" id="available" @change="showBox">
                         <label class="form-check-label" for="available" >&nbspIs your drink available at a bar?</label>
                         <div class="col-lg-6 col-12 pt-2" v-if="show">
-                            <input type="text" class="form-control" id="bar" placeholder="Enter the name of the bar" required>
+                            <input type="text" class="form-control" id="bar" v-model="drink.bar" placeholder="Enter the name of the bar" required>
                         </div>
                     </div>
                     <div class="col-12 p-2 pb-2">
@@ -60,7 +60,7 @@
                         <input type="file" class="form-control" id="uploadImages" accept="image/*">
                     </div>
                     <div class="col-lg-3 col-12 p-2 pb-2">
-                        <button type="submit" class="btn btn-lg btn-block" style="background-color: #CC6E4A;color:white">Create</button>
+                        <button type="submit" class="btn btn-lg btn-block" style="background-color: #CC6E4A;color:white" @click="createDrink()">Create</button>
                     </div>
               </div>
         </main>
@@ -68,6 +68,7 @@
 
     <script type="module">
         import navbar from "/components/navbar.js"
+        import { createDrink } from "/js/drinks.js"
 
         const app = Vue.createApp({
             components: {
@@ -77,18 +78,25 @@
                 return {
                     page:'create_a_concoction',
                     isLoggedIn: false,
-                    show: false
-
+                    show: false,
+                    drink: {
+                        user : JSON.parse(sessionStorage.getItem("user_info")).username,
+                        rating : null,
+                        num_tried : 1
+                    }
                 }
             },
 
             methods:{
                 showBox(){
                     this.show = !this.show
+                },
+                createDrink(){
+                    createDrink(this.drink)
                 }
             }
         })
-        var vm = app.mount("#app")
+        window.vm = app.mount("#app")
     </script>
 
     <!-- Add Bootstrap JS via CDN (for Bootstrap features like dropdowns) -->

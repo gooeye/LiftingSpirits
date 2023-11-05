@@ -39,3 +39,11 @@ export async function emailExists(email) {
         return false
     }
 }
+
+export function addDrink(user, status) {
+    // params:
+    //   user: string, username of user
+    // status: int, 0 = haven't tried, 1 = tried, 2 = want to try
+    const userRef = doc(db, "users", user);
+    setDoc(eventRef, drink)
+}

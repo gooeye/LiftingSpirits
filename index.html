@@ -83,30 +83,12 @@
                         <div class="col-lg-4 col-md-12">
                             <h2 style="color: white; font-size: 1.5rem;">Upcoming Events</h2>
                             <!-- Event Card 1 -->
-                            <div class="card mb-3">
-                                <img src="path_to_event_image.jpg" class="card-img-top" alt="Event Image">
+                            <div class="card mb-3" v-for="event for events" :key="event.name">
+                                <img src="event.img" class="card-img-top" alt="Event Image">
                                 <div class="card-body">
-                                    <h5 class="card-title" style="color: #CC6E4A;">Event Title 1</h5>
-                                    <p class="card-text" style="color: #7C5241;">Event Description 1</p>
-                                    <a href="#" class="btn btn-primary" style="background-color: #CC6E4A;">Join Event</a>
-                                </div>
-                            </div>
-                            <!-- Event Card 2 -->
-                            <div class="card mb-3">
-                                <img src="path_to_event_image.jpg" class="card-img-top" alt="Event Image">
-                                <div class="card-body">
-                                    <h5 class="card-title" style="color: #CC6E4A;">Event Title 2</h5>
-                                    <p class="card-text" style="color: #7C5241;">Event Description 2</p>
-                                    <a href="#" class="btn btn-primary" style="background-color: #CC6E4A;">Join Event</a>
-                                </div>
-                            </div>
-                            <!-- Event Card 3 -->
-                            <div class="card mb-3">
-                                <img src="path_to_event_image.jpg" class="card-img-top" alt="Event Image">
-                                <div class="card-body">
-                                    <h5 class="card-title" style="color: #CC6E4A;">Event Title 3</h5>
-                                    <p class="card-text" style="color: #7C5241;">Event Description 3</p>
-                                    <a href="#" class="btn btn-primary" style="background-color: #CC6E4A;">Join Event</a>
+                                    <h5 class="card-title" style="color: #CC6E4A;">{{ event.name }}</h5>
+                                    <p class="card-text" style="color: #7C5241;">{{ event.description }}</p>
+                                    <button @click="setAndViewEvent(event)" class="btn btn-primary" style="background-color: #CC6E4A;">View Event</button>
                                 </div>
                             </div>
                         </div>
@@ -194,6 +176,35 @@
                     </div>
                 </div>
             </div>
+            <!-- View Event Modal -->
+            <div class="modal fade" id="viewEventModal" tabindex="-1" aria-labelledby="viewEventModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content background2">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="viewEventModalLabel" style="color:#CC6E4A">{{ currentEvent.name }}</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <h6 style="color:#CC6E4A">Date:</h6>
+                            <p style="color:white">{{ currentEvent.date }}</p>
+                            <h6 style="color:#CC6E4A">Location:</h6>
+                            <p style="color:white">{{ currentEvent.location }}</p>
+                            <h6 style="color:#CC6E4A">Description:</h6>
+                            <p style="color:white">{{ <currentEvent class="description"></currentEvent> }}</p>
+                            <h6 style="color:#CC6E4A">Cost:</h6>
+                            <p style="color:white">{{ currentEvent.cost }}</p>
+                            <h6 style="color:#CC6E4A">Maximum Number of People:</h6>
+                            <p style="color:white">{{ currentEvent.max }}</p>
+                            <h6 style="color:#CC6E4A">Organiser:</h6>
+                            <p style="color:white">{{ currentEvent.organiser }}</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>            
+
         </main>
     </div>
 
@@ -259,6 +270,16 @@
                         category: "",
                         author: "",
                         date: ""
+                    },
+                    currentEvent: {
+                        name: "",
+                        date: "",
+                        location: "",
+                        description: "",
+                        cost: "",
+                        max: "",
+                        organiser: "",
+                        img: '',
                     },
                     drinks: [
                         {
@@ -395,6 +416,38 @@
                             date: "October 29, 2023"
                         }
                     ],
+                    events: [
+                    {
+                        name: "Whiskey Tasting Extravaganza",
+                        date: "November 15,2023",
+                        location: "The Louvre, Rue de Rivoli, 75001 Paris, France",
+                        description: "Join us for an evening of fine whiskey tasting. Sample a selection of rare and premium whiskeys from around the world while learning about their history and production. Enjoy live music and gourmet snacks.",
+                        cost: "$75 per person",
+                        max: "40",
+                        organiser: "Whiskey Connoisseurs Club",
+                        img: 'components/img/whiskey.webp',
+                    },
+                    {
+                        name: "Craft Beer Festival",
+                        date: "March 8, 2024",
+                        location: "Central Park, New York, NY, USA",
+                        description: "Experience the best of craft beer at our annual festival. We'll have over 100 craft breweries showcasing their unique brews. Enjoy live music, food trucks, and beer-related games.",
+                        cost: "$40 per person",
+                        max: "500",
+                        organiser: "Brewmaster Events",
+                        img: "components/img/craftbeerfestival.avif",
+                    },
+                    {
+                        name: "Wine and Paint Night",
+                        date: "September 22, 2023",
+                        location: "Sydney Opera House, Bennelong Point, Sydney NSW 2000, Australia",
+                        description: "Sip on exquisite wines while unleashing your inner artist. Join us for a guided painting session and create your masterpiece. No prior painting experience required.",
+                        cost: "$50 per person",
+                        max: "30",
+                        organiser: "VinoArt Creations",
+                        img: "components/img/wine&paint.png",
+                    }
+                    ],
                     profileBanner: "https://static.wikia.nocookie.net/mariokart/images/7/7d/MK8_WiiMooMooMeadows.jpg",
                     profileIcon: "https://static.wikia.nocookie.net/mariokart/images/7/7d/MK8_WiiMooMooMeadows.jpg",
                     username: username,
@@ -407,6 +460,14 @@
                     console.log(this.currentPost); // <-- Add this line here
                     this.$nextTick(() => {
                         let modal = new bootstrap.Modal(document.getElementById('viewPostModal'));
+                        modal.show();
+                    });
+                },
+                setAndViewEvent(event) {
+                    this.currentEvent = event; 
+                    console.log(this.currentPost); 
+                    this.$nextTick(() => {
+                        let modal = new bootstrap.Modal(document.getElementById('viewEventModal'));
                         modal.show();
                     });
                 }

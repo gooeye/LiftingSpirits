@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
-import { collection, doc, query, where, getDoc, getDocs, getFirestore } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-firestore.js";
+import { collection, doc, query, where, getDoc, getDocs, getFirestore, updateDoc, arrayUnion } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-firestore.js";
 
 import { firebaseConfig } from "/js/config.js"
 
@@ -40,10 +40,30 @@ export async function emailExists(email) {
     }
 }
 
-export function addDrink(user, status) {
+export function addDrink(user, status, drink, rating) {
     // params:
-    //   user: string, username of user
-    // status: int, 0 = haven't tried, 1 = tried, 2 = want to try
+    //   user: string, email of user
+    // status: int, 0 = won't try, 1 = tried, 2 = want to try
+    //  drink: string, name of drink
+    // rating: int || undefined, rating
+    if (rating && status != 1) {
+        throw new Error('Can\'t rate a drink you haven\'t tried');
+    }
     const userRef = doc(db, "users", user);
-    setDoc(eventRef, drink)
+    if (status == 0) {
+        updateDoc(userRef, {
+            will_drink : arrayUnion(drink)
+        })
+    }
+    else if (status == 1) {
+        let toUpdate = {}
+        let key = 'tried.'+drink
+        toUpdate[key] = rating
+        updateDoc(userRef, toUpdate)
+    }
+    else if (status == 2) {
+        updateDoc(userRef, {
+            will_not_drink : arrayUnion(drink)
+        })
+    }
 }

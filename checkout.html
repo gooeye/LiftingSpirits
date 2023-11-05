@@ -23,10 +23,23 @@
                 <div class = 'row'>
                     <div class ="col-lg-3 col-12 order-md-2 p-2 rounded h-50" style="background-color: #CC6E4A">
                         <h1 class="pb-2">Order Summary</h1>
-                        <ul style="list-style-type: none;padding:0">
-                            <li v-for="item in cart"class="pl-1 pb-2"><i class="bi-circle"></i> {{item.name}}&nbsp&nbsp x{{item.qty}}</li>
-                        </ul>
-                        <hr class ="rounded bg-light pb-2" style="border-top: 4px solid;border-radius: 5px;">
+                        <table class="table-borderless">
+                            <thead>
+                              <tr>
+                                <th scope="col">Item</th>
+                                <th scope="col">Quantity</th>
+                                <th scope="col">Price</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr v-for="item in cart">
+                                <td>{{item.name}}</td>
+                                <td>{{item.qty}}</td>
+                                <td>{{item.price}}</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        <hr class ="rounded bg-light pt-2 pb-2" style="border-top: 4px solid;border-radius: 5px;">
                         <p class = "pb-1">Subtotal:             ${{subtotal}} SGD</p>
                         <p class = "pb-1">Standard Shipping:    $10.00 SGD</p>
                         <p class = "pb-1">Total:    ${{total}} SGD</p>
@@ -282,10 +295,6 @@
                 }
 
                 form.classList.add('was-validated');
-
-                
-
-
                 window.location.href="confirm.html"
                 
             

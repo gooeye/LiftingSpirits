@@ -77,7 +77,7 @@ export default {
                     <div class="container p-0">
                         <ul class="col-12 nav nav-pills flex-column mb-3">
                             <li :class="{'nav-item':true, 'd-none':!isLoggedIn}" @click="$emit('navigate')">
-                                <router-link :class="{'nav-link':true, 'active':page=='profile'}" :to="'/user/' + username">
+                                <router-link :class="{'nav-link':true, 'active':page=='profile'}" :to="'/user/'+username">
                                     <i class="bi bi-person me-2"></i>
                                     <span class="align-middle pl-1">Profile</span>
                                 </router-link>

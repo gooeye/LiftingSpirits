@@ -23,7 +23,7 @@
                 <div class = 'row'>
                     <div class ="col-lg-3 col-12 order-md-2 p-2 rounded h-50" style="background-color: #CC6E4A">
                         <h1 class="pb-2">Order Summary</h1>
-                        <table class="table-borderless">
+                        <table class="table-borderless" style="background-color: #CC6E4A;">
                             <thead>
                               <tr>
                                 <th scope="col">Item</th>
@@ -39,7 +39,7 @@
                               </tr>
                             </tbody>
                           </table>
-                        <hr class ="rounded bg-light pt-2 pb-2" style="border-top: 4px solid;border-radius: 5px;">
+                        <hr class ="rounded bg-light pt-2 pb-2" style="border-top: 2px solid;border-radius: 5px;">
                         <p class = "pb-1">Subtotal:             ${{subtotal}} SGD</p>
                         <p class = "pb-1">Standard Shipping:    $10.00 SGD</p>
                         <p class = "pb-1">Total:    ${{total}} SGD</p>
@@ -48,7 +48,7 @@
                     <div class ="col-lg-9 order-md-1">
                         <h1 class = "pb-2">Checkout</h1>
                     <!---form------------------------------------------------------------------------------------>
-                        <form class ="row checkout" id="form" novalidate>
+                        <form class ="row checkout" id="form" onsubmit="return true`" novalidate>
                             <div class="col-lg-6 col-12 pb-4">
                                 <label for="fname" class="form-label">First Name</label>
                                 <input type="text" class="form-control" id="fname" placeholder="First Name" required>
@@ -103,18 +103,18 @@
 
                             <div class="col-lg-8 pb-4">
                                 <div class="form-check-inline">
-                                    <input class="form-check-input" type="radio" name="card" id="card" required>
+                                    <input class="form-check-input" type="radio" name="card" id="debit" required>
                                     <label class="form-check-label" for="cCard">&nbspDebit Card</label>
                                   </div>
                                   <div class="form-check-inline">
-                                    <input class="form-check-input" type="radio" name="card" id="card" required>
+                                    <input class="form-check-input" type="radio" name="card" id="credit" required>
                                     <label class="form-check-label" for="dCard">&nbspCredit Card</label>
                                   </div>                     
                             </div>
 
                             <div class="col-lg-6 col-12 pb-4">
                                 <label for="card" class="form-label">Card Number</label>
-                                <input type="text" class="form-control" maxlength="16" id="card" placeholder="Card Number" required>
+                                <input type="text" class="form-control" maxlength="16" id="cardno" placeholder="Card Number" required>
                                 <div class="invalid-feedback">
                                     Enter a valid card number
                                 </div>                    
@@ -128,16 +128,22 @@
                                 </div>                  
                             </div>
 
-                            <div class="col-lg-4 col-4 pb-4">
+                            <div class="col-lg-3 col-4 pb-4">
                                 <label for="exDate" class="form-label">Expiry Date</label>
-                                <input type="text" class="form-control" maxlength="5" id="exDate" placeholder="mm/dd" required>                     
+                                <input type="text" class="form-control" maxlength="5" id="exDate" placeholder="mm/dd" required>      
+                                <div class="invalid-feedback">
+                                    Enter the expiry date of your card
+                                </div>                     
                             </div>
-                            <div class="col-lg-4 col-4 pb-4">
+                            <div class="col-lg-3 col-4 pb-4">
                                 <label for="code" class="form-label">CVV/CVC</label>
-                                <input type="text" class="form-control" maxlength="3" id="code" placeholder="..." required>                     
+                                <input type="text" class="form-control" maxlength="3" id="code" placeholder="..." required>  
+                                <div class="invalid-feedback">
+                                    Enter a valid security code
+                                </div>                                                   
                             </div>
-                            <div class="col-lg-5 col-12 pb-4">
-                                <button type = "submit" class="btn text-white" style="background-color: #CC6E4A" @submit="verify()">Submit</button>                 
+                            <div class="col-lg-7 col-12 pb-4">
+                                <button type = "submit" class="btn text-white" style="background-color: #CC6E4A">Submit</button>                 
                             </div>
                         </form>
                     <!---form------------------------------------------------------------------------------------>
@@ -193,11 +199,12 @@
                     current.setDate(current.getDate() + 4)
 
                     let dateString = current.getFullYear() + ", " + months[current.getMonth()] + ", " + current.getDate() + ", " + daysOfWeek[current.getDay()]
-                    sessionStorage.setItem("deliverydate",JSON.stringify(
-                    {
-                        delivery:dateString,
-                    }
-                    ))
+                    const existingcart = JSON.parse(sessionStorage.getItem('order'))
+                    existingcart.delivery = dateString
+
+                    sessionStorage.setItem('order', JSON.stringify(existingcart));
+
+
                     return dateString
                 },
             },
@@ -221,7 +228,7 @@
             phone.value = (phone.value).replace(/[^0-9]/g, "");
         });
 
-        var card = document.getElementById("card")
+        var card = document.getElementById("cardno")
         card.addEventListener("input", function () {
             //remove non-numeric characters
             card.value = (card.value).replace(/[^0-9]/g, "");
@@ -236,6 +243,7 @@
         var form = document.getElementById("form")
 
         form.addEventListener("submit", function(event){
+
                 var fname = document.getElementById('fname');
                 var lname = document.getElementById('lname');
                 var address = document.getElementById('address');
@@ -243,59 +251,97 @@
                 var email = document.getElementById('email');
                 var phone = document.getElementById('phone');
 
+                var isValid = true
+
                 if ((fname.value).length == 0) {
                     event.preventDefault();
                     event.stopPropagation();
                     fname.classList.add('is-invalid');
+                    isValid = false
                 }
 
                 if ((lname.value).length == 0) {
                     event.preventDefault();
                     event.stopPropagation();
                     lname.classList.add('is-invalid');
+                    isValid = false
+
                 }
 
                 if ((address.value).length == 0) {
                     event.preventDefault();
                     event.stopPropagation();
                     address.classList.add('is-invalid');
+                    isValid = false
+
                 }
 
                 if ((postal.value).length != 6) {
                     event.preventDefault();
                     event.stopPropagation();
                     address.classList.add('is-invalid');
+                    isValid = false
+
                 }
 
                 if ((email.value).length == 0) {
                     event.preventDefault();
                     event.stopPropagation();
                     email.classList.add('is-invalid');
+                    isValid = false
                 }
 
                 if ((phone.value).length !== 8) {
                     event.preventDefault();
                     event.stopPropagation();
                     phone.classList.add('is-invalid');
+                    isValid = false
                 }
-
-                var card = document.getElementById("card")
+                
+                var card = document.getElementById("cardno")
                 var namecard = document.getElementById("namecard")
 
-                if(((card.value).length)!=16){
+                var exp = document.getElementById("exDate")
+                var sec = document.getElementById("code")
+
+                if(((card.value).length)<16){
                     event.preventDefault();
                     event.stopPropagation();
                     card.classList.add('is-invalid');
+                    isValid = false
                 }
 
                 if(((namecard.value).length)==0){
                     event.preventDefault();
                     event.stopPropagation();
                     namecard.classList.add('is-invalid');
+                    isValid = false
                 }
 
-                form.classList.add('was-validated');
-                window.location.href="confirm.html"
+                if(((exp).length)==0){
+                    event.preventDefault();
+                    event.stopPropagation();
+                    exp.classList.add('is-invalid');
+                    isValid = false
+                }
+
+                if(((sec).length)<3){
+                    event.preventDefault();
+                    event.stopPropagation();
+                    sec.classList.add('is-invalid');
+                    isValid = false
+                }
+
+                if(isValid ==true){
+                    form.classList.add('was-validated');
+                    setTimeout(function() {
+                    window.location.href = "confirm.html";
+                    }, 5000)
+                }
+
+
+
+
                 
             
         })

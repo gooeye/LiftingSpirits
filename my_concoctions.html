@@ -139,7 +139,7 @@
                         for (let cartItems of this.cart) {
                             if(cartItems.name == item) {
                                 cartItems.qty +=1;
-                                sessionStorage.setItem("checkout",JSON.stringify({cart: this.cart}))
+                                sessionStorage.setItem("order",JSON.stringify({cart: this.cart}))
                                 break editCart;
                             }
                         }
@@ -148,7 +148,7 @@
                             qty: 1,
                         };
                         (this.cart).push(toAdd)
-                        sessionStorage.setItem("checkout",JSON.stringify({cart: this.cart}))
+                        sessionStorage.setItem("order",JSON.stringify({cart: this.cart}))
                     }
                 },
 

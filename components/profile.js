@@ -1,10 +1,10 @@
 
 import modal from "/components/modal.js"
-import tracking from "/components/tracker.js"
+// import tracking from "/components/tracker.js"
 export const user = {
     components: {
         'modal': modal,
-        'tracking': tracking
+        // 'tracking': tracking
     },
     props: {
         'profileBanner': String,
@@ -184,6 +184,11 @@ export const user = {
                 </table>
             </div>
             <div class="container rounded-3 background3 p-4 shadow-sm mb-4" id="tracking" >
+            <div id="app" class="min-vh-100 d-flex flex-column background2">
+
+
+        <div class="container-fluid background2">
+            <div class="row">
             <div class="text-center mb-4">
             <h1 class="display-4">Unit and Calorie Tracking</h1>
             <p class="subText text-muted">You are advised to drink less than 14 units a week</p>
@@ -223,7 +228,8 @@ export const user = {
                             </div>
                         </div>
                     </div>
-                </div>
+                </div></div></div></div>
+
             </div>
             <!-- ... -->
         </div>

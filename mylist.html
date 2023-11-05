@@ -94,11 +94,14 @@
 
 
 <script>
+    import { selectedDrinks } from '/sharedState.js';
     
     export default{
         data(){
             return {
                 selectedDrinksList: selectedDrinks.value,
+                myList: [],
+                displayedDrinks:[],
             }
         },
         computed:{
@@ -110,9 +113,9 @@
 
             sortDrinks(type){
                 if (type==='All'){
-                    this.displayedDrinks =[...this.my_list];
+                    this.displayedDrinks =[...this.myList];
                 } else{
-                    this.displayedDrinks = this.my_list.filter(drink => drink.type === type);
+                    this.displayedDrinks = this.myList.filter(drink => drink.type === type);
                 }
             },
 
@@ -127,7 +130,7 @@
 
 <script type="module">
 
-    import { selectedDrinks } from '/sharedState.js';
+    
     import navbar from "/components/navbar.js"
     var loginAuth = JSON.parse(sessionStorage.getItem("user-info"))
     let isLoggedIn = false

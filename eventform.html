@@ -99,7 +99,7 @@
                                     <label for="eventImage" class="form-label">Event Image</label>
                                     <input type="file" class="form-control  p-2" id="eventImage" name="eventImage" accept="image/*" required>
                                 </div>
-                                <button type="submit" class="btn" style="background-color: #CC6E4A;color:white" >Create Event</button>
+                                <button class="btn" @click="created()" style="background-color: #CC6E4A;color:white" >Create Event</button>
                             </form>
                         </div>
                     
@@ -217,6 +217,10 @@
             toggleCard(index) {
                 this.created_events[index].expanded = !this.created_events[index].expanded;
             },
+
+            created(){
+                alert("Event created! ");
+            }
         }
     })
     var vm = app.mount("#app")

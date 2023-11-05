@@ -66,15 +66,17 @@
                         <!-- Main Content Column with Drink Posts -->
                         <div class="col-lg-8 col-md-12">
                             <!-- Drink Post 1 -->
-                            <div class="col-lg-4 col-md-6 mb-3">
-                                <a href="path_placeholder" class="text-decoration-none">
-                                    <div class="card">
-                                        <img src="image_path_placeholder_1.jpg" alt="Drink Image 1" class="card-img-top">
-                                        <div class="card-body">
-                                            <h5 class="card-title" style="color: #7C5241;">Post Name 1</h5>
-                                        </div>
+                            <div class="col-lg-4 col-md-6 mb-3" v-for="post in popularposts" :key="post.title">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5 class="card-title" style="color: #7C5241;">{{post.title}}</h5>
+                                        <p class="card-text" style="color: #7C5241;">{{ post.category }}</p>
+                                        <p class="card-text" style="color: #7C5241;">{{ post.description }}</p>
+                                        <p class="card-text" style="color: #7C5241;">Posted by: {{ post.author}}</p>
+                                        <p class="card-text" style="color: #7C5241;">Posted on: {{ post.date}}</p>
+                                            <button @click="setAndViewPost(post)" class="btn btn-primary" style="background-color: #CC6E4A;">View Post</button>
                                     </div>
-                                </a>
+                                </div>
                             </div>
                         </div>
                         <!-- Side Column for Upcoming Events -->
@@ -114,62 +116,87 @@
             <div class="col-lg-10 col-md-9 col-12 background2 h-100 min-vh-100 shadow-sm" v-if='!isHome'>
                 <router-view :profile-banner="profileBanner" :profile-icon="profileIcon" :drinks="drinks"></router-view>
             </div>
+            <!-- Create Post Modal -->
+            <div class="modal fade" id="createPostModal" tabindex="-1" aria-labelledby="createPostModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                <div class="modal-content background 2">
+                    <div class="modal-header">
+                    <h5 class="modal-title" id="createPostModalLabel" style="color:#CC6E4A">Create a New Post</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                    <form>
+                        <!-- Post Name -->
+                        <div class="mb-3">
+                        <label for="postName" class="form-label" style="color:#CC6E4A">Post Name</label>
+                        <input type="text" class="form-control" id="postName" placeholder="Enter post name">
+                        </div>
+                        <!-- Post Description -->
+                        <div class="mb-3">
+                        <label for="postDescription" class="form-label" style="color:#CC6E4A">Post Description</label>
+                        <textarea class="form-control" id="postDescription" rows="3" placeholder="Describe the post"></textarea>
+                        </div>
+                        <!-- Post Category -->
+                        <div class="mb-3">
+                        <label class="form-label" style="color:#CC6E4A">Post Category</label>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="postCategory" id="beer" value="Beer">
+                            <label class="form-check-label" for="beer" style="color:white">Beer</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="postCategory" id="wine" value="Wine">
+                            <label class="form-check-label" for="wine" style="color:white">Wine</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="postCategory" id="cocktail" value="Cocktail">
+                            <label class="form-check-label" for="cocktail" style="color:white">Cocktail</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="postCategory" id="mocktail" value="Mocktail">
+                            <label class="form-check-label" for="mocktail" style="color:white">Mocktail</label>
+                        </div>
+                        </div>
+                        <!-- Post Image -->
+                        <div class="mb-3">
+                        <label for="postImage" class="form-label" style="color:#CC6E4A">Post Image</label>
+                        <input type="file" class="form-control" id="postImage" accept="image/*">
+                        </div>
+                    </form>
+                    </div>
+                    <div class="modal-footer">
+                    <a href="#"  ><button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button></a>
+                    <a href="#" style="background-color: #CC6E4A;" ><button type="button" class="btn btn-primary">Create Post</button></a>
+                    </div>
+                </div>
+                </div>
+            </div>
+            <!-- View Post Modal -->
+            <div class="modal fade" id="viewPostModal" tabindex="-1" aria-labelledby="viewPostModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content background2">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="viewPostModalLabel" style="color:#CC6E4A">{{ currentPost.title }}</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <h6 style="color:#CC6E4A">Category:</h6>
+                            <p style="color:white">{{ currentPost.category }}</p>
+                            <h6 style="color:#CC6E4A">Description:</h6>
+                            <p style="color:white">{{ currentPost.description }}</p>
+                            <h6 style="color:#CC6E4A">Author:</h6>
+                            <p style="color:white">{{ currentPost.author }}</p>
+                            <h6 style="color:#CC6E4A">Date:</h6>
+                            <p style="color:white">{{ currentPost.date }}</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </main>
     </div>
-    <!-- Create Post Modal -->
-    <div class="modal fade" id="createPostModal" tabindex="-1" aria-labelledby="createPostModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-        <div class="modal-content background 2">
-            <div class="modal-header">
-            <h5 class="modal-title" id="createPostModalLabel" style="color:#CC6E4A">Create a New Post</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-            <form>
-                <!-- Post Name -->
-                <div class="mb-3">
-                <label for="postName" class="form-label" style="color:#CC6E4A">Post Name</label>
-                <input type="text" class="form-control" id="postName" placeholder="Enter post name">
-                </div>
-                <!-- Post Description -->
-                <div class="mb-3">
-                <label for="postDescription" class="form-label" style="color:#CC6E4A">Post Description</label>
-                <textarea class="form-control" id="postDescription" rows="3" placeholder="Describe the post"></textarea>
-                </div>
-                <!-- Post Category -->
-                <div class="mb-3">
-                <label class="form-label" style="color:#CC6E4A">Post Category</label>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="postCategory" id="beer" value="Beer">
-                    <label class="form-check-label" for="beer" style="color:white">Beer</label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="postCategory" id="wine" value="Wine">
-                    <label class="form-check-label" for="wine" style="color:white">Wine</label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="postCategory" id="cocktail" value="Cocktail">
-                    <label class="form-check-label" for="cocktail" style="color:white">Cocktail</label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="postCategory" id="mocktail" value="Mocktail">
-                    <label class="form-check-label" for="mocktail" style="color:white">Mocktail</label>
-                </div>
-                </div>
-                <!-- Post Image -->
-                <div class="mb-3">
-                <label for="postImage" class="form-label" style="color:#CC6E4A">Post Image</label>
-                <input type="file" class="form-control" id="postImage" accept="image/*">
-                </div>
-            </form>
-            </div>
-            <div class="modal-footer">
-            <a href="#"  ><button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button></a>
-            <a href="#" style="background-color: #CC6E4A;" ><button type="button" class="btn btn-primary">Create Post</button></a>
-            </div>
-        </div>
-        </div>
-    </div>
+
 
     
     <!-- Vue.js App -->
@@ -326,7 +353,39 @@
                             date: "October 28, 2023",
                         },
                         {
-
+                            title: "Post 2",
+                            description: "Description 2",
+                            category: "Wine",
+                            author : "Jane Doe",
+                            date: "October 27, 2023"
+                        },
+                        {
+                            title: "Post 3",
+                            description: "Description 3",
+                            category: "Cocktail",
+                            author : "Jenny Doe",
+                            date: "October 27, 2023"
+                        },
+                        {
+                            title: "Post 4",
+                            description: "Description 4",
+                            category: "Mocktail",
+                            author : "Elliot Doe",
+                            date: "October 26, 2023"
+                        },
+                        {
+                            title: "Post 5",
+                            description: "Description 5",
+                            category: "Liquor",
+                            author : "Min Doe",
+                            date: "October 28, 2023"
+                        },
+                        {
+                            title: "Post 6",
+                            description: "Description 6",
+                            category: "Wine",
+                            author : "Divya Doe",
+                            date: "October 29, 2023"
                         }
 
                     ],
@@ -336,6 +395,16 @@
                     isHome: isHome
                 }
             },
+            methods: {
+                setAndViewPost(post) {
+                    this.currentPost = post; // directly assign the post
+                    console.log(this.currentPost); // <-- Add this line here
+                    this.$nextTick(() => {
+                        let modal = new bootstrap.Modal(document.getElementById('viewPostModal'));
+                        modal.show();
+                    });
+                }
+            } 
         })
         app.component(
             'vertical-navbar', navbar

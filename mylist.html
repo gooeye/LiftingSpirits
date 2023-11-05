@@ -93,11 +93,12 @@
       </div>
 
 
-   
+
 
 
 
 <script type="module">
+    
     import navbar from "/components/navbar.js"
     var loginAuth = JSON.parse(sessionStorage.getItem("user-info"))
     let isLoggedIn = false
@@ -127,11 +128,10 @@
         },
         data() {
             return {
-            
-                selectedEventIndex: -1,
                 
-                
-                //events made by users
+                displayedDrinks:[],
+  
+                //drinks selected by users taken from firebase 
                 my_list : [
                 {
                     name: "Mojito",
@@ -163,13 +163,14 @@
                     status: "To Try",
                 },
                 ],
-                displayedDrinks: [],
+    
                 isLoggedIn: isLoggedIn,
                 model: null,
             }
         },
 
         computed: {
+       
         },
 
         methods: {
@@ -177,6 +178,7 @@
             sortDrinks(type){
                 if (type==='All'){
                     this.displayedDrinks =[...this.my_list];
+                 
                 } else{
                     this.displayedDrinks = this.my_list.filter(drink => drink.type === type);
                 }

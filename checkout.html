@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lifting Spirits | Home</title>
+    <title>Lifting Spirits | Checkout</title>
 
     <!-- Import CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -23,10 +23,23 @@
                 <div class = 'row'>
                     <div class ="col-lg-3 col-12 order-md-2 p-2 rounded h-50" style="background-color: #CC6E4A">
                         <h1 class="pb-2">Order Summary</h1>
-                        <ul style="list-style-type: none;padding:0">
-                            <li v-for="item in cart"class="pl-1 pb-2"><i class="bi-circle"></i> {{item.name}}&nbsp&nbsp x{{item.qty}}</li>
-                        </ul>
-                        <hr class ="rounded bg-light pb-2" style="border-top: 4px solid;border-radius: 5px;">
+                        <table class="table-borderless">
+                            <thead>
+                              <tr>
+                                <th scope="col">Item</th>
+                                <th scope="col">Quantity</th>
+                                <th scope="col">Price</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr v-for="item in cart">
+                                <td>{{item.name}}</td>
+                                <td>{{item.qty}}</td>
+                                <td>{{item.price}}</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        <hr class ="rounded bg-light pt-2 pb-2" style="border-top: 4px solid;border-radius: 5px;">
                         <p class = "pb-1">Subtotal:             ${{subtotal}} SGD</p>
                         <p class = "pb-1">Standard Shipping:    $10.00 SGD</p>
                         <p class = "pb-1">Total:    ${{total}} SGD</p>
@@ -35,7 +48,7 @@
                     <div class ="col-lg-9 order-md-1">
                         <h1 class = "pb-2">Checkout</h1>
                     <!---form------------------------------------------------------------------------------------>
-                        <form class ="row" id="form" novalidate>
+                        <form class ="row checkout" id="form" novalidate>
                             <div class="col-lg-6 col-12 pb-4">
                                 <label for="fname" class="form-label">First Name</label>
                                 <input type="text" class="form-control" id="fname" placeholder="First Name" required>
@@ -78,9 +91,9 @@
                                     Enter a valid phone number
                                 </div>
                             </div>
-                            <div class="col-12 pb-4">
+                            <div class="col-12 pb-2">
                                 <label class ="form-label">Estimated Date of Delivery:&nbsp&nbsp</label>
-                                <p class = "d-inline">{{delDate()}}</p>
+                                <p class = "d-inline">{{delDate}}</p>
                             </div>
                             <div class="col-lg-12 pb-2">
                                 <hr class ="rounded bg-light" style="border-top: 8px solid;border-radius: 5px;">
@@ -90,11 +103,11 @@
 
                             <div class="col-lg-8 pb-4">
                                 <div class="form-check-inline">
-                                    <input class="form-check-input" type="radio" name="card" id="cCard" required>
+                                    <input class="form-check-input" type="radio" name="card" id="card" required>
                                     <label class="form-check-label" for="cCard">&nbspDebit Card</label>
                                   </div>
                                   <div class="form-check-inline">
-                                    <input class="form-check-input" type="radio" name="card" id="dCard" required>
+                                    <input class="form-check-input" type="radio" name="card" id="card" required>
                                     <label class="form-check-label" for="dCard">&nbspCredit Card</label>
                                   </div>                     
                             </div>
@@ -124,7 +137,7 @@
                                 <input type="text" class="form-control" maxlength="3" id="code" placeholder="..." required>                     
                             </div>
                             <div class="col-lg-5 col-12 pb-4">
-                                <button type="submit" class="btn text-white" style="background-color: #CC6E4A" @submit="confirm()">Submit</button>                 
+                                <button type = "submit" class="btn text-white" style="background-color: #CC6E4A" @submit="verify()">Submit</button>                 
                             </div>
                         </form>
                     <!---form------------------------------------------------------------------------------------>
@@ -149,7 +162,7 @@
             data() { 
                 return { 
                     page: 'checkout',
-                    isLoggedIn: false,
+                    isLoggedIn: true,
                     cart : cart,
                 };
             }, 
@@ -172,9 +185,7 @@
 
                     total_price =  total_price + 10
                     return total_price.toFixed(2)
-                }
-            },
-            methods: {
+                },
                 delDate() {
                     let daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
                     let months = ['January',"February","March","April","May","June","July","August","September","October","November","December"]
@@ -182,15 +193,13 @@
                     current.setDate(current.getDate() + 4)
 
                     let dateString = current.getFullYear() + ", " + months[current.getMonth()] + ", " + current.getDate() + ", " + daysOfWeek[current.getDay()]
+                    sessionStorage.setItem("deliverydate",JSON.stringify(
+                    {
+                        delivery:dateString,
+                    }
+                    ))
                     return dateString
                 },
-
-                confirm() {
-                    const form = document.getElementById("form");
-                    if (form.checkValidity()) {
-                        window.location.href = "confirm.html";
-                    } 
-                }
             },
         });
         var vm = app.mount("#app")
@@ -198,6 +207,8 @@
     </script>
 
     <script>
+
+
         var postal = document.getElementById("postal")
         postal.addEventListener("input", function () {
             //remove non-numeric characters
@@ -284,6 +295,7 @@
                 }
 
                 form.classList.add('was-validated');
+                window.location.href="confirm.html"
                 
             
         })

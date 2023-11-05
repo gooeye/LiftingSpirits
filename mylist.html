@@ -96,6 +96,11 @@
 <script>
     import { selectedDrinks } from '/sharedState.js';
     export default{
+        data(){
+            return {
+                selectedDrinksList: selectedDrinks.value,
+            }
+        },
         computed:{
             selectedDrinksList(){
                 return selectedDrinks.value;

@@ -62,7 +62,7 @@
                                 <div class = "col-md-4 my-3"  v-for="(drink, index) in displayedDrinks" :key="index">
                                     <div class="drink-card" data-bs-toggle="collapse" :data-bs-target="'#drink' + index">
                                         <img :src="drink.img" alt="Drink Img">
-                                        <div class="card-body">
+                                        <div class="card-body p-2">
                                             <h5 class="card-title">{{drink.name}}</h5>
                                             <div :id="'drink' + index" class="collapse">
                                                 <div>Type: {{drink.type}}</div>

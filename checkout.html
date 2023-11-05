@@ -124,7 +124,7 @@
                                 <input type="text" class="form-control" maxlength="3" id="code" placeholder="..." required>                     
                             </div>
                             <div class="col-lg-5 col-12 pb-4">
-                                <button type="submit" class="btn text-white" style="background-color: #CC6E4A" @click="confirm()">Submit</button>                 
+                                <button class="btn text-white" style="background-color: #CC6E4A">Submit</button>                 
                             </div>
                         </form>
                     <!---form------------------------------------------------------------------------------------>
@@ -184,10 +184,6 @@
                     let dateString = current.getFullYear() + ", " + months[current.getMonth()] + ", " + current.getDate() + ", " + daysOfWeek[current.getDay()]
                     return dateString
                 },
-
-                confirm() {  
-                    window.location.href = "confirm.html";
-                }
             },
         });
         var vm = app.mount("#app")

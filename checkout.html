@@ -25,17 +25,17 @@
                         <h1 class="pb-2">Order Summary</h1>
                         <table class="table-borderless" style="background-color: #CC6E4A;">
                             <thead>
-                              <tr>
-                                <th scope="col">Item</th>
-                                <th scope="col">Quantity</th>
-                                <th scope="col">Price</th>
+                              <tr >
+                                <th scope="col" style="background-color: #CC6E4A;">Item</th>
+                                <th scope="col" style="background-color: #CC6E4A;">Quantity</th>
+                                <th scope="col" style="background-color: #CC6E4A;">Price</th>
                               </tr>
                             </thead>
                             <tbody>
                               <tr v-for="item in cart">
-                                <td>{{item.name}}</td>
-                                <td>{{item.qty}}</td>
-                                <td>{{item.price}}</td>
+                                <td style="background-color: #CC6E4A;">{{item.name}}</td>
+                                <td style="background-color: #CC6E4A;">{{item.qty}}</td>
+                                <td style="background-color: #CC6E4A;">{{item.price}}</td>
                               </tr>
                             </tbody>
                           </table>
@@ -48,7 +48,7 @@
                     <div class ="col-lg-9 order-md-1">
                         <h1 class = "pb-2">Checkout</h1>
                     <!---form------------------------------------------------------------------------------------>
-                        <form class ="row checkout" id="form" onsubmit="return true`" novalidate>
+                        <form class ="row checkout" id="form" novalidate>
                             <div class="col-lg-6 col-12 pb-4">
                                 <label for="fname" class="form-label">First Name</label>
                                 <input type="text" class="form-control" id="fname" placeholder="First Name" required>
@@ -74,7 +74,7 @@
                                 <label for="postal" class="form-label">Postal Code</label>
                                 <input type="text" class="form-control" id="postal" maxlength="6" placeholder="Postal Code" required>
                                 <div class="invalid-feedback">
-                                    Postal code needs to have six numbers
+                                    Enter your postal code
                                 </div>
                             </div>
                             <div class="col-lg-6 col-12 pb-4">
@@ -109,7 +109,7 @@
                                   <div class="form-check-inline">
                                     <input class="form-check-input" type="radio" name="card" id="credit" required>
                                     <label class="form-check-label" for="dCard">&nbspCredit Card</label>
-                                  </div>                     
+                                  </div>                
                             </div>
 
                             <div class="col-lg-6 col-12 pb-4">
@@ -143,7 +143,7 @@
                                 </div>                                                   
                             </div>
                             <div class="col-lg-7 col-12 pb-4">
-                                <button type = "submit" class="btn text-white" style="background-color: #CC6E4A">Submit</button>                 
+                                <button id="submit" class="btn text-white" style="background-color: #CC6E4A">Submit</button>                 
                             </div>
                         </form>
                     <!---form------------------------------------------------------------------------------------>
@@ -214,8 +214,6 @@
     </script>
 
     <script>
-
-
         var postal = document.getElementById("postal")
         postal.addEventListener("input", function () {
             //remove non-numeric characters
@@ -240,9 +238,9 @@
             code.value = (code.value).replace(/[^0-9]/g, "");
         });  
 
-        var form = document.getElementById("form")
+        var submit = document.getElementById("submit")
 
-        form.addEventListener("submit", function(event){
+        submit.addEventListener("click", function(event){
 
                 var fname = document.getElementById('fname');
                 var lname = document.getElementById('lname');
@@ -279,7 +277,7 @@
                 if ((postal.value).length != 6) {
                     event.preventDefault();
                     event.stopPropagation();
-                    address.classList.add('is-invalid');
+                    postal.classList.add('is-invalid');
                     isValid = false
 
                 }
@@ -298,12 +296,22 @@
                     isValid = false
                 }
                 
+                var debit = document.getElementById('debit')
+                var credit = document.getElementById('credit')
+
                 var card = document.getElementById("cardno")
                 var namecard = document.getElementById("namecard")
 
                 var exp = document.getElementById("exDate")
                 var sec = document.getElementById("code")
 
+                if(debit.checked == false && credit.checked == false){
+                    event.preventDefault();
+                    event.stopPropagation();
+                    debit.classList.add('is-invalid')
+                    credit.classList.add('is-invalid');
+                    isValid = false
+                }
                 if(((card.value).length)<16){
                     event.preventDefault();
                     event.stopPropagation();
@@ -318,14 +326,14 @@
                     isValid = false
                 }
 
-                if(((exp).length)==0){
+                if(((exp.value).length)==0){
                     event.preventDefault();
                     event.stopPropagation();
                     exp.classList.add('is-invalid');
                     isValid = false
                 }
 
-                if(((sec).length)<3){
+                if(((sec.value).length)<3){
                     event.preventDefault();
                     event.stopPropagation();
                     sec.classList.add('is-invalid');
@@ -336,7 +344,7 @@
                     form.classList.add('was-validated');
                     setTimeout(function() {
                     window.location.href = "confirm.html";
-                    }, 5000)
+                    }, 10000)
                 }
 
 

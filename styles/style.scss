@@ -2,6 +2,7 @@
 @import 'colors';
 @import 'fancy';
 @import 'modal';
+@import 'profile';
 @import url('https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100;0,300;0,400;0,600;0,700;0,900;1,100;1,300;1,400;1,600;1,700;1,900&family=Mulish:wght@200;300;400;500;600;700&display=swap');
 
 // Fonts
@@ -38,40 +39,6 @@ body {
     }
 } 
 
-table {
-    width: 100%;
-    border-collapse: separate;
-}
-
-th {
-    background-color: $background;
-}
-
-tr td {
-    background-color: $background2;
-}
-
-th, td {
-    padding: 6px;
-}
-
-tbody tr:nth-child(even) td {
-    background-color: rgba($background2, 80%);
-}
-
-th:first-child {
-    border-radius: .50rem 0 0 0;
-}
-th:last-child {
-    border-radius: 0 .50rem 0 0;
-}
-tr:last-child td:first-child {
-    border-radius:  0 0 0 .50rem;
-}
-tr:last-child td:last-child {
-    border-radius: 0 0 .50rem 0;
-}
-
 #sidebar::-webkit-scrollbar {
     display: none; /* for Chrome, Safari and Opera */
 }
@@ -80,20 +47,6 @@ tr:last-child td:last-child {
     overflow-y: scroll;
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */
-}
-
-.link-fancy {
-    background: linear-gradient(45deg, $accent, #d14545) no-repeat right bottom / 0 var(--bg-h);
-    transition: background-size 350ms;
-    text-decoration: none;
-    color: inherit;
-    line-height: 1;
-    padding-bottom: 2px;
-    --bg-h: 2px;
-}
-.link-fancy:where(:hover, :focus-visible) {
-    background-size: 100% var(--bg-h);
-    background-position-x: left;
 }
 
 h1 {
@@ -142,12 +95,11 @@ a {
     color: $accent;
 }
 
-.profile {
-    object-fit: cover;
-    width: 25px;
-    height: 25px;
-}
 
 .orange {
     color: $accent;
+}
+
+.bg-orange {
+    background-color: $accent;
 }

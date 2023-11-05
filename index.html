@@ -96,7 +96,7 @@
                 </div>
             </div>
             <div class="col-lg-10 col-md-9 col-12 background2 h-100 min-vh-100 shadow-sm" v-if='!isHome'>
-                <router-view :profile-banner="profileBanner" :profile-icon="profileIcon" :drinks="drinks"></router-view>
+                <router-view :profile-banner="profileBanner" :profile-icon="profileIcon"></router-view>
             </div>
             <!-- Create Post Modal -->
             <div class="modal fade" id="createPostModal" tabindex="-1" aria-labelledby="createPostModalLabel" aria-hidden="true">
@@ -231,7 +231,7 @@
             // console.log (isHome, page)
         }
         
-        function loadSplide() {
+        window.loadSplide = function loadSplide() {
             var splide = new Splide( '.splide', {
                 type   : 'loop',
                 drag   : 'free',
@@ -473,10 +473,10 @@
                         modal.show();
                     });
                 }
-            } 
+            }
         })
         app.use(router)
-        let vm = app.mount("#app")
+        window.vm = app.mount("#app")
         if (vm.isHome) {
             loadSplide()
             var shadowRoot = document.querySelector('spline-viewer').shadowRoot;

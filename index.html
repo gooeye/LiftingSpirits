@@ -66,14 +66,14 @@
                         <!-- Main Content Column with Drink Posts -->
                         <div class="col-lg-8 col-md-12">
                             <!-- Drink Post 1 -->
-                            <div class="col-lg-4 col-md-6 mb-3" v-for="post in popularposts" :key="post.title">
+                            <div class="col-lg-8 col-md-8 mb-3" v-for="post in popularposts" :key="post.title">
                                 <div class="card">
                                     <div class="card-body">
-                                        <h5 class="card-title" style="color: #7C5241;">{{ post.title }}</h5>
-                                        <p class="card-text" style="color: #7C5241;">{{ post.category }}</p>
-                                        <p class="card-text" style="color: #7C5241;">{{ post.description }}</p>
-                                        <p class="card-text" style="color: #7C5241;">Posted by: {{ post.author}}</p>
-                                        <p class="card-text" style="color: #7C5241;">Posted on: {{ post.date}}</p>
+                                        <h5 class="card-title" style="color:white;">{{ post.title }}</h5>
+                                        <p class="card-text" style="color: white;">{{ post.category }}</p>
+                                        <p class="card-text" style="color: white;">{{ post.description }}</p>
+                                        <p class="card-text" style="color: white;">Posted by: {{ post.author}}</p>
+                                        <p class="card-text" style="color: white;">Posted on: {{ post.date}}</p>
                                             <button @click="setAndViewPost(post)" class="btn btn-primary" style="background-color: #CC6E4A;">View Post</button>
                                     </div>
                                 </div>
@@ -86,8 +86,8 @@
                             <div class="card mb-3" v-for="event in events" :key="event.name">
                                 <img src="event.img" class="card-img-top" alt="Event Image">
                                 <div class="card-body">
-                                    <h5 class="card-title" style="color: #CC6E4A;">{{ event.name }}</h5>
-                                    <p class="card-text" style="color: #7C5241;">{{ event.description }}</p>
+                                    <h5 class="card-title" style="color: white;">{{ event.name }}</h5>
+                                    <p class="card-text" style="color:white ;">{{ event.description }}</p>
                                     <button @click="setAndViewEvent(event)" class="btn btn-primary" style="background-color: #CC6E4A;">View Event</button>
                                 </div>
                             </div>

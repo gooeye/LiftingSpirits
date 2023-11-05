@@ -32,6 +32,13 @@ const routes = [
             window.vm.page = 'home'
             return true
         }
+    }, 
+    { 
+        path: '/:pathMatch(.*)*', name: 'not-found', component: {template: `<template></template>`},
+        beforeEnter: async (to) => {
+            window.location.replace('/') 
+            return false
+        }
     }
 ]
 

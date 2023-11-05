@@ -1,4 +1,125 @@
 @import url("https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100;0,300;0,400;0,600;0,700;0,900;1,100;1,300;1,400;1,600;1,700;1,900&family=Mulish:wght@200;300;400;500;600;700&display=swap");
+.button-fancy-circle {
+  width: 25px;
+  height: 25px;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  border: none;
+  background-color: #E4EAEC;
+  margin: 0;
+  font: inherit;
+  color: currentColor;
+  transform: translateY(-0.075em);
+  display: grid;
+  place-content: center;
+}
+.button-fancy-circle::before {
+  content: "";
+  width: 20px;
+  height: 20px;
+  transform: scale(1);
+  transition: 150ms transform ease-in-out;
+  background-color: #302828;
+  -webkit-clip-path: circle();
+          clip-path: circle();
+}
+.button-fancy-circle:hover::before {
+  transform: scale(0.76);
+}
+
+.check-fancy {
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  background-color: #fff;
+  margin: 0;
+  font: inherit;
+  color: currentColor;
+  width: 1.15em;
+  height: 1.15em;
+  border-radius: 0.15em;
+  transform: translateY(-0.075em);
+  display: grid;
+  place-content: center;
+}
+.check-fancy::before {
+  content: "";
+  width: 0.65em;
+  height: 0.65em;
+  transform: scale(0);
+  transition: 120ms transform ease-in-out;
+  background-color: CanvasText;
+  -webkit-clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+          clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+}
+.check-fancy:checked::before {
+  transform: scale(1);
+}
+
+.check-rating-fancy {
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  background-color: #fff;
+  margin: 0;
+  font: inherit;
+  color: currentColor;
+  width: 1.15em;
+  height: 1.15em;
+  transform: translateY(-0.075em);
+  -webkit-clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+          clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+  transition: 80ms;
+}
+
+.check-rating-fancy:has(~ .check-rating-fancy:hover),
+.check-rating-fancy:hover {
+  background-color: #CC6E4A;
+}
+
+.modal-mask {
+  position: fixed;
+  z-index: 9998;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  transition: opacity 0.3s ease;
+}
+
+.modal-container {
+  width: 300px;
+  margin: auto;
+  padding: 20px 30px;
+  background-color: #211F1F;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
+  transition: all 0.3s ease;
+}
+
+/*
+* The following styles are auto-applied to elements with
+* transition="modal" when their visibility is toggled
+* by Vue.js.
+*
+* You can easily play with the modal transition by editing
+* these styles.
+*/
+.modal-enter-from {
+  opacity: 0;
+}
+
+.modal-leave-to {
+  opacity: 0;
+}
+
+.modal-enter-from .modal-container,
+.modal-leave-to .modal-container {
+  transform: scale(1.1);
+}
+
 * {
   font: 100% "Exo 2", sans-serif;
 }
@@ -42,7 +163,7 @@ tr td {
 }
 
 th, td {
-  padding: 10px;
+  padding: 6px;
 }
 
 tbody tr:nth-child(even) td {

@@ -1,14 +1,8 @@
-@import url('https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100;0,300;0,400;0,600;0,700;0,900;1,100;1,300;1,400;1,600;1,700;1,900&family=Mulish:wght@200;300;400;500;600;700&display=swap');
-
 // Colors
-$text: #E4EAEC;
-$background: #211F1F;
-$background2: #302828;
-$background3: #3B3030;
-$accent: #CC6E4A;
-$primary: #7C5241;
-$text-secondary: #494949;
-$bg-secondary: #815f30;
+@import 'colors';
+@import 'fancy';
+@import 'modal';
+@import url('https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100;0,300;0,400;0,600;0,700;0,900;1,100;1,300;1,400;1,600;1,700;1,900&family=Mulish:wght@200;300;400;500;600;700&display=swap');
 
 // Fonts
 $normal: 'Exo 2', sans-serif;
@@ -58,7 +52,7 @@ tr td {
 }
 
 th, td {
-    padding: 10px;
+    padding: 6px;
 }
 
 tbody tr:nth-child(even) td {

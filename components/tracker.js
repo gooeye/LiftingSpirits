@@ -92,7 +92,7 @@ background-color: #222222;
                                     <!-- Your existing HTML content for drink items goes here -->
                                     <div v-for="(item, index) in items" :key="index" class="col-md-4 itemContainer" @click="onItemClick(item)">
                                         <div class="col">
-                                            <img :src="'../LiftingSpirits/components/img/' + item.path + '.png'" :alt="item.name + '.png'" class="mb-2">
+                                            <img :src="'../components/img/' + item.path + '.png'" :alt="item.name + '.png'" class="mb-2">
                                             <h3>{{ item.name }}</h3>
                                             <p>{{ item.calories }} calories</p>
                                             <span class="click-count">{{ item.count }}</span>

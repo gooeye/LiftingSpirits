@@ -46,8 +46,36 @@ body {
 
 table {
     width: 100%;
-    border-radius: .25rem;
+    border-collapse: separate;
+}
+
+th {
+    background-color: $background;
+}
+
+tr td {
+    background-color: $background2;
+}
+
+th, td {
+    padding: 10px;
+}
+
+tbody tr:nth-child(even) td {
     background-color: rgba($background2, 80%);
+}
+
+th:first-child {
+    border-radius: .50rem 0 0 0;
+}
+th:last-child {
+    border-radius: 0 .50rem 0 0;
+}
+tr:last-child td:first-child {
+    border-radius:  0 0 0 .50rem;
+}
+tr:last-child td:last-child {
+    border-radius: 0 0 .50rem 0;
 }
 
 #sidebar::-webkit-scrollbar {

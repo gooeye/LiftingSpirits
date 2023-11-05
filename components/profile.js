@@ -42,7 +42,7 @@ export const user = {
                         <tr>
                         <th scope="col"></th>
                         <th scope="col">Name of Drink</th>
-                        <th scope="col">Rating</th>
+                        <th scope="col" class="text-center">Rating</th>
                         <th scope="col">Type of Drink</th>
                         <th scope="col">Status</th>
                         </tr>
@@ -51,7 +51,7 @@ export const user = {
                         <tr v-for="drink in drinks">
                         <td></td>
                         <td>{{ drink.name }}</td>
-                        <td>{{ drink.rating }}</td>
+                        <td v-if="drink.rating" class="text-center"><span class="bi bi-star-fill d-inline-block" style="vertical-align:2px; font-size:12px"></span> {{ drink.rating }}</td>
                         <td>{{ drink.type }}</td>
                         <td>{{ drink.status }}</td>
                         </tr>

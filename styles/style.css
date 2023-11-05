@@ -30,8 +30,39 @@ body {
 }
 table {
   width: 100%;
-  border-radius: 0.25rem;
+  border-collapse: separate;
+}
+
+th {
+  background-color: #211F1F;
+}
+
+tr td {
+  background-color: #302828;
+}
+
+th, td {
+  padding: 10px;
+}
+
+tbody tr:nth-child(even) td {
   background-color: rgba(48, 40, 40, 0.8);
+}
+
+th:first-child {
+  border-radius: 0.5rem 0 0 0;
+}
+
+th:last-child {
+  border-radius: 0 0.5rem 0 0;
+}
+
+tr:last-child td:first-child {
+  border-radius: 0 0 0 0.5rem;
+}
+
+tr:last-child td:last-child {
+  border-radius: 0 0 0.5rem 0;
 }
 
 #sidebar::-webkit-scrollbar {

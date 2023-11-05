@@ -214,12 +214,28 @@
 
         methods: {
 
-            toggleCard(index) {
-                this.created_events[index].expanded = !this.created_events[index].expanded;
-            },
-
-            created(){
-                alert("Event created! ");
+            created() {
+                const eventName = document.getElementById('eventName').value;
+                const eventDate = document.getElementById('eventDate').value;
+                const eventTime = document.getElementById('eventTime').value;
+                const eventLocation = document.getElementById('eventLocation').value;
+                const eventDescription = document.getElementById('eventDescription').value;
+                const eventCost = document.getElementById('eventCost').value;
+                const eventMaxOccupancy = document.getElementById('eventMaxOccupancy').value;
+                
+                if (
+                    eventName &&
+                    eventDate &&
+                    eventTime &&
+                    eventLocation &&
+                    eventDescription &&
+                    eventCost &&
+                    eventMaxOccupancy
+                ) {
+                    alert("Event created!");
+                } else{
+                    alert("Please fill in all the required fields")
+                }
             }
         }
     })

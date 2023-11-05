@@ -48,7 +48,7 @@
                     <div class ="col-lg-9 order-md-1">
                         <h1 class = "pb-2">Checkout</h1>
                     <!---form------------------------------------------------------------------------------------>
-                        <form class ="row checkout" id="form" onsubmit="return false" novalidate>
+                        <form class ="row checkout" id="form" onsubmit="return true`" novalidate>
                             <div class="col-lg-6 col-12 pb-4">
                                 <label for="fname" class="form-label">First Name</label>
                                 <input type="text" class="form-control" id="fname" placeholder="First Name" required>
@@ -243,6 +243,7 @@
         var form = document.getElementById("form")
 
         form.addEventListener("submit", function(event){
+
                 var fname = document.getElementById('fname');
                 var lname = document.getElementById('lname');
                 var address = document.getElementById('address');
@@ -297,20 +298,11 @@
                     isValid = false
                 }
                 
-                var debit = document.getElementById("debit")
-                var credit = document.getElementById("credit")
-
                 var card = document.getElementById("cardno")
                 var namecard = document.getElementById("namecard")
 
                 var exp = document.getElementById("exDate")
                 var sec = document.getElementById("code")
-
-                if (!debit.checked && !credit.checked) {
-                    event.preventDefault()
-                    event.stopPropagation();
-                    isValid = false
-                }
 
                 if(((card.value).length)<16){
                     event.preventDefault();

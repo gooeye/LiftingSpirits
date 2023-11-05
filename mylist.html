@@ -58,7 +58,7 @@
 
                         <div class="container"> 
                             <div class="row">
-                                <div class = "col-md-4 my-3"  v-for="(drink, index) in selectedDrinks" :key="index">
+                                <div class = "col-md-4 my-3"  v-for="(drink, index) in selectedDrinksList" :key="index">
                                     <div class="drink-card" data-bs-toggle="collapse" :data-bs-target="'#drink' + index">
                                         <img :src="drink.img" alt="Drink Img">
                                         <div class="card-body">
@@ -204,9 +204,10 @@
 
             sortDrinks(type){
                 if (type==='All'){
-                    this.displayedDrinks =[...this.my_list];
+                    this.displayedDrinks =[...this.selectedDrinks];
+                 
                 } else{
-                    this.displayedDrinks = this.my_list.filter(drink => drink.type === type);
+                    this.displayedDrinks = this.selectedDrinks.filter(drink => drink.type === type);
                 }
             },
 

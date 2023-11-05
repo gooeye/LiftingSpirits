@@ -58,7 +58,7 @@
 
                         <div class="container"> 
                             <div class="row">
-                                <div class = "col-md-4 my-3"  v-for="(drink, index) in selectedDrinksList" :key="index">
+                                <div class = "col-md-4 my-3"  v-for="(drink, index) in displayedDrinks" :key="index">
                                     <div class="drink-card" data-bs-toggle="collapse" :data-bs-target="'#drink' + index">
                                         <img :src="drink.img" alt="Drink Img">
                                         <div class="card-body">
@@ -93,43 +93,11 @@
       </div>
 
 
-<script>
-    import { selectedDrinks } from '/sharedState.js';
-    
-    export default{
-        data(){
-            return {
-                selectedDrinksList: selectedDrinks.value,
-                myList: [],
-                displayedDrinks:[],
-            }
-        },
-        computed:{
-            selectedDrinksList(){
-                return selectedDrinks.value;
-            },
-        },
-        methods: {
 
-            sortDrinks(type){
-                if (type==='All'){
-                    this.displayedDrinks =[...this.myList];
-                } else{
-                    this.displayedDrinks = this.myList.filter(drink => drink.type === type);
-                }
-            },
-
-            moveToTriedAndTested(index) {
-                this.displayedDrinks[index].status = 'Tried and Tested';
-            },
-        },
-    };
-</script>  
 
 
 
 <script type="module">
-
     
     import navbar from "/components/navbar.js"
     var loginAuth = JSON.parse(sessionStorage.getItem("user-info"))
@@ -160,12 +128,10 @@
         },
         data() {
             return {
-                myList: [],
+                
                 displayedDrinks:[],
-                selectedDrinks:selectedDrinks.value,
-                
-                
-                //events made by users
+  
+                //drinks selected by users taken from firebase 
                 my_list : [
                 {
                     name: "Mojito",
@@ -204,19 +170,17 @@
         },
 
         computed: {
-            selectedDrinksList(){
-                return selectedDrinks.value;
-            }
+       
         },
 
         methods: {
 
             sortDrinks(type){
                 if (type==='All'){
-                    this.displayedDrinks =[...this.myList];
+                    this.displayedDrinks =[...this.my_list];
                  
                 } else{
-                    this.displayedDrinks = this.myList.filter(drink => drink.type === type);
+                    this.displayedDrinks = this.my_list.filter(drink => drink.type === type);
                 }
             },
 

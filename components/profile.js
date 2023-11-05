@@ -169,7 +169,7 @@ export const user = {
                     </tbody>
                 </table>
             </div>
-            <div class="container rounded-3 background3 p-4 shadow-sm mb-4" id="tracking" v-if="$route.hash === 'tracking'">
+            <div class="container rounded-3 background3 p-4 shadow-sm mb-4" id="tracking" >
     <tracking></tracking>
 </div>
         </div>

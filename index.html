@@ -456,8 +456,8 @@
             },
             methods: {
                 setAndViewPost(post) {
-                    this.currentPost = post; // directly assign the post
-                    console.log(this.currentPost); // <-- Add this line here
+                    this.currentPost = post; 
+                    console.log(this.currentPost); 
                     this.$nextTick(() => {
                         let modal = new bootstrap.Modal(document.getElementById('viewPostModal'));
                         modal.show();

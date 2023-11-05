@@ -36,7 +36,7 @@
                             <h3>You've seen all available drinks!</h3>
                         </div>
                           <div class="carousel-inner" >
-                            <div v-for="(drink,index) in created_drinks" :key="index" class="carousel-item" :class="{ active: index===0}">
+                            <div v-for="(drink,index) in visibleDrinks" :key="index" class="carousel-item" :class="{ active: index===0}">
                                 <div class="card" >
                                     <img :src="drink.img" alt="Drink Image" >
                                     <div class="card-body">
@@ -120,6 +120,7 @@
                     steps:["Muddle the mint","Mix and measure to your liking","Stir with ice"],
                     img: "https://cdn.loveandlemons.com/wp-content/uploads/2020/07/mojito.jpg",
                     status: "To Try",
+                    visible: true,
                 },
 
                 {
@@ -129,6 +130,7 @@
                     steps:["Cut the fruits","Mix and measure to your liking","Stir with ice"],
                     img: "https://hips.hearstapps.com/hmg-prod/images/sangria-index-643044ca71f12.jpg?crop=0.502xw:1.00xh;0.210xw,0&resize=1200:*",
                     status: "To Try",
+                    visible: true,
                 },
 
                 {
@@ -141,6 +143,7 @@
                     "Garnish with 3–4 drops of Angostura bitters."],
                     img: "https://hips.hearstapps.com/hmg-prod/images/sangria-index-643044ca71f12.jpg?crop=0.502xw:1.00xh;0.210xw,0&resize=1200:*",
                     status: "To Try",
+                    visible: true,
                 },
                 ],
                 page: 'my_concoction',

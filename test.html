@@ -1,7 +1,13 @@
 <!DOCTYPE html>
 <html>
+    <body>
+        <input type="file" class="form-control" id="uploadImages" accept="image/*">
+        <button id="doit">upload</button>
+    </body>
     <script type="module">
-        import { addDrink } from "/js/users.js"
-        addDrink ("130gab@gmail.com", 1, "drink1",4)
+        import { uploadImage } from "/js/util.js"
+        document.getElementById('doit').addEventListener('click', ()=>{
+            uploadImage("uploadImages", "drinks", "testimage")
+        })
     </script>
 </html>

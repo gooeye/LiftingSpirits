@@ -1,8 +1,10 @@
 
 import modal from "/components/modal.js"
+import tracking from "/components/tracker.js"
 export const user = {
     components: {
-        'modal': modal
+        'modal': modal,
+        'tracking':tracking
     },
     props: {
         'profileBanner' : String,
@@ -168,6 +170,7 @@ export const user = {
                 </table>
             </div>
             <div class="container rounded-3 background3 p-4 shadow-sm mb-4" id="tracking">
+            <tracking></tracking>
                 
             </div>
         </div>

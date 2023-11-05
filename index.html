@@ -66,12 +66,15 @@
                         <!-- Main Content Column with Drink Posts -->
                         <div class="col-lg-8 col-md-12">
                             <!-- Drink Post 1 -->
-                            <div class="col-lg-4 col-md-6 mb-3">
+                            <div class="col-lg-4 col-md-6 mb-3" v-for="post in popularPosts" :key="post.title">
                                 <a href="path_placeholder" class="text-decoration-none">
                                     <div class="card">
-                                        <img src="image_path_placeholder_1.jpg" alt="Drink Image 1" class="card-img-top">
                                         <div class="card-body">
-                                            <h5 class="card-title" style="color: #7C5241;">Post Name 1</h5>
+                                            <h5 class="card-title" style="color: #7C5241;">{{popularposts.title}}</h5>
+                                            <p class="card-text" style="color: #7C5241;">{{ post.category }}</p>
+                                            <p class="card-text" style="color: #7C5241;">{{ post.description }}</p>
+                                            <p class="card-text" style="color: #7C5241;">Posted by: {{ post.author}}</p>
+                                            <p class="card-text" style="color: #7C5241;">Posted on: {{ post.date}}</p>
                                         </div>
                                     </div>
                                 </a>
@@ -326,7 +329,39 @@
                             date: "October 28, 2023",
                         },
                         {
-
+                            title: "Post 2",
+                            description: "Description 2",
+                            category: "Wine",
+                            author : "Jane Doe",
+                            date: "October 27, 2023"
+                        },
+                        {
+                            title: "Post 3",
+                            description: "Description 3",
+                            category: "Cocktail",
+                            author : "Jenny Doe",
+                            date: "October 27, 2023"
+                        },
+                        {
+                            title: "Post 4",
+                            description: "Description 4",
+                            category: "Mocktail",
+                            author : "Elliot Doe",
+                            date: "October 26, 2023"
+                        },
+                        {
+                            title: "Post 5",
+                            description: "Description 5",
+                            category: "Liquor",
+                            author : "Min Doe",
+                            date: "October 28, 2023"
+                        },
+                        {
+                            title: "Post 6",
+                            description: "Description 6",
+                            category: "Wine",
+                            author : "Divya Doe",
+                            date: "October 29, 2023"
                         }
 
                     ],

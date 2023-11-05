@@ -196,7 +196,7 @@
                     const existingcart = JSON.parse(sessionStorage.getItem('order'))
                     existingcart.delivery = dateString
 
-                    sessionStorage.setItem('order', JSON.stringify(existingData));
+                    sessionStorage.setItem('order', JSON.stringify(existingcart));
 
 
                     return dateString

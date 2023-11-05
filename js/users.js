@@ -88,3 +88,29 @@ export async function deleteUser (email) {
         return false
     }
 }
+
+export async function getAndUpdateUserRating(email, drinkName, rating) {
+    const userRef = doc(db, 'users', email)
+    try {
+        const userDoc = await getDoc(userRef)
+        if (userDoc.exists()) {
+            const userData = userDoc.data()
+            const tried = userData.tried || {}
+            if (drinkName in tried) {
+                let toUpdate = {}
+                let key = 'tried.'+drinkName
+                toUpdate[key] = rating
+                await updateDoc(userRef, toUpdate)
+                return tried[drinkName]
+            } else {
+                return 0
+            }
+        } else {
+            console.log('User document not found.')
+            return 0
+        }
+    } catch (error) {
+        console.error('Error retrieving user rating:', error)
+        return 0
+    }
+}

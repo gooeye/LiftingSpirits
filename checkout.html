@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lifting Spirits | Home</title>
+    <title>Lifting Spirits | Checkout</title>
 
     <!-- Import CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -180,7 +180,7 @@
                     current.setDate(current.getDate() + 4)
 
                     let dateString = current.getFullYear() + ", " + months[current.getMonth()] + ", " + current.getDate() + ", " + daysOfWeek[current.getDay()]
-                    sessionStorage.setItem("checkout",JSON.stringify(
+                    sessionStorage.setItem("deliverydate",JSON.stringify(
                     {
                         delivery:dateString,
                     }
@@ -194,6 +194,8 @@
     </script>
 
     <script>
+
+
         var postal = document.getElementById("postal")
         postal.addEventListener("input", function () {
             //remove non-numeric characters
@@ -280,6 +282,8 @@
                 }
 
                 form.classList.add('was-validated');
+
+                
 
 
                 window.location.href="confirm.html"

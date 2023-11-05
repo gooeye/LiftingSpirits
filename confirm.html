@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lifting Spirits | Home</title>
+
+    <!-- Import CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+    <link href=" https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css " rel="stylesheet">
+    <link href="styles/style.css" rel="stylesheet">
+
+    <!-- Import JS -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    
+</head>
+<body>
+    <div id="app">
+        <main class="d-md-flex">
+            <vertical-navbar :page="page" :is-logged-in="isLoggedIn"></vertical-navbar>
+            <div class="col-lg-10 col-md-9 col-12 background2 p-3 h-100 min-vh-100">
+                <div class = 'row'>
+                    <h1 class = 'pb-2'>Thank you for your order!</h1>
+                    <h3 class = 'pb-2'>Order number is {{OrderNumber}} </h3>
+                    <h3 class = "pb-2">Your order will arrive by {{delivery}} </h3>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script type="module">
+        import {price_cart} from "./js/checkout.js" 
+        import navbar from "/components/navbar.js"
+
+        const cart = price_cart
+
+        const app = Vue.createApp({ 
+            components: {
+                'vertical-navbar': navbar
+            },
+            data() { 
+                return { 
+                    page: 'confirm',
+                    isLoggedIn: false,
+                    delivery: (JSON.parse(sessionStorage.getItem('deliverydate'))).delivery
+                };
+            }, 
+            computed:{
+                OrderNumber() {
+                const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+                const length = 8;
+                let orderNumber = '';
+
+                for (let i = 0; i < length; i++) {
+                    const randomIndex = Math.floor(Math.random() * characters.length);
+                    orderNumber += characters.charAt(randomIndex);
+                }
+
+                return orderNumber;
+                }
+            },
+        });
+        var vm = app.mount("#app")
+
+    </script>
+
+    <!-- Add Bootstrap JS via CDN (for Bootstrap features like dropdowns) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
-import { collection, doc, query, where, getDoc, getDocs, getFirestore, updateDoc, arrayUnion } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-firestore.js";
+import { collection, doc, query, where, getDoc, getDocs, getFirestore, updateDoc, arrayUnion, deleteDoc } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-firestore.js";
 
 import { firebaseConfig } from "/js/config.js"
 
@@ -65,5 +65,17 @@ export function addDrink(user, status, drink, rating) {
         updateDoc(userRef, {
             will_not_drink : arrayUnion(drink)
         })
+    }
+}
+
+export async function deleteUser (email) {
+    const userRef = doc(db, "users", email)
+    try {
+        await deleteDoc(userRef)
+    } catch (e) {
+        console.error(e)
+        return false
+    } finally {
+        return true
     }
 }

@@ -94,7 +94,7 @@
 
 
 <script>
-    import { selectedDrinks } from '/sharedState.js';
+    
     export default{
         data(){
             return {
@@ -126,6 +126,8 @@
 
 
 <script type="module">
+
+    import { selectedDrinks } from '/sharedState.js';
     import navbar from "/components/navbar.js"
     var loginAuth = JSON.parse(sessionStorage.getItem("user-info"))
     let isLoggedIn = false
@@ -155,8 +157,9 @@
         },
         data() {
             return {
-            
-                selectedEventIndex: -1,
+                myList: [],
+                displayedDrinks:[],
+                selectedDrinks:selectedDrinks.value,
                 
                 
                 //events made by users
@@ -191,23 +194,26 @@
                     status: "To Try",
                 },
                 ],
-                displayedDrinks: [],
+    
                 isLoggedIn: isLoggedIn,
                 model: null,
             }
         },
 
         computed: {
+            selectedDrinksList(){
+                return selectedDrinks.value;
+            }
         },
 
         methods: {
 
             sortDrinks(type){
                 if (type==='All'){
-                    this.displayedDrinks =[...this.selectedDrinks];
+                    this.displayedDrinks =[...this.myList];
                  
                 } else{
-                    this.displayedDrinks = this.selectedDrinks.filter(drink => drink.type === type);
+                    this.displayedDrinks = this.myList.filter(drink => drink.type === type);
                 }
             },
 

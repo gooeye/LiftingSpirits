@@ -49,11 +49,10 @@ export async function updateRating(name, rating, email) {
     }
 }
 
-export async function getGlobalRating(name, email) {
+export async function getGlobalRating(name) {
     const drinkRef = doc(db, 'drinks', name)
 
     try {
-        // Get the existing drink document
         const drinkDoc = await getDoc(drinkRef)
 
         if (drinkDoc.exists()) {

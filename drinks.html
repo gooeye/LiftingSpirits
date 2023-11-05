@@ -154,18 +154,20 @@
 
 
         computed: {
+            visibleDrinks() {
+                return this.created_drinks.filter(drink => drink.visible);
         },
 
         methods: {
             remove() {
                 const activeDrink = document.querySelector('.carousel-item.active img').getAttribute('src');
-                const drinkIndex = this.created_drinks.findIndex(drink => drink.img === activeDrink);
+                const drink = this.created_drinks.find(drink => drink.img === activeDrink);
                 
-                if (drinkIndex !== -1) {
-                    this.created_drinks.splice(drinkIndex, 1);
+                if (drink) {
+                    drink.visible = false;
                 }
-        
-                if (this.created_drinks.length === 0) {
+    
+                if (this.visibleDrinks.length === 0) {
                     // Optional: Hide the carousel controls when no drinks are left.
                     document.querySelector('#carouselExampleControls .carousel-control-prev').style.display = 'none';
                     document.querySelector('#carouselExampleControls .carousel-control-next').style.display = 'none';

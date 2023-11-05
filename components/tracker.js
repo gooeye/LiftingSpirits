@@ -4,6 +4,79 @@ export default {
         'isLoggedIn': Boolean
     },
     template: `
+    <style>
+    .itemContainer {
+        cursor: pointer;
+        border: 1px solid #dee2e6;
+        border-radius: 8px;
+        padding: 20px;
+        margin: 10px;
+        transition: all 0.3s;
+    }
+
+    .itemContainer:hover {
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        transform: scale(1.02);
+        background-color: #aaffaa;
+    }
+
+    .itemContainer h3 {
+        font-size: 1.5rem;
+        margin-bottom: 10px;
+    }
+
+    .itemContainer p {
+        font-size: 1rem;
+        color: #6c757d;
+    }
+
+    .itemContainer img {
+        width: 50px;
+        
+        height: 50px;
+        
+        object-fit: contain;
+        
+        border-radius: 50%;
+        
+        margin-bottom: 10px;
+    }
+
+    .total-calories {
+        font-size: 1.5rem;
+        font-weight: bold;
+        margin-top: 20px;
+    }
+
+    .equivalent-section {
+        margin-top: 40px;
+    }
+
+    .equivalent-section h2 {
+        font-size: 24px;
+        margin-bottom: 20px;
+    }
+
+    .equivalent-item {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 10px;
+    }
+
+    .equivalent-item span {
+        font-weight: bold;
+    }
+    .sticky{
+        position:sticky;
+       top:90px;
+    }
+    #app, html, body {
+height: 100%;
+}
+.background2 {
+background-color: #222222;
+}
+</style>
         <div id="app" class="min-vh-100 d-flex flex-column background2">
             <vertical-navbar :page="page" :is-logged-in="isLoggedIn"></vertical-navbar>
             <div class="container col-10 flex-grow-1 p-2 ps-0">
@@ -19,7 +92,7 @@ export default {
                                     <!-- Your existing HTML content for drink items goes here -->
                                     <div v-for="(item, index) in items" :key="index" class="col-md-4 itemContainer" @click="onItemClick(item)">
                                         <div class="col">
-                                            <img :src="'../LiftingSpirits/components/img/' + item.path + '.png'" :alt="item.name + '.png'" class="mb-2">
+                                            <img :src="'../components/img/' + item.path + '.png'" :alt="item.name + '.png'" class="mb-2">
                                             <h3>{{ item.name }}</h3>
                                             <p>{{ item.calories }} calories</p>
                                             <span class="click-count">{{ item.count }}</span>

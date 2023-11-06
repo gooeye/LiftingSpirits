@@ -55,7 +55,7 @@
                                         <p class="card-text" style="color: #7C5241;">Posted by: {{ topPost.author }}
                                         </p>
                                         <p class="card-text" style="color: #7C5241;">Posted on: {{ topPost.date }}</p>
-                                        <button @click="setAndViewPost(topPost)" class="btn" style="background-color: #CC6E4A;">View Post</button>
+                                        <button @click="setAndViewPost(topPost)" class="btn" style="background-color: #CC6E4A;color:white;">View Post</button>
                                     </div>
                                 </div>
                             </div>
@@ -65,7 +65,7 @@
                                 <h2 class="d-none d-md-block" style="color: white; font-size: 1.5rem;">Popular Posts
                                 </h2>
                                 <!-- Button trigger modal -->
-                                <button type="button" class="btn mb-3" style="background-color:#CC6E4A" data-bs-toggle="modal" data-bs-target="#createPostModal">
+                                <button type="button" class="btn mb-3" style="background-color:#CC6E4A; color:white;" data-bs-toggle="modal" data-bs-target="#createPostModal">
                                 + Add Post 
                                 </button>
                                 <div class="row">
@@ -78,7 +78,7 @@
                                                 <p class="card-text" style="color: #7C5241;">{{ post.description }}</p>
                                                 <p class="card-text" style="color: #7C5241;">Posted by: {{ post.author}}</p>
                                                 <p class="card-text" style="color: #7C5241;">Posted on: {{ post.date}}</p>
-                                                    <button @click="setAndViewPost(post)" class="btn" style="background-color: #CC6E4A;">View Post</button>
+                                                    <button @click="setAndViewPost(post)" class="btn" style="background-color: #CC6E4A; color:white;">View Post</button>
                                             </div>
                                         </div>
                                     </div>

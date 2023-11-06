@@ -132,8 +132,6 @@
         },
         data() {
             return {
-            
-                selectedEventIndex: -1,
                 isClicked: {},
                 
                 //events made by users
@@ -147,7 +145,6 @@
                     max:"40",
                     organiser:"Whiskey Connoisseurs Club",
                     img:'components/img/whiskey.webp',
-                    expanded:false
                 },
 
                 {
@@ -159,7 +156,6 @@
                     max:"500",
                     organiser:"Brewmaster Events",
                     img: "components/img/craftbeerfestival.avif",
-                    expanded:false
                 },
 
                 {
@@ -171,7 +167,6 @@
                     max:"30",
                     organiser:"VinoArt Creations",
                     img: "components/img/wine&paint.png",
-                    expanded:false
                 },
                 {
                     name: "Rum Cocktail Cruise",
@@ -182,7 +177,6 @@
                     max:"60",
                     organiser:"Tropicana Rum Adventures",
                     img: "components/img/cocktailparty.jpg",
-                    expanded:false
                 },
                 ],
                 page: 'my_concoction',
@@ -195,10 +189,6 @@
         },
 
         methods: {
-
-            toggleCard(index) {
-                this.created_events[index].expanded = !this.created_events[index].expanded;
-            },
             setActiveRow(index) {
                 if (this.isClicked[index] != undefined) {
                     this.isClicked[index] = !this.isClicked[index]

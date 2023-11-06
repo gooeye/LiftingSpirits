@@ -15,6 +15,8 @@
     <!-- Import JS -->
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script src=" https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js "></script>
+    <script src="https://unpkg.com/vue-router@4.0.15/dist/vue-router.global.js"></script>
+
     
 
     <style>
@@ -200,17 +202,11 @@
     </div>
 
     <script type="module">
+        import { loginAuth, isLoggedIn } from "/js/check_login.js"
+        import { router } from "/js/router.js"
+        import navbar from "/components/navbar.js"
 
-
-
-        var loginAuth = JSON.parse(sessionStorage.getItem("user-info"))
-        let isLoggedIn = false
-        if (loginAuth == null) {
-            isLoggedIn = false
-        }
-        else {
-            isLoggedIn = true
-        }document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function () {
             var splide = new Splide('.splide', {
                 type: 'loop',
                 drag: 'free',
@@ -224,7 +220,7 @@
         });
 
         
-        import navbar from "/components/navbar.js"
+
 
         const app = Vue.createApp({
             components: {
@@ -232,7 +228,6 @@
             },
             data() {
                 return {
-
                     joinedEvents: [],
 
                     selectedEventIndex: -1,
@@ -460,8 +455,10 @@
 
         }
     })
-   
-    vm = app.mount("#app")
+    app.use(router)
+    window.vm = app.mount("#app")
+
+
 
 </script><script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"></script>
 <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDY6hhhPkpG3UR-wlPYGIvKn50JL_gHxPQ&callback=initMap" async defer></script> -->

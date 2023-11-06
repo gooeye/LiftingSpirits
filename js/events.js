@@ -4,10 +4,11 @@ import { firebaseConfig } from "/js/config.js"
 import { uploadImage } from "/js/util.js"
 import { getAndUpdateUserRating } from "/js/users.js"
 
-class Event {
-    constructor (name, date, location, description, cost, max, organiser, img ) {
+export class Event {
+    constructor (name, date, time, location, description, cost, max, participating, organiser, img ) {
         this.name = name
         this.date = date
+        this.time = time
         this.location = location
         this.description = description 
         this.cost = cost 
@@ -23,6 +24,7 @@ const eventConverter = {
         return {
             name: event.name,
             date: event.date,
+            time: event.time,
             location: event.location,
             description: event.description,
             cost: event.cost,
@@ -34,7 +36,7 @@ const eventConverter = {
     },
     fromFirestore: (snapshot, options) => {
         const data = snapshot.data(options);
-        return new Event(data.name, data.date, data.location, data.description, data.cost, data.max, data.participating, data.organiser, data.img );
+        return new Event(data.name, data.date, data.time, data.location, data.description, data.cost, data.max, data.participating, data.organiser, data.img );
     }
 };
 
@@ -45,9 +47,9 @@ const user_info = sessionStorage.getItem("user_info")
 const user_infoObj = JSON.parse(user_info)
 
 export function createEvent(event){
-    event.file = uploadImage("uploadImages","events", event.name)
-    const eventRef = doc(db,'events',event.name)
-    setDoc(eventRef,event)
+    event.img = uploadImage("eventImage","events", event.name)
+    const eventRef = doc(db,'events',event.name).withConverter(eventConverter)
+    setDoc(eventRef, event)
 }
 
 export async function getAllEvents() {

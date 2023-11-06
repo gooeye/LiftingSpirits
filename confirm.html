@@ -52,9 +52,8 @@
                 }
 
                 const existingcart = JSON.parse(sessionStorage.getItem('order'))
-
                 const username = JSON.parse(sessionStorage.getItem('user_info')).username
-
+                
                 existingcart.username = username
                 existingcart.order = orderNumber
 

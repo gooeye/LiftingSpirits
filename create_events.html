@@ -78,12 +78,12 @@
                         <div class="container" v-for="(event,index) of created_events">
 
                             <div class="row mb-3 ">
-                                <div class="card bg-light "  @click="toggleCard(index)">
+                                <div class="card bg-light "  @click="setActiveRow(index)">
                                     <img :src="event.img" class="card-img-top" alt="..."  style="object-fit: cover;">
                                     <div class="card-body">
                                       <h5 class="card-title">{{event.name}}</h5>
 
-                                      <div v-if="event.expanded" class="my-2">
+                                      <div v-if="isClicked[index]" class="my-2">
                                         <div class="card-text mb-2" >Date: {{event.date}}</div>
                                         <div class="card-text mb-2 ">Location: {{event.location}}</div>
                                         <div class="card-text mb-2 " >Description: {{event.description}}</div>
@@ -116,6 +116,7 @@
 
 <script type="module">
     import navbar from "/components/navbar.js"
+    import { createEvent } from "/js/events.js"
     var loginAuth = JSON.parse(sessionStorage.getItem("user-info"))
     let isLoggedIn = false
     if (loginAuth == null){
@@ -125,19 +126,6 @@
         isLoggedIn = true
     }
 
-    document.addEventListener( 'DOMContentLoaded', function() {
-        var splide = new Splide( '.splide', {
-            type   : 'loop',
-            drag   : 'free',
-            snap   : true,
-            Height: 200,
-            Width: 200,
-            perPage: 3,
-        } );
-
-        splide.mount();
-    });
-
     const app = Vue.createApp({
         components: {
             'vertical-navbar': navbar
@@ -146,7 +134,7 @@
             return {
             
                 selectedEventIndex: -1,
-                
+                isClicked: {},
                 
                 //events made by users
                 created_events : [
@@ -199,7 +187,7 @@
                 ],
                 page: 'my_concoction',
                 isLoggedIn: isLoggedIn,
-                model: null,
+                model: null
             }
         },
 
@@ -211,6 +199,13 @@
             toggleCard(index) {
                 this.created_events[index].expanded = !this.created_events[index].expanded;
             },
+            setActiveRow(index) {
+                if (this.isClicked[index] != undefined) {
+                    this.isClicked[index] = !this.isClicked[index]
+                } else {
+                    this.isClicked[index] = true
+                }
+            }
         }
     })
     var vm = app.mount("#app")

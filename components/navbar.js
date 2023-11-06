@@ -1,8 +1,13 @@
+import { username } from "/js/check_login.js"
 export default {
     props: {
         'page' : String,
-        'username' : String,
         'isLoggedIn' : Boolean,
+    },
+    data () {
+        return {
+            username
+        }
     },
     template: `
         <nav class="col-md-3 col-lg-2 col-12 navbar navbar-expand-md sticky-top p-0 d-flex justify-content-between flex-column background" id="sidebar" style="">

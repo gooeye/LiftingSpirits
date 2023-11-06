@@ -5,11 +5,15 @@ const routes = [
         path: '/user/:id', 
         name: 'user',
         component: user,
-        beforeEnter: async (to) => {
+        beforeEnter: async (to, from) => {
             if (!await userNameExists(to.params.id.toLowerCase())) {
                 window.location.replace('/') 
                 // lmao I think vue router does some weird thing to delete all the stuff on the page and it doesn't put it back and since the homepage isn't displayed via a route it gets messed up so instead of changing the route to home, just gonna manually load the page
                 return false // so that it doesn't load the view before it runs
+            }
+            if (from.name != "user" && from.path != "/" && from.path != "/index.html") {
+                console.log(from.path)
+                window.location.replace(to.path)
             }
             return true
         }
@@ -41,7 +45,6 @@ const routes = [
     {path: '/friends.html', component: {template: `<template></template>`}},
     {path: '/events.html', component: {template: `<template></template>`}},
     {path: '/drinks.html', component: {template: `<template></template>`}},
-    {path: '/create_events.html', component: {template: `<template></template>`}},
     {path: '/create_concoction.html', component: {template: `<template></template>`}},
     {path: '/confirm.html', component: {template: `<template></template>`}},
     {path: '/checkout.html', component: {template: `<template></template>`}},

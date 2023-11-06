@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js"
-import { collection, doc, query, where, getDoc, getDocs, getFirestore, updateDoc, arrayUnion, deleteDoc, arrayRemove } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-firestore.js"
+import { collection, doc, query, where, getDoc, getDocs, getFirestore, updateDoc, arrayUnion, deleteDoc, arrayRemove, increment } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-firestore.js"
 
 import { firebaseConfig } from "/js/config.js"
 import { addToGlobalRating, removeRating } from "/js/drinks.js"
@@ -149,5 +149,68 @@ export async function getAndUpdateUserRating(email, drinkName, rating) {
     } catch (error) {
         console.error('Error retrieving user rating:', error)
         return 0
+    }
+}
+
+
+export async function getJoinedEvents(email) {
+    const userRef = doc(db, 'users', email)
+
+    try {
+        const userDoc = await getDoc(userRef)
+
+        if (userDoc.exists()) {
+            const data = userDoc.data()
+            return data.joined_events || []
+        } else {
+            console.log('Document not found.')
+            return 0
+        }
+    } catch (error) {
+        console.error('Error retrieving rating:', error)
+        return 0
+    }
+}
+
+export async function joinEvent(event, email) {
+    const userRef = doc(db, 'users', email)
+    const eventRef = doc(db,'events',event)
+    
+    try {
+        let userDoc = await getDoc(userRef)
+        if (!userDoc.data().joined_events.includes(event)) {
+            await Promise.all([
+                updateDoc(userRef, {"joined_events" : arrayUnion(event)}),
+                updateDoc(eventRef, {participating: increment(1)})
+            ])
+            console.log('Event joined successfully.')
+            return true
+        } else {
+            throw new Error("User already in event")
+        }
+    } catch (error) {
+        console.error('Error joining event:', error)
+        return false
+    }
+}
+
+export async function leaveEvent(event, email) {
+    const userRef = doc(db, 'users', email)
+    const eventRef = doc(db,'events',event)
+    try {
+        let userDoc = await getDoc(userRef)
+        if (userDoc.data().joined_events.includes(event)) {
+            await Promise.all([
+                updateDoc(userRef, {"joined_events" : arrayRemove(event)}),
+                updateDoc(eventRef, {participating: increment(-1)})
+            ])
+            console.log('Event left successfully.')
+            return true
+        } else {
+            throw new Error("User not in event")
+        }
+    } catch (error) {
+        console.error('Error leaving event:', error)
+        return false
     }
 }

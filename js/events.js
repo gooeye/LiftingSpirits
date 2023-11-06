@@ -12,6 +12,7 @@ class Event {
         this.description = description 
         this.cost = cost 
         this.max = max 
+        this.participating = participating 
         this.organiser = organiser
         this.img = img
     }
@@ -26,13 +27,14 @@ const eventConverter = {
             description: event.description,
             cost: event.cost,
             max: event.max,
+            participating: event.participating,
             organiser: event.organiser,
             img: event.img,
         };
     },
     fromFirestore: (snapshot, options) => {
         const data = snapshot.data(options);
-        return new Event(data.name, data.date, data.location, data.description, data.cost, data.max, data.organiser, data.img );
+        return new Event(data.name, data.date, data.location, data.description, data.cost, data.max, data.participating, data.organiser, data.img );
     }
 };
 

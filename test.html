@@ -6,8 +6,11 @@
     </body>
     <script type="module">
         import { uploadImage } from "/js/util.js"
-        document.getElementById('doit').addEventListener('click', ()=>{
-            uploadImage("uploadImages", "drinks", "testimage")
-        })
+        import * as e from "/js/events.js"
+        import * as u from "/js/users.js"
+        console.log(u.leaveEvent("Event 1", "130gab@gmail.com"))
+        // document.getElementById('doit').addEventListener('click', ()=>{
+        //     uploadImage("uploadImages", "drinks", "testimage")
+        // })
     </script>
 </html>

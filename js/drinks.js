@@ -28,7 +28,7 @@ export async function getAllDrinks() {
         const querySnapshot = await getDocs(collection(db, "drinks"));
         let result = []
         querySnapshot.forEach((doc) => {
-            result.push(doc.id);
+            result[doc.data().name]=doc.data();
         });
         return result
     }
@@ -138,4 +138,4 @@ export async function getTopDrinks() {
         console.log(e)
         return false
     }
-  }
+}

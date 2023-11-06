@@ -213,7 +213,7 @@
     
     <!-- Vue.js App -->
     <script type="module">
-        import { loginAuth, isLoggedIn } from "/js/check_login.js"
+        import { isLoggedIn, username } from "/js/check_login.js"
         import { getUserInfo } from "/js/users.js"
         import { router } from "/js/router.js"
         import { getTopDrinks } from "/js/drinks.js"
@@ -221,12 +221,6 @@
         import { getUpcomingEvents } from "/js/events.js"
         import navbar from "/components/navbar.js"
         import tracker from "/components/tracker.js"
-        
-        if (loginAuth) {
-            var username = loginAuth.username
-        } else {
-            var username = null
-        }
         let isHome = false
         let page = "profile"
         if (window.location.pathname=="/index.html" || window.location.pathname=="/") {

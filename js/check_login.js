@@ -1,18 +1,8 @@
-export var isLoggedIn
-
-export var loginAuth = JSON.parse(sessionStorage.getItem("user_info"))
-    isLoggedIn = false
-    if (loginAuth == null){
-        if (window.location.pathname != "/index.html" && window.location.pathname != "/") window.location.replace("/");
-        isLoggedIn = false
-    }
-    else{
-        isLoggedIn = true
+var loginAuth = JSON.parse(sessionStorage.getItem("user_info"))
+export var isLoggedIn = loginAuth.isLoggedIn
+if (!isLoggedIn && window.location.pathname != "/index.html" && window.location.pathname != "/"){
+    window.location.replace("/");
 }
 
-export var username
-if (loginAuth) {
-    var username = loginAuth.username
-} else {
-    var username = null
-}
+export var username = isLoggedIn ? loginAuth.username : null
+export var email = isLoggedIn ? loginAuth.email : null

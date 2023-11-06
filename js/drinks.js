@@ -128,9 +128,9 @@ export async function getTopDrinks() {
     try {
         let q = query(drinkRef, orderBy("rating_per_tried", "desc"), limit(10));
         let data = await getDocs(q)
-        let result = []
+        let result = {}
         data.forEach((doc) => {
-            result.push(doc.data());
+            result[doc.data().name]=doc.data();
         })
         console.log(result)
         return result

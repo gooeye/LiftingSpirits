@@ -40,7 +40,7 @@
                             <li v-for="drink in drinks" class="splide__slide">
                                 <div class="m-1 mb-4">
                                     <div class="card shadow-lg">
-                                        <img :src="loaded ? drink.img : ''" class="card-img" alt="..." style="object-fit: cover; height: 200px; width: 150px">
+                                        <img :src="loaded ? drink.img : 'unloaded.'+drink.name" class="card-img" alt="..." style="object-fit: cover; height: 200px; width: 150px">
                                     </div>
                                     <div>
                                         <span style="font-size: 12px;" class="float-end">
@@ -218,6 +218,7 @@
         import { router } from "/js/router.js"
         import { getTopDrinks } from "/js/drinks.js"
         import { getUrl } from "/js/util.js"
+        import { getUpcomingEvents } from "/js/events.js"
         import navbar from "/components/navbar.js"
         import tracker from "/components/tracker.js"
         
@@ -305,38 +306,7 @@
                             date: "October 29, 2023"
                         }
                     ],
-                    events: [
-                    {
-                        name: "Whiskey Tasting Extravaganza",
-                        date: "November 15,2023",
-                        location: "The Louvre, Rue de Rivoli, 75001 Paris, France",
-                        description: "Join us for an evening of fine whiskey tasting. Sample a selection of rare and premium whiskeys from around the world while learning about their history and production. Enjoy live music and gourmet snacks.",
-                        cost: "$75 per person",
-                        max: "40",
-                        organiser: "Whiskey Connoisseurs Club",
-                        img: 'components/img/whiskey.webp',
-                    },
-                    {
-                        name: "Craft Beer Festival",
-                        date: "March 8, 2024",
-                        location: "Central Park, New York, NY, USA",
-                        description: "Experience the best of craft beer at our annual festival. We'll have over 100 craft breweries showcasing their unique brews. Enjoy live music, food trucks, and beer-related games.",
-                        cost: "$40 per person",
-                        max: "500",
-                        organiser: "Brewmaster Events",
-                        img: "components/img/craftbeerfestival.avif",
-                    },
-                    {
-                        name: "Wine and Paint Night",
-                        date: "September 22, 2023",
-                        location: "Sydney Opera House, Bennelong Point, Sydney NSW 2000, Australia",
-                        description: "Sip on exquisite wines while unleashing your inner artist. Join us for a guided painting session and create your masterpiece. No prior painting experience required.",
-                        cost: "$50 per person",
-                        max: "30",
-                        organiser: "VinoArt Creations",
-                        img: "components/img/wine&paint.png",
-                    }
-                    ],
+                    events: [],
                     profileBanner: "https://static.wikia.nocookie.net/mariokart/images/7/7d/MK8_WiiMooMooMeadows.jpg",
                     profileIcon: "https://static.wikia.nocookie.net/mariokart/images/7/7d/MK8_WiiMooMooMeadows.jpg",
                     username: username,
@@ -363,16 +333,19 @@
                 async getData() {
                     this.drinks = await getTopDrinks()
                     let counter = 0
-                    this.drinks.forEach(async (drink) => {
-                        let url = await getUrl(drink.img)
-                        drink.img = url
+                    Object.keys(this.drinks).forEach(async (drink) => {
+                        let url = await getUrl(this.drinks[drink].img)
+                        this.drinks[drink].img = url
                         counter++
-                        if(counter == this.drinks.length-1) {
+                        if(counter == Object.keys(this.drinks).length-1) {
                             this.loaded = true
-                            if (this.isHome) this.loadSplide()
                         }
                     })
-                    
+                    this.events = await getUpcomingEvents()
+                    this.events.forEach(async (event) => {
+                        let url = await getUrl(event.img)
+                        event.img = url
+                    })
                 },
                 loadSplide() {
                     var splide = new Splide( '.splide', {
@@ -402,10 +375,21 @@
                     } );
     
                     splide.mount(window.splide.Extensions);
+                    let images = document.querySelectorAll(".card-img")
+                    images.forEach(async (image) => {
+                        let splits = image.src.split("/")[3]
+                        if (splits.split(".")[0] == "unloaded") {
+                            let drink = this.drinks[splits.substring(9).replace('%20', ' ')]
+                            let url = await getUrl(drink.img)
+                            image.src = url
+                        }
+                    })
                 }
             },
             mounted() {
-                this.getData()
+                this.getData().then(()=>{
+                    if (this.isHome) this.loadSplide()
+                })
             }
         })
         app.use(router)

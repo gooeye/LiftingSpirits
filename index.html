@@ -389,7 +389,12 @@
         app.use(router)
         window.vm = app.mount("#app")
     </script>
-
+    <script defer>
+        window.onload=()=>{
+            var shadowRoot = document.querySelector('spline-viewer').shadowRoot;
+            shadowRoot.querySelector('#logo').remove();
+        }
+    </script>
     <!-- Add Bootstrap JS via CDN (for Bootstrap features like dropdowns) -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"></script>
 </body>

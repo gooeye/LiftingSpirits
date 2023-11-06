@@ -69,31 +69,31 @@
                             <form>
                                 <div class="mb-3 ">
                                     <label for="eventName" class="form-label">Event Name</label>
-                                    <input type="text" class="form-control p-2" id="eventName" name="eventName" placeholder="What is the name of your event " required>
+                                    <input type="text" class="form-control p-2" v-model="event.name" id="eventName" name="eventName" placeholder="What is the name of your event " required>
                                 </div>
                                 <div class="mb-3">
                                     <label for="eventDate" class="form-label">Date</label>
-                                    <input type="date" class="form-control  p-2 " id="eventDate" name="eventDate" required>
+                                    <input type="date" class="form-control p-2" v-model="event.date" id="eventDate" name="eventDate" required>
                                 </div>
                                 <div class="mb-3">
                                     <label for="eventTime" class="form-label">Time</label>
-                                    <input type="time" class="form-control  p-2" id="eventTime" name="eventTime" required>
+                                    <input type="time" class="form-control p-2" v-model="event.time" id="eventTime" name="eventTime" required>
                                 </div>
                                 <div class="mb-3">
                                     <label for="eventLocation" class="form-label">Location</label>
-                                    <input type="text" class="form-control  p-2" id="eventLocation" name="eventLocation" placeholder="Where is your event going to located " required>
+                                    <input type="text" class="form-control p-2" v-model="event.location" id="eventLocation" name="eventLocation" placeholder="Where is your event going to located " required>
                                 </div>
                                 <div class="mb-3">
                                     <label for="eventDescription" class="form-label" >Description</label>
-                                    <textarea class="form-control" id="eventDescription" name="eventDescription" rows="4" placeholder="Please describe your event in a few sentences (Add as many fun details as you would like!) " required></textarea>
+                                    <textarea class="form-control" id="eventDescription" v-model="event.desc" name="eventDescription" rows="4" placeholder="Please describe your event in a few sentences (Add as many fun details as you would like!) " required></textarea>
                                 </div>
                                 <div class="mb-3">
                                     <label for="eventCost" class="form-label">Cost</label>
-                                    <input type="text" class="form-control  p-2 " id="eventCost" name="eventCost" placeholder="How much is the event going to cost " required>
+                                    <input type="text" class="form-control p-2" v-model="event.cost" id="eventCost" name="eventCost" placeholder="How much is the event going to cost " required>
                                 </div>
                                 <div class="mb-3">
                                     <label for="eventMaxOccupancy" class="form-label">Maximum Occupancy</label>
-                                    <input type="number" class="form-control  p-2" id="eventMaxOccupancy" name="eventMaxOccupancy" placeholder="What is the maximum number of people at the event?" required>
+                                    <input type="number" class="form-control p-2" v-model="event.occupancy" id="eventMaxOccupancy" name="eventMaxOccupancy" placeholder="What is the maximum number of people at the event?" required>
                                 </div>
                                 <div class="mb-3">
                                     <label for="eventImage" class="form-label">Event Image</label>
@@ -206,6 +206,10 @@
                 page: 'my_concoction',
                 isLoggedIn: isLoggedIn,
                 model: null,
+                event:{
+                    user : JSON.parse(sessionStorage.getItem("user_info")).username,
+                    joined: 0,
+                }
             }
         },
 

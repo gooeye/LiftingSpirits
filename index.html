@@ -20,6 +20,7 @@
     <script src="
 https://cdn.jsdelivr.net/npm/@splidejs/splide-extension-auto-scroll@0.5.3/dist/js/splide-extension-auto-scroll.min.js
 "></script>
+    
 </head>
 <body>
     <div id="app">
@@ -76,7 +77,7 @@ https://cdn.jsdelivr.net/npm/@splidejs/splide-extension-auto-scroll@0.5.3/dist/j
                                         <p class="card-text" style="color: white;">{{ post.description }}</p>
                                         <p class="card-text" style="color: white;">Posted by: {{ post.author}}</p>
                                         <p class="card-text" style="color: white;">Posted on: {{ post.date}}</p>
-                                            <button @click="setAndViewPost(post)" class="btn" style="background-color: #CC6E4A; color:white;">View Post</button>
+                                            <button @click="setAndViewPost(post)" class="btn btn-primary" style="background-color: #CC6E4A;">View Post</button>
                                     </div>
                                 </div>
                             </div>
@@ -90,7 +91,7 @@ https://cdn.jsdelivr.net/npm/@splidejs/splide-extension-auto-scroll@0.5.3/dist/j
                                 <div class="card-body">
                                     <h5 class="card-title" style="color: white;">{{ event.name }}</h5>
                                     <p class="card-text" style="color:white ;">{{ event.description }}</p>
-                                    <button @click="setAndViewEvent(event)" class="btn" style="background-color: #CC6E4A;color:white;">View Event</button>
+                                    <button @click="setAndViewEvent(event)" class="btn btn-primary" style="background-color: #CC6E4A;">View Event</button>
                                 </div>
                             </div>
                         </div>
@@ -214,12 +215,17 @@ https://cdn.jsdelivr.net/npm/@splidejs/splide-extension-auto-scroll@0.5.3/dist/j
     
     <!-- Vue.js App -->
     <script type="module">
-        import { isLoggedIn, username } from "/js/check_login.js"
+        import { loginAuth, isLoggedIn } from "/js/check_login.js"
         import { getUserInfo } from "/js/users.js"
         import { router } from "/js/router.js"
         import navbar from "/components/navbar.js"
         import tracker from "/components/tracker.js"
         
+        if (loginAuth) {
+            var username = loginAuth.username
+        } else {
+            var username = null
+        }
         let isHome = false
         let page = "profile"
         if (window.location.pathname=="/index.html" || window.location.pathname=="/") {
@@ -252,7 +258,7 @@ https://cdn.jsdelivr.net/npm/@splidejs/splide-extension-auto-scroll@0.5.3/dist/j
                 }
             } );
     
-            splide.mount(window.splide.Extensions );
+            splide.mount(window.splide.Extensions);
         };
         const app = Vue.createApp({
             components: {

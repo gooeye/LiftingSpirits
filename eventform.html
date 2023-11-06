@@ -36,7 +36,7 @@
                         <vertical-navbar :page="page" :is-logged-in="isLoggedIn"></vertical-navbar>
                 
                     <div class="col-lg-10 col-md-9 col-12 background2 p-3 h-100 min-vh-100" >
-                        <div class="container">
+                        <form class="container needs-validation">
                             <h1>Create an Event</h1>
                                 <div class="mb-3 ">
                                     <label for="eventName" class="form-label">Event Name</label>
@@ -44,11 +44,11 @@
                                 </div>
                                 <div class="mb-3">
                                     <label for="eventDate" class="form-label">Date</label>
-                                    <input type="date" class="form-control p-2" v-model="event.date" id="eventDate" name="eventDate" required>
+                                    <input type="date" class="form-control p-2" v-model="date" id="eventDate" name="eventDate" required>
                                 </div>
                                 <div class="mb-3">
                                     <label for="eventTime" class="form-label">Time</label>
-                                    <input type="time" class="form-control p-2" v-model="event.time" id="eventTime" name="eventTime" required>
+                                    <input type="time" class="form-control p-2" v-model="time" id="eventTime" name="eventTime" required>
                                 </div>
                                 <div class="mb-3">
                                     <label for="eventLocation" class="form-label">Location</label>
@@ -71,11 +71,8 @@
                                     <input type="file" class="form-control  p-2" id="eventImage" name="eventImage" accept="image/*" required>
                                 </div>
                                 <button class="btn" @click="created()" style="background-color: #CC6E4A;color:white" >Create Event</button>
-                        </div>
-                    
-
-
-                    </div>
+                            </div>
+                        </form>
                         
                 </div>
 
@@ -102,30 +99,34 @@
         },
         data() {
             return {
+                date: undefined,
+                time: undefined,
                 page: 'events',
                 isLoggedIn: isLoggedIn,
                 model: null,
-                event: new Event()
+                event: new Event(),
+                timezone: -8
             }
         },
-
-        computed: {
-        },
-
         methods: {
-
             created() {
+                event.preventDefault()
+                event.stopPropagation()
+                let validated = true
+                var forms = document.querySelectorAll('.needs-validation')
+                forms.forEach(function (form) {
+                    console.log(form)
+                        if (!form.checkValidity()) {
+                            validated = false
+                            form.classList.add('was-validated')
+                            return false
+                        }
+                    })
                 this.event.organiser = username
-                if (
-                    this.event.name != "" &&
-                    this.event.date != "" &&
-                    this.event.time != "" &&
-                    this.event.location != "" &&
-                    this.event.description != "" &&
-                    this.event.cost != "" &&
-                    this.event.max != ""
-                ) {
+                if (validated) {
                     this.event.participating=0
+                    let time = this.time.split(":")
+                    this.event.timestamp = new Date(this.date).getTime() + 1000 * ((time[0]*1+this.timezone) * 60 * 60 + time[1] * 60)
                     createEvent (this.event)
                     alert("Event created!")
                 } else{

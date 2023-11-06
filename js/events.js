@@ -4,10 +4,11 @@ import { firebaseConfig } from "/js/config.js"
 import { uploadImage } from "/js/util.js"
 import { getAndUpdateUserRating } from "/js/users.js"
 
-class Event {
-    constructor (name, date, location, description, cost, max, organiser, img ) {
+export class Event {
+    constructor (name = "", date = "", time = "", location = "", description = "", organiser = "", cost = 0, max = 100, participating = 0, img = "" ) {
         this.name = name
         this.date = date
+        this.time = time
         this.location = location
         this.description = description 
         this.cost = cost 
@@ -23,6 +24,7 @@ const eventConverter = {
         return {
             name: event.name,
             date: event.date,
+            time: event.time,
             location: event.location,
             description: event.description,
             cost: event.cost,
@@ -34,7 +36,7 @@ const eventConverter = {
     },
     fromFirestore: (snapshot, options) => {
         const data = snapshot.data(options);
-        return new Event(data.name, data.date, data.location, data.description, data.cost, data.max, data.participating, data.organiser, data.img );
+        return new Event(data.name, data.date, data.time, data.location, data.description, data.cost, data.max, data.participating, data.organiser, data.img );
     }
 };
 
@@ -68,6 +70,23 @@ export async function getAllEvents() {
 export async function getEventsCreatedBy(user) {
     const docRef = collection(db, "events").withConverter(eventConverter)
     const q = query(docRef, where("organiser", "==", user))
+    try {
+        let data = await getDocs(q)
+        let result = []
+        data.forEach((doc) => {
+            result.push(doc.data());
+        })
+        return result
+    }
+    catch (e) {
+        console.log(e)
+        return false
+    }
+}
+
+export async function getUpcomingEvents(user) {
+    const docRef = collection(db, "events").withConverter(eventConverter)
+    const q = query(docRef, where("date", "==", user))
     try {
         let data = await getDocs(q)
         let result = []

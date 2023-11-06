@@ -14,6 +14,7 @@
     <!-- Import JS -->
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script src=" https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js "></script>
+    <script src="https://unpkg.com/vue-router@4.0.15/dist/vue-router.global.js"></script>
 
     <style>
 
@@ -56,7 +57,7 @@
                                 </div>
                                 <div class="mb-3">
                                     <label for="eventDescription" class="form-label" >Description</label>
-                                    <textarea class="form-control" id="eventDescription" v-model="event.desc" name="eventDescription" rows="4" placeholder="Please describe your event in a few sentences (Add as many fun details as you would like!) " required></textarea>
+                                    <textarea class="form-control" id="eventDescription" v-model="event.description" name="eventDescription" rows="4" placeholder="Please describe your event in a few sentences (Add as many fun details as you would like!) " required></textarea>
                                 </div>
                                 <div class="mb-3">
                                     <label for="eventCost" class="form-label">Cost</label>
@@ -64,7 +65,7 @@
                                 </div>
                                 <div class="mb-3">
                                     <label for="eventMaxOccupancy" class="form-label">Maximum Occupancy</label>
-                                    <input type="number" class="form-control p-2" v-model="event.occupancy" id="eventMaxOccupancy" name="eventMaxOccupancy" placeholder="What is the maximum number of people at the event?" required>
+                                    <input type="number" class="form-control p-2" v-model="event.max" id="eventMaxOccupancy" name="eventMaxOccupancy" placeholder="What is the maximum number of people at the event?" required>
                                 </div>
                                 <div class="mb-3">
                                     <label for="eventImage" class="form-label">Event Image</label>
@@ -93,27 +94,9 @@
 
 <script type="module">
     import navbar from "/components/navbar.js"
-    var loginAuth = JSON.parse(sessionStorage.getItem("user-info"))
-    let isLoggedIn = false
-    if (loginAuth == null){
-        isLoggedIn = false
-    }
-    else{
-        isLoggedIn = true
-    }
-
-    document.addEventListener( 'DOMContentLoaded', function() {
-        var splide = new Splide( '.splide', {
-            type   : 'loop',
-            drag   : 'free',
-            snap   : true,
-            Height: 200,
-            Width: 200,
-            perPage: 3,
-        } );
-
-        splide.mount();
-    });
+    import { Event, createEvent } from "/js/events.js"
+    import { isLoggedIn, username } from "/js/check_login.js"
+    import { router } from "/js/router.js"
 
     const app = Vue.createApp({
         components: {
@@ -121,66 +104,10 @@
         },
         data() {
             return {
-            
-                selectedEventIndex: -1,
-                
-                
-                //events made by users
-                created_events : [
-                {
-                    name: "Whiskey Tasting Extravaganza",
-                    date: "November 15,2023",
-                    location:"The Whiskey Haven, 123 Bourbon Street, Cityville",                        
-                    description:"Join us for an evening of fine whiskey tasting. Sample a selection of rare and premium whiskeys from around the world while learning about their history and production. Enjoy live music and gourmet snacks.",
-                    cost:"$75 per person",
-                    max:"40",
-                    organiser:"Whiskey Connoisseurs Club",
-                    img:'components/img/whiskey.webp',
-                    expanded:false
-                },
-
-                {
-                    name: "Craft Beer Festival",
-                    date: "March 8, 2024",
-                    location:"Brewtopia Park, 456 Ale Avenue, Hoptown",                        
-                    description:"Experience the best of craft beer at our annual festival. We'll have over 100 craft breweries showcasing their unique brews. Enjoy live music, food trucks, and beer-related games.",
-                    cost:"$40 per person",
-                    max:"500",
-                    organiser:"Brewmaster Events",
-                    img: "components/img/craftbeerfestival.avif",
-                    expanded:false
-                },
-
-                {
-                    name: "Wine and Paint Night",
-                    date: "September 22, 2023",
-                    location:"VinoArt Studio, 789 Merlot Lane, Winetown",                        
-                    description:"Sip on exquisite wines while unleashing your inner artist. Join us for a guided painting session and create your masterpiece. No prior painting experience required.",
-                    cost:"$50 per person",
-                    max:"30",
-                    organiser:"VinoArt Creations",
-                    img: "components/img/wine&paint.png",
-                    expanded:false
-                },
-                {
-                    name: "Rum Cocktail Cruise",
-                    date: "July 12, 2024",
-                    location:"Harbor Breeze Marina, 101 Rum Runner Way, Tropicana Bay",                        
-                    description:"Set sail on a sunset cruise and enjoy a variety of rum-based cocktails and tropical vibes. The cruise includes a live reggae band, tropical snacks, and beautiful coastal views.",
-                    cost:"$65 per person",
-                    max:"60",
-                    organiser:"Tropicana Rum Adventures",
-                    img: "components/img/cocktailparty.jpg",
-                    expanded:false
-                },
-                ],
-                page: 'my_concoction',
+                page: 'events',
                 isLoggedIn: isLoggedIn,
                 model: null,
-                event:{
-                    user : JSON.parse(sessionStorage.getItem("user_info")).username,
-                    joined: 0,
-                }
+                event: new Event()
             }
         },
 
@@ -190,30 +117,25 @@
         methods: {
 
             created() {
-                const eventName = document.getElementById('eventName').value;
-                const eventDate = document.getElementById('eventDate').value;
-                const eventTime = document.getElementById('eventTime').value;
-                const eventLocation = document.getElementById('eventLocation').value;
-                const eventDescription = document.getElementById('eventDescription').value;
-                const eventCost = document.getElementById('eventCost').value;
-                const eventMaxOccupancy = document.getElementById('eventMaxOccupancy').value;
-                
+                this.event.organiser = username
                 if (
-                    eventName &&
-                    eventDate &&
-                    eventTime &&
-                    eventLocation &&
-                    eventDescription &&
-                    eventCost &&
-                    eventMaxOccupancy
+                    this.event.name != "" &&
+                    this.event.date != "" &&
+                    this.event.time != "" &&
+                    this.event.location != "" &&
+                    this.event.description != "" &&
+                    this.event.cost != "" &&
+                    this.event.max != ""
                 ) {
-                    alert("Event created!");
+                    createEvent (this.event)
+                    alert("Event created!")
                 } else{
                     alert("Please fill in all the required fields")
                 }
             }
         }
     })
+    app.use(router)
     var vm = app.mount("#app")
 
 </script>

@@ -5,10 +5,9 @@ import { uploadImage } from "/js/util.js"
 import { getAndUpdateUserRating } from "/js/users.js"
 
 export class Event {
-    constructor (name, date, time, location, description, cost, max, participating, organiser, img ) {
+    constructor (name, timestamp, location, description, cost, max, participating, organiser, img ) {
         this.name = name
-        this.date = date
-        this.time = time
+        this.timestamp = timestamp
         this.location = location
         this.description = description 
         this.cost = cost 
@@ -17,14 +16,16 @@ export class Event {
         this.organiser = organiser
         this.img = img
     }
+    getDate() {
+        return new Date(this.timestamp)
+    }
 }
 
 const eventConverter = {
     toFirestore: (event) => {
         return {
             name: event.name,
-            date: event.date,
-            time: event.time,
+            timestamp: event.timestamp,
             location: event.location,
             description: event.description,
             cost: event.cost,
@@ -36,7 +37,7 @@ const eventConverter = {
     },
     fromFirestore: (snapshot, options) => {
         const data = snapshot.data(options);
-        return new Event(data.name, data.date, data.time, data.location, data.description, data.cost, data.max, data.participating, data.organiser, data.img );
+        return new Event(data.name, data.timestamp, data.location, data.description, data.cost, data.max, data.participating, data.organiser, data.img );
     }
 };
 
@@ -69,6 +70,24 @@ export async function getAllEvents() {
 
 export async function getEventsCreatedBy(user) {
     const docRef = collection(db, "events").withConverter(eventConverter)
+    const q = query(docRef, where("organiser", "==", user))
+    try {
+        let data = await getDocs(q)
+        let result = []
+        data.forEach((doc) => {
+            result.push(doc.data());
+        })
+        return result
+    }
+    catch (e) {
+        console.log(e)
+        return false
+    }
+}
+
+export async function getUpcomingEvents() {
+    const docRef = collection(db, "events").withConverter(eventConverter)
+    const date = new Date();
     const q = query(docRef, where("organiser", "==", user))
     try {
         let data = await getDocs(q)

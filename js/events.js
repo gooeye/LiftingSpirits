@@ -88,7 +88,8 @@ export async function getEventsCreatedBy(user) {
 export async function getUpcomingEvents() {
     const docRef = collection(db, "events").withConverter(eventConverter)
     const date = new Date();
-    const q = query(docRef, where("organiser", "==", user))
+    const q = query(docRef, where("timestamp", ">", date.getTime()))
+    console.log(date.getTime())
     try {
         let data = await getDocs(q)
         let result = []

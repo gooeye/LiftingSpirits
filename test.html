@@ -8,13 +8,7 @@
         import { uploadImage } from "/js/util.js"
         import * as e from "/js/events.js"
         import * as u from "/js/users.js"
-        console.log(u.leaveEvent("Event 1", "130gab@gmail.com"))
-        // document.getElementById('doit').addEventListener('click', ()=>{
-        //     uploadImage("uploadImages", "drinks", "testimage")
-        // })
-        import { getAllPosts } from "/js/posts.js"
-        document.getElementById('doit').addEventListener('click', ()=>{
-            console.log(await getAllPosts(),"hey")
-        })
+        console.log(await e.getUpcomingEvents())
+        console.log(await e.getAllEvents())
     </script>
 </html>

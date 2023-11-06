@@ -77,10 +77,9 @@
                             </div>
                     </div>
             </div>
-            <div class="container col-10" v-else>
+            <div class="col-lg-10 col-md-9 col-12 background2 p-3 h-100 min-vh-100" v-else>
                 <div class="background rounded h-100 p-4 text-center align-self-center">
-                    <h2>You haven't created any drinks yet!</h2>
-                    <button class ="btn btn-dark" href="#">Create a concoction!</button>
+                    <h1>You haven't created any drinks yet!</h1>
                 </div>
             </div>
         </main>
@@ -93,6 +92,7 @@
         import navbar from "/components/navbar.js"
         import { loginAuth, isLoggedIn } from "/js/check_login.js"
         import { router } from "/js/router.js"
+        
         const drinks = created_drinks
         console.log(drinks)
         function loadSplide (num) {
@@ -129,7 +129,7 @@
                     //drinks made by user called from firestore api
 
                     page: 'my_concoction',
-                    isLoggedIn: false,
+                    isLoggedIn: isLoggedIn,
                     created_drinks: drinks
                 }
             },

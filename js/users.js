@@ -1,8 +1,8 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js"
-import { collection, doc, query, where, getDoc, getDocs, getFirestore, updateDoc, arrayUnion, deleteDoc } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-firestore.js"
+import { collection, doc, query, where, getDoc, getDocs, getFirestore, updateDoc, arrayUnion, deleteDoc, arrayRemove } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-firestore.js"
 
 import { firebaseConfig } from "/js/config.js"
-import { addToGlobalRating } from "/js/drinks.js"
+import { addToGlobalRating, removeRating } from "/js/drinks.js"
 
 const app = initializeApp(firebaseConfig)
 const db = getFirestore(app)
@@ -41,7 +41,7 @@ export async function emailExists(email) {
     }
 }
 
-export async function addDrink(email, status, drink, rating) {
+export async function addDrinkToList(email, status, drink, rating) {
     // params:
     //  email: string, email of user
     // status: int, 0 = won't try, 1 = tried, 2 = want to try
@@ -51,18 +51,15 @@ export async function addDrink(email, status, drink, rating) {
         throw new Error('Can\'t rate a drink you haven\'t tried')
     }
     const userRef = doc(db, "users", email)
-    if (status == 0) {
-        updateDoc(userRef, {
-            will_drink : arrayUnion(drink)
-        })
-    }
-    else if (status == 1) {
+    if (status == 1) {
         let toUpdate = {}
         let key = 'tried.'+drink
         toUpdate[key] = rating
         try {
             await Promise.all([
                 updateDoc(userRef, toUpdate),
+                updateDoc(userRef, {will_not_drink : arrayRemove(drink)}),
+                updateDoc(userRef, {wil_drink : arrayRemove(drink)}),
                 addToGlobalRating(drink, rating)
             ])
             return true
@@ -70,11 +67,51 @@ export async function addDrink(email, status, drink, rating) {
             console.log(e)
             return 0
         }
-    }
-    else if (status == 2) {
-        updateDoc(userRef, {
-            will_not_drink : arrayUnion(drink)
-        })
+    } else {
+        try {
+            const userDoc = await getDoc(userRef)
+            if (userDoc.exists()) {
+                const userData = userDoc.data()
+                const tried = userData.tried || {}
+                if (drink in tried) {
+                    await removeRating(drink, tried[drink])
+                } else {
+                    return 0
+                }
+            } else {
+                console.log('User document not found.')
+                return 0
+            }
+        } catch (error) {
+            console.error('Error retrieving user rating:', error)
+            return 0
+        }
+        if (status == 0) {
+            try {
+                await Promise.all([
+                    updateDoc(userRef, {will_drink : arrayUnion(drink)}),
+                    updateDoc(userRef, {will_not_drink : arrayRemove(drink)}),
+                    updateDoc(userRef, {tried : arrayRemove(drink)})
+                ])
+                return true
+            } catch (e) {
+                console.log(e)
+                return 0
+            }        
+        }
+        else if (status == 2) {
+            try {
+                await Promise.all([
+                    updateDoc(userRef, {will_not_drink : arrayUnion(drink)}),
+                    updateDoc(userRef, {will_drink : arrayRemove(drink)}),
+                    updateDoc(userRef, {tried : arrayRemove(drink)})
+                ])
+                return true
+            } catch (e) {
+                console.log(e)
+                return 0
+            }
+        }
     }
 }
 

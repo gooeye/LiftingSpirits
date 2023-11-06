@@ -3,6 +3,7 @@ import { collection, doc, query, where, getDoc, getDocs, getFirestore, updateDoc
 
 import { firebaseConfig } from "/js/config.js"
 import { addToGlobalRating, removeRating } from "/js/drinks.js"
+import { getEvent } from "/js/events.js"
 
 const app = initializeApp(firebaseConfig)
 const db = getFirestore(app)
@@ -150,13 +151,13 @@ export async function getAndUpdateUserRating(email, drinkName, rating) {
 
 export async function getJoinedEvents(email) {
     const userRef = doc(db, 'users', email)
-
+    let eventList = []
+    let result = []
     try {
         const userDoc = await getDoc(userRef)
-
         if (userDoc.exists()) {
             const data = userDoc.data()
-            return data.joined_events || []
+            eventList = data.joined_events || []
         } else {
             console.log('Document not found.')
             return 0
@@ -165,6 +166,10 @@ export async function getJoinedEvents(email) {
         console.error('Error retrieving rating:', error)
         return 0
     }
+    for (let eventName of eventList) {
+        result.push(await getEvent(eventName))
+    }
+    return result
 }
 
 export async function joinEvent(event, email) {

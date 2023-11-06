@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js"
-import { getFirestore, collection, setDoc, doc, addDoc, getDocs, increment, query, where } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-firestore.js"
+import { getFirestore, collection, setDoc, doc, addDoc, getDoc, getDocs, increment, query, where } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-firestore.js"
 import { firebaseConfig } from "/js/config.js"
 import { uploadImage } from "/js/util.js"
 import { getAndUpdateUserRating } from "/js/users.js"
@@ -78,6 +78,21 @@ export async function getEventsCreatedBy(user) {
             result.push(doc.data());
         })
         return result
+    }
+    catch (e) {
+        console.log(e)
+        return false
+    }
+}
+
+export async function getEvent(eventName) {
+    const docRef = doc(db, "events", eventName).withConverter(eventConverter)
+    try {
+        let data = await getDoc(docRef)
+        if (data.exists()) {
+            return data.data()
+        }
+        console.log("no such document")
     }
     catch (e) {
         console.log(e)

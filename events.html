@@ -114,14 +114,14 @@
                         <h1 class="ps-2">Your Events</h1>
                         <h6 class="ps-2">Join an Event to see it here</h6>
                         <div class="joined-events-container" style="display: flex; flex-wrap: nowrap; overflow-x: auto;">
-                        <div class="col-md-4" v-for="joinedEvent in joinedEvents">
+                        <div class="col-md-4" v-for="(event,index) in joinedEvents">
                             <div class="card bg-light smaller-card" style="margin-right: 5px;" >
                                 <!-- Smaller version of the card for joined event -->
                                 <!-- Display event details here using {{ joinedEvent.propertyName }} -->
-                                <img :src="joinedEvent.img" class="card-img-top small-card-img" >
+                                <img :src="event.img" class="card-img-top small-card-img" >
                                 <div class="card-body">
-                                    <h5 class="card-title">Name: {{joinedEvent.name}}</h5>
-                                    <h6 class="card-subtitle">Date: {{joinedEvent.date}}</h6>
+                                    <h5 class="card-title">Name: {{event.name}}</h5>
+                                    <h6 class="card-subtitle">Date: {{event.date}}</h6>
                                 </div>
                             </div>
                         </div>
@@ -158,7 +158,7 @@
                                             <div class="card-text mb-2 ">Cost: {{event.cost}}</div>
                                             <div class="card-text mb-2 ">Max Capacity: {{event.max}}</div>
                                             <div class="card-text mb-2 ">Organiser: {{event.organiser}}</div>
-                                            <button class="btn"style="background-color:orange;" @click="joinEvent(event)">Join Event
+                                            <button class="btn"style="background-color:orange;" @click="joinEvent(event.name)">Join Event
                                                 Now</button>
                                         </div>
                                     </div>
@@ -201,10 +201,11 @@
     </div>
 
     <script type="module">
-        import { isLoggedIn } from "/js/check_login.js"
+        import { isLoggedIn, email } from "/js/check_login.js"
         import { router } from "/js/router.js"
         import { getUpcomingEvents } from "/js/events.js"
         import { getUrl } from "/js/util.js"
+        import { joinEvent, getJoinedEvents } from "/js/users.js"
         import navbar from "/components/navbar.js"
 
         const app = Vue.createApp({
@@ -388,7 +389,7 @@
                 },
 
                 joinEvent(event) {
-                    this.joinedEvents.unshift(event);
+                    joinEvent(event, email)
                 },
 
                 async getData() {
@@ -396,6 +397,12 @@
                     this.upcomingEvents.forEach(async (event) => {
                         let url = await getUrl(event.img)
                         event.img = url
+                    })
+                    this.joinedEvents = await getJoinedEvents(email)
+                    this.joinedEvents.forEach(async (event) => {
+                        let url = await getUrl(event.img)
+                        event.img = url
+                        event.date = event.getDate().toDateString()
                     })
                 },
                 

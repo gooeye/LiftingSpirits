@@ -10,3 +10,9 @@ export var loginAuth = JSON.parse(sessionStorage.getItem("user_info"))
         isLoggedIn = true
 }
 
+export var username
+if (loginAuth) {
+    var username = loginAuth.username
+} else {
+    var username = null
+}

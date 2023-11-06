@@ -68,7 +68,13 @@
             top: 0;
             z-index: 1;
             background-color: rgba(0, 0, 0, 0.5);
-           
+        }
+
+        .event-container{
+            flex:1;
+            overflow:hidden;
+            display:flex;
+            flex-wrap: wrap;
         }
 
       
@@ -149,8 +155,8 @@
                         <input type="hidden" id="lat" name="lat" value="1.2973784" />
                         <input type="hidden" id="lng" name="lng" value="103.8495219" />
                         <div class="container" v-for="(event,index) of created_events">
-                            <div class="content-container">
-                            <div class="row mb-3 ">
+                            <div class="event-container">
+                            
                                 <div class="card bg-light " @click="toggleCard(index)">
                                     <img :src="event.img" class="card-img-top" alt="..." style="object-fit: cover;">
                                     <div class="card-body">
@@ -172,7 +178,6 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
                         </div>
                     </div>
                 </div>

@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js"
-import { getFirestore, collection, setDoc, doc, addDoc, getDoc, getDocs, increment, updateDoc } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-firestore.js"
+import { getFirestore, collection, setDoc, doc, addDoc, getDoc, getDocs, increment, updateDoc, query, orderBy, limit } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-firestore.js"
 import { firebaseConfig } from "/js/config.js"
 import { uploadImage } from "/js/util.js"
 import { getAndUpdateUserRating } from "/js/users.js"
@@ -61,7 +61,7 @@ export async function addToGlobalRating(name, rating) {
             num_tried: increment(1)
         })
         console.log('Rating updated successfully.')
-        return true
+        return await getGlobalRating(drink)
     } catch (error) {
         console.error('Error updating rating:', error)
         return false
@@ -77,7 +77,7 @@ export async function updateRating(drink, rating, email) {
             rating: increment(rating - oldRating)
         })
         console.log('Rating updated successfully.')
-        return true
+        return await getGlobalRating(drink)
     } catch (error) {
         console.error('Error updating rating:', error)
         return false
@@ -89,10 +89,10 @@ export async function removeRating(drink, rating) {
     try {
         await updateDoc(drinkRef, {
             rating: increment(-rating),
-            num_tried: increment(-1)
+            num_tried: increment(-1),
         })
         console.log('Rating updated successfully.')
-        return true
+        return await getGlobalRating(drink)
     } catch (error) {
         console.error('Error updating rating:', error)
         return false
@@ -104,11 +104,14 @@ export async function getGlobalRating(name) {
 
     try {
         const drinkDoc = await getDoc(drinkRef)
-
         if (drinkDoc.exists()) {
             const data = drinkDoc.data()
             const rating = data.rating || 0
             const num_tried = data.num_tried || 1
+            
+            await updateDoc(drinkRef, {
+                rating_per_tried: rating/num_tried
+            })
             return rating/num_tried
         } else {
             console.log('Document not found.')
@@ -119,3 +122,19 @@ export async function getGlobalRating(name) {
         return 0
     }
 }
+
+export async function getTopDrinks() {
+    const drinkRef = collection(db, "drinks")
+    try {
+        let q = query(drinkRef, orderBy("rating_per_tried", "desc"), limit(10));
+        let data = await getDocs(q)
+        let result = []
+        data.forEach((doc) => {
+            result.push(doc.data());
+        })
+        return result
+    } catch (e) {
+        console.log(e)
+        return false
+    }
+  }

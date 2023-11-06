@@ -38,7 +38,6 @@
                     <div class="col-lg-10 col-md-9 col-12 background2 p-3 h-100 min-vh-100" >
                         <div class="container">
                             <h1>Create an Event</h1>
-                            <form>
                                 <div class="mb-3 ">
                                     <label for="eventName" class="form-label">Event Name</label>
                                     <input type="text" class="form-control p-2" v-model="event.name" id="eventName" name="eventName" placeholder="What is the name of your event " required>
@@ -72,7 +71,6 @@
                                     <input type="file" class="form-control  p-2" id="eventImage" name="eventImage" accept="image/*" required>
                                 </div>
                                 <button class="btn" @click="created()" style="background-color: #CC6E4A;color:white" >Create Event</button>
-                            </form>
                         </div>
                     
 

@@ -162,8 +162,9 @@
                             async defer></script>
                         <input type="hidden" id="lat" name="lat" value="1.2973784" />
                         <input type="hidden" id="lng" name="lng" value="103.8495219" />
+                        <div class="event-container">
                         <div class="container" v-for="(event,index) of created_events">
-                            <div class="event-container">
+                            <div class="row mb-2">
                             
                                 <div class="card bg-light " @click="toggleCard(index)">
                                     <img :src="event.img" class="card-img-top" alt="..." style="object-fit: cover;">
@@ -187,6 +188,7 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
                     </div>
                 </div>
                 </div>

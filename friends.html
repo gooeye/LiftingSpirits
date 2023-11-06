@@ -15,6 +15,9 @@
     <!-- Import JS -->
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script src=" https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js "></script>
+    <script src="https://unpkg.com/vue-router@4.0.15/dist/vue-router.global.js"></script>
+
+
     <style>
         h2 {
             color: white;
@@ -175,6 +178,8 @@
     <!-- Vue.js App -->
     <script type="module">
         import navbar from "/components/navbar.js"
+        import { loginAuth, isLoggedIn } from "/js/check_login.js"
+        import { router } from "/js/router.js"
 
         const app = Vue.createApp({
             components: {
@@ -182,6 +187,7 @@
             },
             data() {
                 return {
+                    isLoggedIn:isLoggedIn,
                     currentPost: {
                         title: "",
                         description: "",
@@ -232,7 +238,8 @@
                 }
             }                     
         });
-        var vm = app.mount("#app")
+        window.vm = app.mount("#app")
+        app.use(router)
     </script>
 
     <!-- Add Bootstrap JS via CDN (for Bootstrap features like dropdowns) -->

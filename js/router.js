@@ -32,20 +32,7 @@ const routes = [
             window.vm.page = 'home'
             return true
         }
-    },
-    {path: '/eventform.html', component: {template: `<template></template>`}},
-    {path: '/tracking.html', component: {template: `<template></template>`}},
-    {path: '/tracking_one.html', component: {template: `<template></template>`}},
-    {path: '/postsearch.html', component: {template: `<template></template>`}},
-    {path: '/mylist.html', component: {template: `<template></template>`}},
-    {path: '/my_concoctions.html', component: {template: `<template></template>`}},
-    {path: '/friends.html', component: {template: `<template></template>`}},
-    {path: '/events.html', component: {template: `<template></template>`}},
-    {path: '/drinks.html', component: {template: `<template></template>`}},
-    {path: '/create_events.html', component: {template: `<template></template>`}},
-    {path: '/create_concoction.html', component: {template: `<template></template>`}},
-    {path: '/confirm.html', component: {template: `<template></template>`}},
-    {path: '/checkout.html', component: {template: `<template></template>`}},
+    }, 
     { 
         path: '/:pathMatch(.*)*', name: 'not-found', component: {template: `<template></template>`},
         beforeEnter: async (to) => {

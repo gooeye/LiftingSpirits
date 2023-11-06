@@ -12,7 +12,7 @@ const user_infoObj = JSON.parse(user_info)
 
 export async function createDrink(drink) {
     if (drinkExists(drink)) {
-        drink.file = uploadImage("uploadImages", "drinks", drink.name)
+        drink.img = uploadImage("uploadImages", "drinks", drink.name)
         const drinkRef = doc(db, "drinks", drink.name)
         drink.steps = drink.steps.split(',').map(part => part.trim())
         drink.ingredients = drink.ingredients.split(',').map(part => part.trim())

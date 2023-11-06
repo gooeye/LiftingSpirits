@@ -47,9 +47,9 @@ const user_info = sessionStorage.getItem("user_info")
 const user_infoObj = JSON.parse(user_info)
 
 export function createEvent(event){
-    event.file = uploadImage("uploadImages","events", event.name)
-    const eventRef = doc(db,'events',event.name)
-    setDoc(eventRef,event)
+    event.img = uploadImage("eventImage","events", event.name)
+    const eventRef = doc(db,'events',event.name).withConverter(eventConverter)
+    setDoc(eventRef, event)
 }
 
 export async function getAllEvents() {

@@ -63,7 +63,6 @@
 
         .map-container {
             flex: 0 0 300px;
-            position: sticky;
             width:400px;
             top: 100px;
             z-index: 1;
@@ -130,7 +129,7 @@
                         <div class="page-container">
                         <div class="map-container">
                         <div style="border-radius: 10px;
-                        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);" id="map" class= "p-5 mb-2 rounded-3 col"></div>
+                        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); position: sticky;" id="map" class= "p-5 mb-2 rounded-3 col"></div>
                         </div>
                         <script>
                             // Initialize and add the map
@@ -154,9 +153,9 @@
                             async defer></script>
                         <input type="hidden" id="lat" name="lat" value="1.2973784" />
                         <input type="hidden" id="lng" name="lng" value="103.8495219" />
+                        <div class="event-container">
                         <div class="container" v-for="(event,index) of created_events">
-                            <div class="event-container">
-                            
+                            <div class="row mb-2">
                                 <div class="card bg-light " @click="toggleCard(index)">
                                     <img :src="event.img" class="card-img-top" alt="..." style="object-fit: cover;">
                                     <div class="card-body">
@@ -178,6 +177,7 @@
                                     </div>
                                 </div>
                             </div>
+                        </div>
                         </div>
                     </div>
                 </div>

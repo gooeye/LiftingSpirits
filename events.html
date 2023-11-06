@@ -47,13 +47,24 @@
 
         .plus {
             position: absolute;
-            top: 25%;
+            top: 23%;
             left: 40%;
             font-size: 40px;
             color: white;
             text-decoration: none;
 
 
+        }
+
+        .map-cointainer{
+            position:fixed;
+            top: 10px;
+            right: 20px;
+            width: 300px;
+            height: 100vh;
+            z-index: 1;
+            background-color: white;
+            
         }
 
         
@@ -106,7 +117,7 @@
                         
                         <!--The div element for the map -->
                         <div style="border-radius: 10px;
-                        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);" id="map" class="p-5 mb-2 rounded-3"></div>
+                        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);" id="map" class=" map-container p-5 mb-2 rounded-3"></div>
                         <script>
                             // Initialize and add the map
                             function initMap() {

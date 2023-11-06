@@ -72,6 +72,7 @@
         import { loginAuth, isLoggedIn } from "/js/check_login.js"
         import navbar from "/components/navbar.js"
         import { createDrink } from "/js/drinks.js"
+        import { router } from "/js/router.js"
 
         const app = Vue.createApp({
             components: {
@@ -99,8 +100,8 @@
                 }
             }
         })
-        window.vm = app.mount("#app")
         app.use(router)
+        window.vm = app.mount("#app")
     </script>
 
     <!-- Add Bootstrap JS via CDN (for Bootstrap features like dropdowns) -->

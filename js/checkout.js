@@ -7,31 +7,21 @@ import { firebaseConfig } from "/js/config.js"
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-//get users cart
-const user_info = sessionStorage.getItem("user_info")
-const user_infoObj = JSON.parse(user_info)
-
-if(sessionStorage.getItem('order') != null){
-const order = (JSON.parse(sessionStorage.getItem('order'))).cart
+//get users cart and add prices
+export async function getPriceCart(){
+  const order = (JSON.parse(sessionStorage.getItem('order'))).cart
+  let price_cart = []
+  for(let item of order){
+    const q = query(collection(db, "inventory"), where("name", "==", item.name));
+    const querySnapshot = await getDocs(q)
+    querySnapshot.forEach(item_price=>{
+      var toAdd = {
+        name: item.name,
+        qty: item.qty,
+        price: (item_price.data()).price
+      }
+      price_cart.push(toAdd)
+    })
+  }
+  return price_cart
 }
-
-var price_cart = []
-
-for(let item of cart){
-  const q = query(collection(db, "inventory"), where("name", "==", item.name));
-  const x = await getDocs(q)
-
-  x.forEach(add => {
-
-    var y = {
-      name: item.name,
-      qty: item.qty,
-      price: (add.data()).price,
-    }
-
-    price_cart.push(y)
-
-  });
-}
-
-export { price_cart }

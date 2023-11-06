@@ -48,7 +48,7 @@
                     <div class ="col-lg-9 order-md-1">
                         <h1 class = "pb-2">Checkout</h1>
                     <!---form------------------------------------------------------------------------------------>
-                        <form class ="row checkout" id="form" novalidate>
+                        <div class ="row checkout" id="form" novalidate>
                             <div class="col-lg-6 col-12 pb-4">
                                 <label for="fname" class="form-label">First Name</label>
                                 <input type="text" class="form-control" id="fname" placeholder="First Name" required>
@@ -145,7 +145,7 @@
                             <div class="col-lg-7 col-12 pb-4">
                                 <button id="submit" class="btn text-white" style="background-color: #CC6E4A">Submit</button>                 
                             </div>
-                        </form>
+                        </div>
                     <!---form------------------------------------------------------------------------------------>
                     </div>
                 </div>
@@ -156,10 +156,10 @@
         </main>
     </div>
     <script type="module">
-        import {price_cart} from "./js/checkout.js" 
+        import {getPriceCart} from "./js/checkout.js" 
         import navbar from "/components/navbar.js"
 
-        const cart = price_cart
+        const cart = await getPriceCart()
 
         const app = Vue.createApp({ 
             components: {
@@ -185,7 +185,7 @@
                 total(){
                     let total_price = 0
 
-                    for(let item of this.cart){
+                    for(let item of cart){
                         total_price += (item.price * item.qty)
                     }
 
@@ -241,7 +241,7 @@
 
         var submit = document.getElementById("submit")
 
-        submit.addEventListener("click", function(event){
+        submit.addEventListener("click", async function(event){
 
                 var fname = document.getElementById('fname');
                 var lname = document.getElementById('lname');
@@ -341,11 +341,13 @@
                     isValid = false
                 }
 
-                if(isValid ==true){
+                if(isValid ==true){ 
+                    await function(){
                     form.classList.add('was-validated');
                     setTimeout(function() {
                     window.location.href = "confirm.html";
                     }, 10000)
+                    }
                 }
 
 

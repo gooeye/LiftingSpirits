@@ -13,11 +13,11 @@ const user_infoObj = JSON.parse(user_info)
 export async function getAllPosts() {
     try {
         const querySnapshot = await getDocs(collection(db, "posts"));
-        let result = []
-        querySnapshot.forEach((doc) => {
-            result.push(doc.id);
+        let posts = []
+        querySnapshot.forEach((post) => {
+            posts.push(post.data());
         });
-        return result
+        return posts
     }
     catch (e) {
         console.log(e)

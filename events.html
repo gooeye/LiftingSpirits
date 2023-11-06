@@ -36,34 +36,27 @@
 }
 
         .box {
-            width: 250px;
-            height: 150px;
+            width: 150px;
+            height: 100px;
             border: 3px dashed white;
             border-radius: 10px;
             position: relative;
-            margin-left: 20px;
+            margin-left: 10px;
             background-color: #898b8ca2;
         }
 
         .plus {
             position: absolute;
-            top: 30%;
-            left: 45%;
+            top: 25%;
+            left: 40%;
             font-size: 40px;
             color: white;
+            text-decoration: none;
 
 
         }
 
-        p {
-            position: absolute;
-            top: 65%;
-            bottom: 30%;
-            left: 20px;
-            font-size: 17px;
-            color: rgb(222, 221, 221);
-
-        }
+        
     </style>
 
     <!-- <script>
@@ -99,12 +92,21 @@
                                     <h6 class="card-subtitle">Date: {{joinedEvent.date}}</h6>
                                 </div>
                             </div>
-                        </div><h1 class="ps-2 pt-4"> All Upcoming Events </h1>
+                        </div>
+
+                        
+                        <h1 class="ps-2" >Create a new event </h1>
+                        <div class="box">
+                            <a href="eventform.html" class="plus">+</a>
+                        </div>
+                        
+                        
+                        <h1 class="ps-2 pt-4"> All Upcoming Events </h1>
                         <h6 class="ps-2 mb-4">Click for more details </h6>
                         
                         <!--The div element for the map -->
                         <div style="border-radius: 10px;
-                        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);" id="map" class="p-5 rounded-3"></div>
+                        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);" id="map" class="p-5 mb-2 rounded-3"></div>
                         <script>
                             // Initialize and add the map
                             function initMap() {

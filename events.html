@@ -155,12 +155,7 @@
                         <input type="hidden" id="lat" name="lat" value="1.2973784" />
                         <input type="hidden" id="lng" name="lng" value="103.8495219" />
                         <div class="container" v-for="(event,index) of created_events">
-<<<<<<< HEAD
-                            <div class="col-lg-8 col-md-6 col-10">
-=======
-                            <div class="event-container">
-                            
->>>>>>> 05f573fca6f034c27badd758c8469cfdff4e1879
+                            <div class="row mb-2">
                                 <div class="card bg-light " @click="toggleCard(index)">
                                     <img :src="event.img" class="card-img-top" alt="..." style="object-fit: cover;">
                                     <div class="card-body">

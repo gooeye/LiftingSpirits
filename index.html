@@ -234,32 +234,6 @@
             // console.log (isHome, page)
         }
         
-        window.loadSplide = function loadSplide() {
-            var splide = new Splide( '.splide', {
-                type   : 'loop',
-                drag   : 'free',
-                snap   : true,
-                autoHeight: true,
-                width  : '90%',
-                perPage: 6,
-                breakpoints: {
-                    386: {
-                        perPage: 2,
-                    },
-                    768: {
-                        perPage: 3,
-                    },
-                    992: {
-                        perPage: 4,
-                    },
-                    1280: {
-                        perPage: 5,
-                    },
-                }
-            } );
-    
-            splide.mount(window.splide.Extensions);
-        };
         const app = Vue.createApp({
             components: {
                 'vertical-navbar': navbar,
@@ -393,9 +367,41 @@
                         let url = await getUrl(drink.img)
                         drink.img = url
                         counter++
-                        if(counter == this.drinks.length-1)this.loaded = true
+                        if(counter == this.drinks.length-1) {
+                            this.loaded = true
+                            if (this.isHome) this.loadSplide()
+                        }
                     })
                     
+                },
+                loadSplide() {
+                    var splide = new Splide( '.splide', {
+                        type   : 'loop',
+                        drag   : 'free',
+                        snap   : true,
+                        autoHeight: true,
+                        width  : '90%',
+                        perPage: 6,
+                        autoScroll: {
+                            speed: 0.5,
+                        },
+                        breakpoints: {
+                            386: {
+                                perPage: 2,
+                            },
+                            768: {
+                                perPage: 3,
+                            },
+                            992: {
+                                perPage: 4,
+                            },
+                            1280: {
+                                perPage: 5,
+                            },
+                        }
+                    } );
+    
+                    splide.mount(window.splide.Extensions);
                 }
             },
             mounted() {
@@ -404,9 +410,6 @@
         })
         app.use(router)
         window.vm = app.mount("#app")
-        if (vm.isHome) {
-            loadSplide()
-        }
     </script>
 
     <!-- Add Bootstrap JS via CDN (for Bootstrap features like dropdowns) -->

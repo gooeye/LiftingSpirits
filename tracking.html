@@ -16,6 +16,8 @@
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script src=" https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js "></script>
     <script src="components/navbar.js"></script>
+    <script src="https://unpkg.com/vue-router@4.0.15/dist/vue-router.global.js"></script>
+
     <style>
         h1{
             display: inline;
@@ -96,12 +98,13 @@
 
    
     <script>
-
+        import { loginAuth, isLoggedIn } from "/js/check_login.js"
+        import { router } from "/js/router.js"
         const app = Vue.createApp({
             data() {
                 return {
                     page: 'tracking',
-                    isLoggedIn: false,
+                    isLoggedIn: isLoggedIn,
                     model: null,
 
                 }
@@ -110,7 +113,8 @@
         app.component(
             'vertical-navbar', navbar
         )
-        vm = app.mount("#app")
+        app.use(router)
+        window.vm = app.mount("#app")
     </script>
 
     <!-- Add Bootstrap JS via CDN (for Bootstrap features like dropdowns) -->

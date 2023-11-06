@@ -44,7 +44,7 @@ export async function emailExists(email) {
 export async function addDrinkToList(email, status, drink, rating) {
     // params:
     //  email: string, email of user
-    // status: int, 0 = won't try, 1 = tried, 2 = want to try
+    // status: int, 0 = want to try, 1 = tried, 2 = won't try
     //  drink: string, name of drink
     // rating: int || undefined, rating
     if (rating && status != 1) {
@@ -75,12 +75,7 @@ export async function addDrinkToList(email, status, drink, rating) {
                 const tried = userData.tried || {}
                 if (drink in tried) {
                     await removeRating(drink, tried[drink])
-                } else {
-                    return 0
                 }
-            } else {
-                console.log('User document not found.')
-                return 0
             }
         } catch (error) {
             console.error('Error retrieving user rating:', error)

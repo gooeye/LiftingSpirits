@@ -26,7 +26,7 @@ export async function createDrink(drink) {
 export async function getAllDrinks() {
     try {
         const querySnapshot = await getDocs(collection(db, "drinks"));
-        let result = []
+        let result = {}
         querySnapshot.forEach((doc) => {
             result[doc.data().name]=doc.data();
         });

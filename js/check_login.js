@@ -1,5 +1,5 @@
 var loginAuth = JSON.parse(sessionStorage.getItem("user_info"))
-export var isLoggedIn = loginAuth.isLoggedIn
+export var isLoggedIn = loginAuth ? loginAuth.isLoggedIn : null
 if (!isLoggedIn && window.location.pathname != "/index.html" && window.location.pathname != "/"){
     window.location.replace("/");
 }

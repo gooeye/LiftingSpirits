@@ -29,19 +29,19 @@
                 <div class="row">
                     <vertical-navbar :page="page" :is-logged-in="isLoggedIn"></vertical-navbar>
               <!-- Content Area -->
-                    <div class="col-lg-10 col-md-9 col-12 background2 p-3 h-100 min-vh-100" v-if="created_drinks.length > 1">
+                    <div class="col-lg-10 col-md-9 col-12 background2 p-3 h-100 min-vh-100">
                         <div class="row">
                             <h1 class="p-2">Swipe to find your favourite drinks!</h1>
                             <!-- row carousel -->
                             <div class="col-6 offset-3" >
-                                <div id="carouselExampleControls" class="carousel slide mx-auto" >
-                                    <div v-if="created_drinks.length === 0" class="text-center mt-5">
+                                <div id="carouselControls" class="carousel slide mx-auto" >
+                                    <div v-if="Object.keys(drinks).length == 0" class="text-center mt-5">
                                         <h3>You've seen all available drinks!</h3>
                                     </div>
                                     <div class="carousel-inner" >
-                                        <div v-for="(drink,index) in visibleDrinks" :key="index" class="carousel-item" :class="{ active: index===0}">
+                                        <div v-for="drink, index in drinks" class="carousel-item" :class="{active: index===currentIndex}">
                                             <div class="card" >
-                                                <img :src="drink.img" alt="Drink Image" >
+                                                <img :src="drink.img" :alt="firstIndex" >
                                                 <div class="card-body">
                                                     <h5 class="card-title text-white">{{drink.name}}</h5>
                                                     <p class="text-white"> Type: {{drink.type}}</p>
@@ -53,11 +53,11 @@
                                         
                                     
                                     <!-- Controls -->
-                                    <button class="carousel-control-prev" type="button" data-bs-slide="prev">
-                                        <span @click="remove()" class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                        <span @click="remove()" >Not interested</span>
+                                    <button class="carousel-control-prev" type="button" data-bs-slide="prev" @click="add(2)">
+                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                        <span>Not interested</span>
                                     </button>
-                                    <button class="carousel-control-next" type="button" data-bs-slide="next" @click="addToMyList(created_drinks[index])">
+                                    <button class="carousel-control-next" type="button" data-bs-slide="next" @click="add(0)">
                                         <span class="carousel-control-next-icon" aria-hidden="true"></span>
                                         <span >Hell Yes!</span>
                                     </button>
@@ -78,6 +78,9 @@
         import navbar from "/components/navbar.js"
         import { email, isLoggedIn } from "/js/check_login.js"
         import { router } from "/js/router.js"
+        import { getAllDrinks } from "/js/drinks.js"
+        import { getUrl } from "/js/util.js"
+        import { addDrinkToList } from "/js/users.js"
         
         function shuffle(array) {
             for (let i = array.length - 1; i > 0; i--) {
@@ -93,42 +96,11 @@
             },
             data() {
                 return {
+                    hack:0,
                     isLoggedIn: isLoggedIn,
-                
-                    created_drinks : [
-                    {
-                        name: "Mojito",
-                        type: "Beer",
-                        ingredients:["lime","rum","mint","ice"],                        
-                        steps:["Muddle the mint","Mix and measure to your liking","Stir with ice"],
-                        img: "https://cdn.loveandlemons.com/wp-content/uploads/2020/07/mojito.jpg",
-                        status: "To Try",
-                        visible: true,
-                    },
-
-                    {
-                        name: "Sangria",
-                        type: "Rum",
-                        ingredients:["Orange","Apple","Sugar syrup","Brandy","Rioja wine","Ice"],                        
-                        steps:["Cut the fruits","Mix and measure to your liking","Stir with ice"],
-                        img: "https://hips.hearstapps.com/hmg-prod/images/sangria-index-643044ca71f12.jpg?crop=0.502xw:1.00xh;0.210xw,0&resize=1200:*",
-                        status: "To Try",
-                        visible: true,
-                    },
-
-                    {
-                        name: "Whiskey Sour",
-                        type: "Whiskey",
-                        ingredients:["Bourdon","Lemon juice","Sugar syrup","Egg white","Angosutra bitters"],                        
-                        steps:["Add bourbon, lemon juice, simple syrup and egg white, if using, to a shaker, and dry-shake for 30 seconds without ice."
-                        ,"Add ice and shake again for 15–20 seconds, until well-chilled.",
-                        "Strain into a rocks glass over fresh ice, or into a coupe without ice.",
-                        "Garnish with 3–4 drops of Angostura bitters."],
-                        img: "https://hips.hearstapps.com/hmg-prod/images/sangria-index-643044ca71f12.jpg?crop=0.502xw:1.00xh;0.210xw,0&resize=1200:*",
-                        status: "To Try",
-                        visible: true,
-                    },
-                    ],
+                    loaded: false,
+                    firstIndex: null,
+                    drinks : [],
                     page: 'my_concoction',
                     isLoggedIn: isLoggedIn,
                     model: null,
@@ -138,31 +110,46 @@
 
             computed: {
                 visibleDrinks() {
-                    return this.created_drinks.filter(drink => drink.visible);
+                    return this.drinks.filter(drink => drink.visible);
+                },
+                currentIndex() {
+                    console.log(Object.keys(this.drinks).length == 1 ? Object.keys(this.drinks)[0] : Object.keys(this.drinks)[this.hack]) 
+                    let k = Object.keys(this.drinks)
+                    let l = k.length
+                    if (this.hack >= l) this.hack -= l
+                    else if (this.hack < 0) this.hack += l
+                    return l == 1 ? k[0] : k[this.hack]
                 }
             },
             
 
             methods: {
                 remove() {
-                    const activeDrink = document.querySelector('.carousel-item.active img').getAttribute('src');
-                    const drink = this.created_drinks.find(drink => drink.img === activeDrink);
-                    
-                    if (drink) {
-                        drink.visible = false;
-                    }
-        
-                    if (this.visibleDrinks.length === 0) {
-                        // Optional: Hide the carousel controls when no drinks are left.
-                        document.querySelector('#carouselExampleControls .carousel-control-prev').style.display = 'none';
-                        document.querySelector('#carouselExampleControls .carousel-control-next').style.display = 'none';
-                    }
+                    delete this.drinks[this.currentIndex]
                 },
-                addToMyList(drinkName) {
-                    addDrinkToList(email, 1, drinkName)
-                    this.remove();
-                }
-            }  
+                add(status) {
+                    addDrinkToList(email, status, this.currentIndex).then(data=>{console.log(data)})
+                    this.remove()
+                    if(!status)this.hack++
+                    else this.hack--
+                },
+                async getData() {
+                    this.drinks = await getAllDrinks()
+                    let counter = 0
+                    Object.keys(this.drinks).forEach(async (drink) => {
+                        let url = await getUrl(this.drinks[drink].img)
+                        this.drinks[drink].img = url
+                        counter++
+                        if(counter == Object.keys(this.drinks).length-1) {
+                            this.loaded = true
+                        }
+                    })
+                    this.firstIndex=Object.keys(this.drinks)[this.hack]
+                },
+            },
+            mounted() {
+                this.getData()
+            }
         })
         app.use(router)
         window.vm = app.mount("#app")

@@ -59,7 +59,7 @@
                     <!-- Header for Drink Posts -->
                     <h2 style="color: white; font-size: 1.5rem;">Drinks Posts!</h2>
                     <!-- Button trigger modal -->
-                    <button type="button" class="btn mb-3" data-bs-toggle="modal" data-bs-target="#createPostModal" style="background-color:#CC6E4A">
+                    <button type="button" class="btn mb-3" data-bs-toggle="modal" data-bs-target="#createPostModal" style="background-color:#CC6E4A; color:white;">
                     + Add Post 
                     </button>
                     <div class="row">
@@ -74,7 +74,7 @@
                                         <p class="card-text" style="color: white;">{{ post.description }}</p>
                                         <p class="card-text" style="color: white;">Posted by: {{ post.author}}</p>
                                         <p class="card-text" style="color: white;">Posted on: {{ post.date}}</p>
-                                            <button @click="setAndViewPost(post)" class="btn" style="background-color: #CC6E4A;">View Post</button>
+                                            <button @click="setAndViewPost(post)" class="btn" style="background-color: #CC6E4A; color:white;">View Post</button>
                                     </div>
                                 </div>
                             </div>
@@ -88,7 +88,7 @@
                                 <div class="card-body">
                                     <h5 class="card-title" style="color: white;">{{ event.name }}</h5>
                                     <p class="card-text" style="color:white ;">{{ event.description }}</p>
-                                    <button @click="setAndViewEvent(event)" class="btn" style="background-color: #CC6E4A;">View Event</button>
+                                    <button @click="setAndViewEvent(event)" class="btn" style="background-color: #CC6E4A;color:white;">View Event</button>
                                 </div>
                             </div>
                         </div>

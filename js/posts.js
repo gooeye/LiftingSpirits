@@ -27,13 +27,13 @@ export async function getAllPosts() {
 export async function createPost(postData) {
     try {
         const { title, content, imageUrl } = postData;
-        const userId = sessionStorage.getItem("user_id");
+        const username = user_infoObj.username;
         
         const docRef = await addDoc(collection(db, "posts"), {
             title: title,
             content: content,
             imageUrl: imageUrl,
-            userId: userId, // does this work lol
+            creator: username, // does this work lol
             createdAt: serverTimestamp() // Add a timestamp for when the post is created
         });
 

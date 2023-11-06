@@ -194,19 +194,19 @@ export const user = {
                                 <p class="subText">You are advised to drink less than 14 units a week</p>
                             </div>
                             <div class="row row-cols-md-2 row-cols-sm-1">
-                            <!-- Your existing HTML content for drink items goes here -->
-                            <div v-for="(item, index) in items" :key="index" class="col-md-4 itemContainer" @click="onItemClick(item)">
-                                <div class="col">
-                                    <img :src="'../components/img/' + item.path + '.png'" :alt="item.name + '.png'" class="mb-2">
-                                    <h3>{{ item.name }}</h3>
-                                    <p>{{ item.calories }} calories</p>
-                                    <span class="click-count">{{ item.count }}</span>
+                                <!-- Your existing HTML content for drink items goes here -->
+                                <div v-for="(item, index) in items" :key="index" class="col-md-4 itemContainer" @click="onItemClick(item)">
+                                    <div class="col">
+                                        <img :src="'../components/img/' + item.path + '.png'" :alt="item.name + '.png'" class="mb-2">
+                                        <h3>{{ item.name }}</h3>
+                                        <p>{{ item.calories }} calories</p>
+                                        <span class="click-count">{{ item.count }}</span>
+                                    </div>
                                 </div>
+                                <!-- ... -->
                             </div>
-                            <!-- ... -->
-                            </div>
-                            </div>
-                            <div class="col-md-3">
+                        </div>
+                        <div class="col-md-3">
                             <div class="total-calories text-center">
                                 <h2 class="mb-3">Total Calories: <span class="text-danger">{{ totalCalories.toFixed(2) }}</span></h2>
                             </div>
@@ -223,15 +223,12 @@ export const user = {
                                 </div>
                             </div>
                         </div>
-                        </div>
                     </div>
-                </div></div></div></div>
-
+                </div>
             </div>
-            <!-- ... -->
         </div>
-</div>
-        </div>
+    </div>
+
     `,
 };
 

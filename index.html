@@ -40,7 +40,7 @@
                             <li v-for="drink in drinks" class="splide__slide">
                                 <div class="m-1 mb-4">
                                     <div class="card shadow-lg">
-                                        <img :src="loaded ? drink.img : ''" class="card-img" alt="..." style="object-fit: cover; height: 200px; width: 150px">
+                                        <img :src="loaded ? drink.img : 'unloaded.'+drink.name" class="card-img" alt="..." style="object-fit: cover; height: 200px; width: 150px">
                                     </div>
                                     <div>
                                         <span style="font-size: 12px;" class="float-end">
@@ -363,13 +363,12 @@
                 async getData() {
                     this.drinks = await getTopDrinks()
                     let counter = 0
-                    this.drinks.forEach(async (drink) => {
-                        let url = await getUrl(drink.img)
-                        drink.img = url
+                    Object.keys(this.drinks).forEach(async (drink) => {
+                        let url = await getUrl(this.drinks[drink].img)
+                        this.drinks[drink].img = url
                         counter++
-                        if(counter == this.drinks.length-1) {
+                        if(counter == Object.keys(this.drinks).length-1) {
                             this.loaded = true
-                            if (this.isHome) this.loadSplide()
                         }
                     })
                     
@@ -402,10 +401,21 @@
                     } );
     
                     splide.mount(window.splide.Extensions);
+                    let images = document.querySelectorAll(".card-img")
+                    images.forEach(async (image) => {
+                        let splits = image.src.split("/")[3]
+                        if (splits.split(".")[0] == "unloaded") {
+                            let drink = this.drinks[splits.substring(9).replace('%20', ' ')]
+                            let url = await getUrl(drink.img)
+                            image.src = url
+                        }
+                    })
                 }
             },
             mounted() {
-                this.getData()
+                this.getData().then(()=>{
+                    if (this.isHome) this.loadSplide()
+                })
             }
         })
         app.use(router)

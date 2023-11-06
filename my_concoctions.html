@@ -92,7 +92,7 @@
         import navbar from "/components/navbar.js"
         import { loginAuth, isLoggedIn } from "/js/check_login.js"
         import { router } from "/js/router.js"
-        
+
         const drinks = created_drinks
         console.log(drinks)
         function loadSplide (num) {
@@ -165,8 +165,8 @@
                 },
             }
         })
-        window.vm = app.mount("#app")
         app.use(router)
+        window.vm = app.mount("#app")
 
         // console.log(vm.created_drinks.length, "hi")
         loadSplide()

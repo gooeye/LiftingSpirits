@@ -117,9 +117,6 @@ export const user = {
                         <li class="nav-item">
                         <a class="nav-link link-fancy" href="#list">List</a>
                         </li>
-                        <li class="nav-item">
-                        <a class="nav-link link-fancy" href="#tracking">Tracking</a>
-                        </li>
                     </ul>
                 </div>
             </nav>

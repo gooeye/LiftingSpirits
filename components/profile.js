@@ -183,21 +183,23 @@ export const user = {
            
             <div class="container rounded-3 background3 p-4 shadow-sm mb-4" id="tracking">
             <div class="min-vh-100 d-flex flex-column">
-                <div class="container-fluid background2">
+                <div class="container-fluid">
                     <div class="row">
-                        <div class="col-md-9">
+                        <div class="container col-md-9">
                             <div class="text-center mb-4">
                                 <h1 class="display-4">Unit and Calorie Tracking</h1>
                                 <p class="subText">You are advised to drink less than 14 units a week</p>
                             </div>
-                            <div class="row row-cols-md-2 row-cols-sm-1">
+                            <div class="row row-cols-md-2 row-cols-sm-1 gx-3 gy-3">
                                 <!-- Your existing HTML content for drink items goes here -->
-                                <div v-for="(item, index) in items" :key="index" class="col-md-4 itemContainer" @click="onItemClick(item)">
-                                    <div class="col">
-                                        <img :src="'../components/img/' + item.path + '.png'" :alt="item.name + '.png'" class="mb-2">
-                                        <h3>{{ item.name }}</h3>
-                                        <p>{{ item.calories }} calories</p>
-                                        <span class="click-count">{{ item.count }}</span>
+                                <div v-for="(item, index) in items" class="col-md-4">
+                                    <div :key="index" class="itemContainer h-100" @click="onItemClick(item)">
+                                        <div class="col">
+                                            <img :src="'../components/img/' + item.path + '.png'" :alt="item.name + '.png'" class="mb-2">
+                                            <h3>{{ item.name }}</h3>
+                                            <p>{{ item.calories }} calories</p>
+                                            <span class="click-count">{{ item.count }}</span>
+                                        </div>
                                     </div>
                                 </div>
                                 <!-- ... -->

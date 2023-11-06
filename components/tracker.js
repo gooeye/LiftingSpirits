@@ -5,7 +5,7 @@ export default {
     },
     template: `
    
-        <div id="app" class="min-vh-100 d-flex flex-column background2">
+        <div id="app" class="min-vh-100 d-flex flex-column">
             <vertical-navbar :page="page" :is-logged-in="isLoggedIn"></vertical-navbar>
             <div class="container col-10 flex-grow-1 p-2 ps-0">
                 <div class="text-center mb-4">

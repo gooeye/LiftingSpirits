@@ -19,49 +19,40 @@
 
     <style>
         #map {
+            
             height: 400px;
             /* The height is 400 pixels */
             width: 100%;
             /* The width is the width of the web page */
             border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            margin:auto;
-        }
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin:auto;
+}
 
-        /* Style for the info window content */
-        #content {
-        
-            padding: 10px;
-        }
+/* Style for the info window content */
+#content {
+   
+    padding: 10px;
+}
 
         .box {
-          width: 250px;
-          height: 150px;
-          border: 3px dashed white;
-          border-radius: 10px;
-          position: relative;
-          margin-left:20px;
-          background-color: #898b8ca2 ;
-        }
-      
-        .plus {
-          position: absolute;
-          top: 30%;
-          left: 45%;
-          font-size: 40px;
-          color: white;
-          text-decoration: none;
-       
-          
+            width: 150px;
+            height: 100px;
+            border: 3px dashed white;
+            border-radius: 10px;
+            position: relative;
+            margin-left: 8px;
+            background-color: #898b8ca2;
         }
 
-        p{
-            position:absolute;
-            top:65%;
-            bottom:30%;
-            left: 20px;
-            font-size: 17px;
-            color: rgb(222, 221, 221);
+        .plus {
+            position: absolute;
+            top: 23%;
+            left: 40%;
+            font-size: 40px;
+            color: white;
+            text-decoration: none;
+
 
         }
 
@@ -72,11 +63,11 @@
 
         .map-container {
             flex: 0 0 300px;
-            position: fixed;
+            position: sticky;
             width:400px;
             top: 100px;
             z-index: 1;
-           
+            background-color: rgba(0, 0, 0, 0.5);
         }
 
         .event-container{
@@ -137,10 +128,10 @@
                         
                         <!--The div element for the map -->
                         <div class="page-container">
-                        
+                        <div class="map-container">
                         <div style="border-radius: 10px;
-                        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);" id="map" class= "map-container p-5 mb-2 rounded-3 col"></div>
-                        
+                        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);" id="map" class= "p-5 mb-2 rounded-3 col"></div>
+                        </div>
                         <script>
                             // Initialize and add the map
                             function initMap() {
@@ -163,9 +154,8 @@
                             async defer></script>
                         <input type="hidden" id="lat" name="lat" value="1.2973784" />
                         <input type="hidden" id="lng" name="lng" value="103.8495219" />
-                        <div class="event-container">
                         <div class="container" v-for="(event,index) of created_events">
-                            <div class="col m-2">
+                            <div class="row mb-2">
                                 <div class="card bg-light " @click="toggleCard(index)">
                                     <img :src="event.img" class="card-img-top" alt="..." style="object-fit: cover;">
                                     <div class="card-body">
@@ -188,7 +178,6 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
                     </div>
                 </div>
                 </div>

@@ -16,6 +16,8 @@
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script src=" https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js "></script>
     <script type="module" src="https://unpkg.com/@splinetool/viewer/build/spline-viewer.js"></script>
+    <script src="https://unpkg.com/vue-router@4.0.15/dist/vue-router.global.js"></script>
+
 </head>
 
 <body>
@@ -67,6 +69,7 @@
     </div>
 
     <script type="module">
+        import { loginAuth, isLoggedIn } from "/js/check_login.js"
         import navbar from "/components/navbar.js"
         import { createDrink } from "/js/drinks.js"
 
@@ -77,7 +80,7 @@
             data() {
                 return {
                     page:'create_a_concoction',
-                    isLoggedIn: false,
+                    isLoggedIn: isLoggedIn,
                     show: false,
                     drink: {
                         user : JSON.parse(sessionStorage.getItem("user_info")).username,
@@ -97,6 +100,7 @@
             }
         })
         window.vm = app.mount("#app")
+        app.use(router)
     </script>
 
     <!-- Add Bootstrap JS via CDN (for Bootstrap features like dropdowns) -->

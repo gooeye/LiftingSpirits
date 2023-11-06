@@ -8,7 +8,11 @@
         import { uploadImage } from "/js/util.js"
         import * as e from "/js/events.js"
         import * as u from "/js/users.js"
-        console.log(u.leaveEvent("Event 1", "130gab@gmail.com"))
+        import * as d from "/js/drinks.js"
+        d.getGlobalRating("drink2")
+        let v = await d.getTopDrinks()
+        console.log(v)
+        console.log("v")
         // document.getElementById('doit').addEventListener('click', ()=>{
         //     uploadImage("uploadImages", "drinks", "testimage")
         // })

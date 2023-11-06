@@ -53,8 +53,8 @@ export async function drinkExists(drink) {
     }
 }
 
-export async function addToGlobalRating(name, rating) {
-    const drinkRef = doc(db, 'drinks', name)
+export async function addToGlobalRating(drink, rating) {
+    const drinkRef = doc(db, 'drinks', drink)
     try {
         await updateDoc(drinkRef, {
             rating: increment(rating),
@@ -99,8 +99,8 @@ export async function removeRating(drink, rating) {
     }
 }
 
-export async function getGlobalRating(name) {
-    const drinkRef = doc(db, 'drinks', name)
+export async function getGlobalRating(drink) {
+    const drinkRef = doc(db, 'drinks', drink)
 
     try {
         const drinkDoc = await getDoc(drinkRef)
@@ -132,6 +132,7 @@ export async function getTopDrinks() {
         data.forEach((doc) => {
             result.push(doc.data());
         })
+        console.log(result)
         return result
     } catch (e) {
         console.log(e)

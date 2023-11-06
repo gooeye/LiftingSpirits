@@ -72,7 +72,7 @@
             overflow:hidden;
             position:sticky;
             flex: 0 0 500px;
-            width:400px;
+            width:40%;
             top: 35%;
             z-index: 1;
             background-color: rgba(0, 0, 0, 0.5);
@@ -87,6 +87,7 @@
             margin-right:20px;
         }
 
+       
       
         
     </style>
@@ -114,16 +115,18 @@
                     <div class="col-lg-10 col-md-9 col-12 background2 p-3 h-100 min-vh-100">
                         <h1 class="ps-2">Your Events</h1>
                         <h6 class="ps-2">Join an Event to see it here</h6>
+                        <div class="joined-events-container" style="display: flex; flex-wrap: nowrap; overflow-x: auto;">
                         <div class="col-md-4" v-for="joinedEvent in joinedEvents">
-                            <div class="card bg-light smaller-card">
+                            <div class="card bg-light smaller-card" style="margin-right: 5px;" >
                                 <!-- Smaller version of the card for joined event -->
                                 <!-- Display event details here using {{ joinedEvent.propertyName }} -->
-                                <img :src="joinedEvent.img" class="card-img-top small-card-img">
+                                <img :src="joinedEvent.img" class="card-img-top small-card-img" >
                                 <div class="card-body">
                                     <h5 class="card-title">Name: {{joinedEvent.name}}</h5>
                                     <h6 class="card-subtitle">Date: {{joinedEvent.date}}</h6>
                                 </div>
                             </div>
+                        </div>
                         </div>
 
                         

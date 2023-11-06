@@ -213,6 +213,7 @@ export const user = {
                             <!-- Equivalent Comparison -->
                             <div class="equivalent-section text-center">
                                 <h2 class="mb-4">Equivalent Comparison</h2>
+                                
                                 <div class="equivalent-item">
                                     <div class="text-light">Number of Cheeseburgers:</div>
                                     <div class="font-weight-bold">{{ (totalCalories / 250).toFixed(2) }}</div>

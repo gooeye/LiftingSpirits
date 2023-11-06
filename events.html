@@ -82,6 +82,7 @@
             overflow:hidden;
             display:flex;
             flex-wrap: wrap;
+            margin-left:20px;
         }
 
       
@@ -138,7 +139,7 @@
 
                         <div class="event-container">
                         <div class="container" v-for="(event,index) of created_events">
-                            <div class="row mb-2 ml-2">
+                            <div class="row mb-2">
                                 <div class="card bg-light " @click="toggleCard(index)">
                                     <img :src="event.img" class="card-img-top" alt="..." style="object-fit: cover;">
                                     <div class="card-body">

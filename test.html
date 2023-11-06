@@ -5,9 +5,13 @@
         <button id="doit">upload</button>
     </body>
     <script type="module">
-        import { uploadImage } from "/js/util.js"
+        // import { uploadImage } from "/js/util.js"
+        // document.getElementById('doit').addEventListener('click', ()=>{
+        //     uploadImage("uploadImages", "drinks", "testimage")
+        // })
+        import { getAllPosts } from "/js/posts.js"
         document.getElementById('doit').addEventListener('click', ()=>{
-            uploadImage("uploadImages", "drinks", "testimage")
+            getAllPosts()
         })
     </script>
 </html>

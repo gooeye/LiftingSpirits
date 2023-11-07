@@ -24,17 +24,15 @@
 </head>
 <body>
     <div id="app">
-        <main>
-            <div class="container-fluid">
-                <div class="row">
+        <main class="d-md-flex">
                     <vertical-navbar :page="page" :is-logged-in="isLoggedIn"></vertical-navbar>
               <!-- Content Area -->
                     <div class="col-lg-10 col-md-9 col-12 background2 p-3 h-100 min-vh-100">
                         <div class="row">
-                            <h1 class="p-2">Swipe to find your favourite drinks!</h1>
+                            <h1 class="p-2 text-center">Swipe to find your favourite drinks!</h1>
                             <!-- row carousel -->
-                            <div class="col-6 offset-3" >
-                                <div id="carouselControls" class="carousel slide mx-auto" >
+                            <div class="col-lg-6 col-12 mx-auto" >
+                                <div id="carouselControls" class="carousel slide" >
                                     <div v-if="Object.keys(drinks).length == 0" class="text-center mt-5">
                                         <h3>You've seen all available drinks!</h3>
                                     </div>
@@ -49,26 +47,19 @@
                                             </div>
                                         </div>
                                     </div>
-                                        
-                                        
-                                    
-                                    <!-- Controls -->
-                                    <button class="carousel-control-prev" type="button" data-bs-slide="prev" @click="add(2)">
-                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                        <span>Not interested</span>
-                                    </button>
-                                    <button class="carousel-control-next" type="button" data-bs-slide="next" @click="add(0)">
-                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                        <span >Hell Yes!</span>
-                                    </button>
+                            <!-- Controls -->
+                            <button class="carousel-control-prev ms-3" type="button" data-bs-slide="prev" @click="add(2)" style="color: black;">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="fw-bolder p-2 rounded" style="background-color:#CC6E4A;">Not interested</span>
+                            </button>
+                            <button class="carousel-control-next me-3" type="button" data-bs-slide="next" @click="add(0)" style="color: black;">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="fw-bolder p-2 rounded" style="background-color:#CC6E4A;">Hell Yes!</span>
+                            </button>
                                 </div>
                             </div>
-                            
-                
                         </div>
                     </div>
-                </div>
-            </div>
         </main>
     </div>
 

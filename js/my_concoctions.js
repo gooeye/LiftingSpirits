@@ -16,7 +16,7 @@ const user_infoObj = JSON.parse(user_info)
 const username = user_infoObj.username
 
 
-const q = query(collection(db, "drinks"), where("created", "==", username));
+const q = query(collection(db, "drinks"), where("user", "==", username));
 
 const drinks = await getDocs(q);
 

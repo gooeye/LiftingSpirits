@@ -17,6 +17,11 @@ export async function createDrink(drink) {
         drink.steps = drink.steps.split(',').map(part => part.trim())
         drink.ingredients = drink.ingredients.split(',').map(part => part.trim())
         setDoc(drinkRef, drink)
+        setTimeout(()=> {
+            window.location.assign("my_concoctions.html");
+        }
+         ,5000);
+    
         return 1
     } else {
         return 2

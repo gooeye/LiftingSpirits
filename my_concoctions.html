@@ -23,7 +23,7 @@
         <main class="d-md-flex">
             <vertical-navbar :page="page" :is-logged-in="isLoggedIn"></vertical-navbar>
               <!-- Content Area -->
-              <div class="col-lg-10 col-md-9 col-12 background2 p-3 h-100 min-vh-100" v-if="created_drinks.length > 1">
+              <div class="col-lg-10 col-md-9 col-12 background2 p-3 h-100 min-vh-100" v-if="created_drinks.length >= 1">
                     <div class="splide rounded" aria-label="Splide Basic HTML Example">
                         <div class="splide__track">
                             <h1 class="p-2">My Concoctions</h1>
@@ -91,9 +91,10 @@
         import {created_drinks} from "./js/my_concoctions.js" 
         import navbar from "/components/navbar.js"
         import { username, isLoggedIn } from "/js/check_login.js"
+        import { getUrl } from "/js/util.js"
         import { router } from "/js/router.js"
 
-        const drinks = created_drinks
+        const drinks = await created_drinks
         console.log(drinks)
         function loadSplide (num) {
             let type = 'slide'

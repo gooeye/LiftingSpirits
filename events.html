@@ -118,7 +118,7 @@
                             <div class="card bg-light smaller-card" style="margin-right: 5px;" >
                                 <!-- Smaller version of the card for joined event -->
                                 <!-- Display event details here using {{ joinedEvent.propertyName }} -->
-                                <img :src="event.img" class="card-img-top small-card-img" >
+                                <img :src="event.img" class="card-img-top small-card-img" style="height: 200px; width: 200px;">
                                 <div class="card-body">
                                     <h5 class="card-title">Name: {{event.name}}</h5>
                                     <h6 class="card-subtitle">Date: {{event.date}}</h6>
@@ -259,7 +259,6 @@
                 // ,
                 initMap2() {
                     // default: The location of SIS, SMU
-                    console.log("helloooooooo")
                     var lat = parseFloat(document.getElementById("lat").value);
                     var lng = parseFloat(document.getElementById("lng").value);
                     // var uluru = {lat: -25.344, lng: 131.036};

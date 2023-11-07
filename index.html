@@ -105,7 +105,7 @@
                 <div class="modal-content background 2">
                     <div class="modal-header">
                     <h5 class="modal-title" id="createPostModalLabel" style="color:#CC6E4A">Create a New Post</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" id = "create" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                     <form>
@@ -139,16 +139,12 @@
                             <label class="form-check-label" for="mocktail" style="color:white">Mocktail</label>
                         </div>
                         </div>
-                        <!-- Post Image -->
-                        <div class="mb-3">
-                        <label for="postImage" class="form-label" style="color:#CC6E4A">Post Image</label>
-                        <input type="file" class="form-control" id="postImage" accept="image/*">
-                        </div>
+
                     </form>
                     </div>
                     <div class="modal-footer">
                     <a href="#"  ><button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button></a>
-                    <a href="#" style="background-color: #CC6E4A;" ><button type="button" class="btn">Create Post</button></a>
+                    <a href="#" class="rounded text-white" style="background-color: #CC6E4A;" ><button type="button" class="btn">Create Post</button></a>
                     </div>
                 </div>
                 </div>
@@ -225,7 +221,10 @@
         let isHome = false
         let page = "profile"
 
-        const popularposts = getAllPosts()
+        const popularposts = await getAllPosts()
+
+        document.getElementById("create").addEventListener("click", await createPost())
+        
         if (window.location.pathname=="/index.html" || window.location.pathname=="/") {
             isHome = true
             page = "home"
@@ -270,12 +269,10 @@
             },
             methods: {
                 round(value, fallback) {
-                    console.log(value, Math.round(value))
                     return value ? Math.round(value) : fallback
                 },
                 setAndViewPost(post) {
                     this.currentPost = post; 
-                    console.log(this.currentPost); 
                     this.$nextTick(() => {
                         let modal = new bootstrap.Modal(document.getElementById('viewPostModal'));
                         modal.show();
@@ -283,7 +280,6 @@
                 },
                 setAndViewEvent(event) {
                     this.currentEvent = event; 
-                    console.log(this.currentPost); 
                     this.$nextTick(() => {
                         let modal = new bootstrap.Modal(document.getElementById('viewEventModal'));
                         modal.show();
@@ -305,7 +301,6 @@
                         let url = await getUrl(event.img)
                         event.img = url
                     })
-                    console.log(this.drinks,"hi")
                 },
                 loadSplide() {
                     var splide = new Splide( '.splide', {

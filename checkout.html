@@ -156,6 +156,9 @@
         </main>
     </div>
     <script type="module">
+        import navbar from "/components/navbar.js"
+        import { email, isLoggedIn } from "/js/check_login.js"
+        import { router } from "/js/router.js"
         import {getPriceCart} from "./js/checkout.js" 
         import navbar from "/components/navbar.js"
 
@@ -168,7 +171,7 @@
             data() { 
                 return { 
                     page: 'checkout',
-                    isLoggedIn: false,
+                    isLoggedIn: isLoggedIn,
                     cart : cart,
                 };
             }, 

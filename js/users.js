@@ -4,6 +4,7 @@ import { collection, doc, query, where, getDoc, getDocs, getFirestore, updateDoc
 import { firebaseConfig } from "/js/config.js"
 import { addToGlobalRating, removeRating } from "/js/drinks.js"
 import { getEvent } from "/js/events.js"
+import { getUrl } from "/js/util.js"
 
 const app = initializeApp(firebaseConfig)
 const db = getFirestore(app)
@@ -212,5 +213,62 @@ export async function leaveEvent(event, email) {
     } catch (error) {
         console.error('Error leaving event:', error)
         return false
+    }
+}
+
+export async function getDrinksInList(email) {
+    const userRef = doc(db, 'users', email)
+    let drinkList = []
+    let result = []
+    try {
+        const userDoc = await getDoc(userRef)
+        if (userDoc.exists()) {
+            const data = userDoc.data()
+            drinkList = data.will_drink || []
+            console.log(drinkList)
+            for (let drink of data.will_drink) {
+                console.log(drink, "hi")
+                const docRef = doc(db, "drinks", drink)
+                const docSnap = await getDoc(docRef)
+                if (docSnap.exists()) {
+                    var drinkData = docSnap.data()
+                    var url = await getUrl(drinkData.img)
+                } else {
+                    return false
+                }
+                
+                result.push({name: drink, status: "Want to try", img: url})
+            }
+            for (let drink of data.will_not_drink) {
+                const docRef = doc(db, "drinks", drink)
+                const docSnap = await getDoc(docRef)
+                if (docSnap.exists()) {
+                    var drinkData = docSnap.data()
+                    var url = await getUrl(drinkData.img)
+                } else {
+                    return false
+                }
+                
+                result.push({name: drink, status: "Won't try", img: url})
+            }
+            for (let drink of data.tried) {
+                const docRef = doc(db, "drinks", drink)
+                const docSnap = await getDoc(docRef)
+                if (docSnap.exists()) {
+                    var drinkData = docSnap.data()
+                    var url = await getUrl(drinkData.img)
+                } else {
+                    return false
+                }
+                result.push({name: drink, rating: data.tried[drink], status: "Tasted", img: url})
+            }
+            return drinkList
+        } else {
+            console.log('Document not found.')
+            return 0
+        }
+    } catch (error) {
+        console.error('Error retrieving rating:', error)
+        return 0
     }
 }

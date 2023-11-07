@@ -1,5 +1,7 @@
 
 import modal from "/components/modal.js"
+import { getDrinksInList } from "/js/users"
+import { email } from "/js/check_login"
 // import tracking from "/components/tracker.js"
 export const user = {
     components: {
@@ -90,7 +92,13 @@ export const user = {
         onItemClick(item) {
             item.count++;
             this.totalCalories += item.calories;
+        },
+        async getData() {
+            this.drinks = await getDrinksInList(email)
         }
+    },
+    mounted() {
+        this.getData()
     },
     computed: {
         drinksSelected() {

@@ -43,7 +43,7 @@ export async function emailExists(email) {
     }
 }
 
-export async function addDrinkToList(email, status, drink, rating) {
+export async function addDrinkToList(email, status, drink, rating=null) {
     // params:
     //  email: string, email of user
     // status: int, 0 = want to try, 1 = tried, 2 = won't try
@@ -58,25 +58,29 @@ export async function addDrinkToList(email, status, drink, rating) {
         let key = 'tried.'+drink
         toUpdate[key] = rating
         try {
+            console.log(drink, "drink")
             await Promise.all([
                 updateDoc(userRef, toUpdate),
                 updateDoc(userRef, {will_not_drink : arrayRemove(drink)}),
-                updateDoc(userRef, {wil_drink : arrayRemove(drink)}),
-                addToGlobalRating(drink, rating)
+                updateDoc(userRef, {will_drink : arrayRemove(drink)}),
             ])
+            if (rating) await addToGlobalRating(drink, rating)
             return true
         } catch (e) {
             console.log(e)
             return 0
         }
     } else {
+        let d1 = drink
+        let d2 = drink
+        let d3 = drink
         try {
             const userDoc = await getDoc(userRef)
             if (userDoc.exists()) {
                 const userData = userDoc.data()
-                const tried = userData.tried || {}
-                if (drink in tried) {
-                    await removeRating(drink, tried[drink])
+                const triedData = userData.tried || {}
+                if (drink in triedData) {
+                    await removeRating(drink, triedData[drink])
                 }
             }
         } catch (error) {
@@ -84,11 +88,12 @@ export async function addDrinkToList(email, status, drink, rating) {
             return 0
         }
         if (status == 0) {
+            console.log("removing not and tried, adding will")
             try {
                 await Promise.all([
-                    updateDoc(userRef, {will_drink : arrayUnion(drink)}),
-                    updateDoc(userRef, {will_not_drink : arrayRemove(drink)}),
-                    updateDoc(userRef, {tried : arrayRemove(drink)})
+                    updateDoc(userRef, {will_drink : arrayUnion(d1)}),
+                    updateDoc(userRef, {will_not_drink : arrayRemove(d2)}),
+                    updateDoc(userRef, {tried : arrayRemove(d3)})
                 ])
                 return true
             } catch (e) {
@@ -97,9 +102,22 @@ export async function addDrinkToList(email, status, drink, rating) {
             }        
         }
         else if (status == 2) {
+            console.log("removing will and tried, adding not")
             try {
                 await Promise.all([
-                    updateDoc(userRef, {will_not_drink : arrayUnion(drink)}),
+                    updateDoc(userRef, {will_not_drink : arrayUnion(d1)}),
+                    updateDoc(userRef, {will_drink : arrayRemove(d2)}),
+                    updateDoc(userRef, {tried : arrayRemove(d3)})
+                ])
+                return true
+            } catch (e) {
+                console.log(e)
+                return 0
+            }
+        } else if (status == 3) {
+            try {
+                await Promise.all([
+                    updateDoc(userRef, {will_not_drink : arrayRemove(drink)}),
                     updateDoc(userRef, {will_drink : arrayRemove(drink)}),
                     updateDoc(userRef, {tried : arrayRemove(drink)})
                 ])
@@ -218,26 +236,23 @@ export async function leaveEvent(event, email) {
 
 export async function getDrinksInList(email) {
     const userRef = doc(db, 'users', email)
-    let drinkList = []
     let result = []
     try {
         const userDoc = await getDoc(userRef)
         if (userDoc.exists()) {
             const data = userDoc.data()
-            drinkList = data.will_drink || []
-            console.log(drinkList)
             for (let drink of data.will_drink) {
-                console.log(drink, "hi")
                 const docRef = doc(db, "drinks", drink)
                 const docSnap = await getDoc(docRef)
                 if (docSnap.exists()) {
                     var drinkData = docSnap.data()
                     var url = await getUrl(drinkData.img)
+                    var drinkType = drinkData.type
                 } else {
                     return false
                 }
                 
-                result.push({name: drink, status: "Want to try", img: url})
+                result.push({name: drink, status: 0, img: url, type: drinkType})
             }
             for (let drink of data.will_not_drink) {
                 const docRef = doc(db, "drinks", drink)
@@ -245,24 +260,26 @@ export async function getDrinksInList(email) {
                 if (docSnap.exists()) {
                     var drinkData = docSnap.data()
                     var url = await getUrl(drinkData.img)
+                    var drinkType = drinkData.type
                 } else {
                     return false
                 }
                 
-                result.push({name: drink, status: "Won't try", img: url})
+                result.push({name: drink, status: 2, img: url, type: drinkType})
             }
-            for (let drink of data.tried) {
+            for (let drink of Object.keys(data.tried)) {
                 const docRef = doc(db, "drinks", drink)
                 const docSnap = await getDoc(docRef)
                 if (docSnap.exists()) {
                     var drinkData = docSnap.data()
                     var url = await getUrl(drinkData.img)
+                    var drinkType = drinkData.type
                 } else {
                     return false
                 }
-                result.push({name: drink, rating: data.tried[drink], status: "Tasted", img: url})
+                result.push({name: drink, rating: data.tried[drink], status: 1, img: url, type: drinkType})
             }
-            return drinkList
+            return result
         } else {
             console.log('Document not found.')
             return 0

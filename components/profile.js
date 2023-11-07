@@ -1,6 +1,6 @@
 
 import modal from "/components/modal.js"
-import { getDrinksInList } from "/js/users.js"
+import { getDrinksInList, addDrinkToList } from "/js/users.js"
 import { email } from "/js/check_login.js"
 // import tracking from "/components/tracker.js"
 export const user = {
@@ -16,6 +16,7 @@ export const user = {
         return {
             selected: [],
             showModal: false,
+            showEditModal: false,
             totalCalories: 0,
             items: [
                 { name: "Beer, 4%", calories: 180, count: 0, path: "Pint" },
@@ -26,68 +27,24 @@ export const user = {
                 { name: "Spirits, 40%", calories: 56, count: 0, path: "Spirits" },
                 { name: "Alcopops, 4%", calories: 110, count: 0, path: "Alcopops" }
             ],
-            drinks: [
-                {
-                    img: "https://www.petitefleursg.com//image/cache/catalog/271376_pizzolato_ros_extra_dry_m-use_nv_pp-700x700.jpg",
-                    name: "Pizzolato Rosé Extra Dry",
-                    type: "wine",
-                    rating: 3,
-                    status: 1
-                },
-                {
-                    img: "https://cdn.loveandlemons.com/wp-content/uploads/2020/07/mojito.jpg",
-                    name: "Mojito",
-                    type: "cocktail",
-                    rating: 4,
-                    status: 1
-                },
-                {
-                    img: "https://www.peakales.co.uk/cdn/shop/products/PA_Beer_Bottle_IPA_Front.jpg?v=1633509043",
-                    name: "IPA",
-                    type: "beer",
-                    rating: 5,
-                    status: 1
-                },
-                {
-                    img: "https://hips.hearstapps.com/hmg-prod/images/sangria-index-643044ca71f12.jpg?crop=0.502xw:1.00xh;0.210xw,0&resize=1200:*",
-                    name: "Sangria",
-                    type: "cocktail",
-                    rating: 4,
-                    status: 2
-                },
-                {
-                    img: "https://www.foodandwine.com/thmb/RdbOj6gOlRyV4cpvmmUK7bI0TP4=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/Wine-Guide-Cabernet-Sauvignon-FT-BLOG0622-2000-6b414113ef0449178e4ee5bf69ceeb5c.jpg",
-                    name: "Cabernet Sauvignon",
-                    type: "wine",
-                    rating: 4,
-                    status: 1
-                },
-                {
-                    img: "https://www.petitefleursg.com//image/cache/catalog/271376_pizzolato_ros_extra_dry_m-use_nv_pp-700x700.jpg",
-                    name: "Piña Colada",
-                    type: "cocktail",
-                    status: 0
-                },
-                {
-                    img: "https://www.petitefleursg.com//image/cache/catalog/271376_pizzolato_ros_extra_dry_m-use_nv_pp-700x700.jpg",
-                    name: "Stout",
-                    type: "beer",
-                    rating: 4,
-                    status: 1
-                },
-                {
-                    img: "https://www.petitefleursg.com//image/cache/catalog/271376_pizzolato_ros_extra_dry_m-use_nv_pp-700x700.jpg",
-                    name: "Margarita",
-                    type: "cocktail",
-                    rating: 4,
-                    status: 2
-                },
-            ]
+            editSelDef: null,
+            editDrink: null,
+            editSelected: null,
+            rateDrink: null,
+            drinks: []
         }
     },
     methods: {
         select() {
             this.selected = document.querySelectorAll('.drinkSel:checked')
+        },
+        selectAll() {
+            let allChecks = document.querySelectorAll('.drinkSel')
+            for (let check of allChecks) check.checked = true
+        },
+        deselectAll() {
+            let allChecks = document.querySelectorAll('.drinkSel')
+            for (let check of allChecks) check.checked = false
         },
         onItemClick(item) {
             item.count++;
@@ -95,6 +52,35 @@ export const user = {
         },
         async getData() {
             this.drinks = await getDrinksInList(email)
+            console.log(this.drinks, "hi")
+        },
+        openEditModal(drink, status) {
+            this.showEditModal = true
+            this.editSelDef = status
+            this.editDrink = drink
+        },
+        async updateDrink(drink, status) {
+            console.log(drink, "status")
+            await addDrinkToList(email, status, drink, null)
+            for (let d of this.drinks) {
+                if (d.name == drink) {
+                    d.status = status
+                }
+            }
+            this.showEditModal = false
+        },
+        openModal (drink) {
+            this.showModal = true
+            this.rateDrink = drink
+        },
+        async updateRating(drink, rating) {
+            await addDrinkToList(email, 1, drink, rating)
+            this.showModal = false
+            for (let d of this.drinks) {
+                if (d.name == drink) {
+                    d.rating = rating
+                }
+            }
         }
     },
     mounted() {
@@ -135,12 +121,16 @@ export const user = {
             </div>
             <div class="container rounded-3 background3 p-4 shadow-sm mb-4" id="list">
                 <h2 class="fs-4 mb-4">Your Drinks List</h2>
-                <div v-if="drinksSelected" class="drink-alert rounded container form-group">
-                    <span>{{ drinksSelected }} drink selected</span>
-                    <a>Select All</a>
-                    <span> · </span>
-                    <a>Select All</a>
-                    <div class="float-end"><button class=" btn btn-primary bg-orange">Move To</button></div>
+                <div v-if="drinksSelected" class="drink-alert rounded container form-group" style="height:50px">
+                <div class="row ">
+                    <div class="col-10 align-items-center d-flex">
+                        <span class="me-4">{{ drinksSelected }} drink(s) selected</span>
+                        <a @click="selectAll" style="cursor:pointer">Select All</a>
+                        <span> · </span>
+                        <a @click="deselectAll" style="cursor:pointer">Select None</a>
+                    </div>
+                    <div class="col-2"><button class=" btn btn-primary bg-orange float-end">Move To</button></div>
+                    </div>
                 </div>
                 <table>
                     <thead>
@@ -150,6 +140,7 @@ export const user = {
                         <th scope="col" class="text-center" style="width:10%">Rating</th>
                         <th scope="col" class="text-center" style="width:15%">Type of Drink</th>
                         <th scope="col" class="text-center" style="width:15%">Status</th>
+                        <th scope="col" class="text-center" style="width:8%"></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -158,37 +149,62 @@ export const user = {
                         <td><img :src="drink.img" height="50" width="45" style="object-fit:cover" class="rounded me-3"/>{{ drink.name }}</td>
                         <td v-if="drink.rating" class="text-center"><span class="bi bi-star-fill d-inline-block" style="vertical-align:2px; font-size:12px"></span> {{ drink.rating }}</td>
                         <td v-if="!drink.rating" class="text-center">
-                            <button class="rounded-circle mx-auto button-fancy-circle" style="" @click="showModal = true"></button>
-                            <teleport to="body">
-                                <!-- use the modal component, pass in the prop -->
-                                <modal :show="showModal" @close="showModal = false">
-                                <template #header>
-                                    <h3>Rate this drink</h3>
-                                </template>
-                                <template #body>
-                                    <span class="rating-parent">
-                                    <span class="star-parent" v-for="i in 5">
-                                    <input class="check-rating-fancy" type="checkbox" @click="select()"/>
-                                    </span>
-                                    </span>
-                                </template>
-                                <template #footer>
-                                <span></span>
-                                </template>
-                                </modal>
-                            </teleport>
+                            <span v-if="drink.status != 1" >-</span>
+                            <button v-if="drink.status == 1" class="rounded-circle mx-auto button-fancy-circle" style="" @click="openModal(drink.name) = true"></button>
+                            
                         </td>
                         <td class="text-center">
                             {{ drink.type }}
                         </td>
                         <td class="text-center">
-                            {{ drink.status == 0 ? "Tasted" : drink.status == 1 ? "Want to try" : "Won't try" }}
+                            {{ drink.status == 1 ? "Tasted" : drink.status == 0 ? "Want to try" : "Won't try" }}
+                        </td>
+                        <td class="text-center">
+                            <button class="btn btn-secondary " @click="openEditModal(drink.name)">edit</button>
+                            
                         </td>
                         </tr>
                     </tbody>
                 </table>
             </div>
-           
+            <teleport to="body">
+                <!-- use the modal component, pass in the prop -->
+                <modal :show="showModal" @close="showModal = false">
+                <template #header>
+                    <h3>Rate this drink</h3>
+                </template>
+                <template #body>
+                    <span class="rating-parent">
+                    <span class="star-parent" v-for="i in 5">
+                    <input class="check-rating-fancy" type="checkbox" @click="updateRating(rateDrink, i)"/>
+                    </span>
+                    </span>
+                </template>
+                <template #footer>
+                <span></span>
+                </template>
+                </modal>
+            </teleport>
+            <teleport to="body">
+                <!-- use the modal component, pass in the prop -->
+                <modal :show="showEditModal" @close="showEditModal = false">
+                <template #header>
+                    <h3>Update status</h3>
+                </template>
+                <template #body>
+                    <select id="newStatus" v-model="editSelected">
+                        <option value="2" :selected="editSelDef == 2 ? true : null">Won't Try</option>
+                        <option value="0" :selected="editSelDef == 0 ? true : null">Want to Try</option>
+                        <option value="1" :selected="editSelDef == 1 ? true : null">Tried</option>
+                        <option value="3">Remove from list</option>
+                    </select>
+                </template>
+                <template #footer>
+                    <button @click="showEditModal = false">Cancel</button>
+                    <button @click="updateDrink(editDrink, editSelected)">Update</button>
+                </template>
+                </modal>
+            </teleport>
             <div class="container rounded-3 background3 p-4 shadow-sm mb-4" id="tracking">
             <div class="min-vh-100 d-flex flex-column">
                 <div class="container-fluid">

@@ -200,8 +200,7 @@ export const user = {
                     </select>
                 </template>
                 <template #footer>
-                    <button @click="showEditModal = false">Cancel</button>
-                    <button @click="updateDrink(editDrink, editSelected)">Update</button>
+                    <button @click="updateDrink(editDrink, editSelected)" class="btn btn-primary mr-2">Update</button>
                 </template>
                 </modal>
             </teleport>

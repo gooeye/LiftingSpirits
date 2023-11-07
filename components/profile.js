@@ -106,19 +106,16 @@ export const user = {
                 <div class="container-fluid justify-content-center">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                        <a class="nav-link active link-fancy" aria-current="page" href="#activity">Activity</a>
+                        <a class="nav-link link-fancy" href="#list">List</a>
                         </li>
                         <li class="nav-item">
-                        <a class="nav-link link-fancy" href="#list">List</a>
+                        <a class="nav-link link-fancy" href="#tracking">Tracking</a>
                         </li>
                     </ul>
                 </div>
             </nav>
         </div>
         <div class="container px-5">
-            <div class="container rounded-3 background3 p-4 shadow-sm mb-4" id="activity">
-                Activity Placeholder
-            </div>
             <div class="container rounded-3 background3 p-4 shadow-sm mb-4" id="list">
                 <h2 class="fs-4 mb-4">Your Drinks List</h2>
                 <div v-if="drinksSelected" class="drink-alert rounded container form-group" style="height:50px">

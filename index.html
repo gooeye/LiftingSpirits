@@ -85,7 +85,7 @@
                             <h1 class="text-white mb-3">Upcoming Events</h1>
                             <!-- Event Card 1 -->
                             <div class="card mb-3" v-for="event in events" :key="event.name">
-                                <img src="event.img" class="card-img-top" alt="Event Image">
+                                <img :src="event.img" class="card-img-top" alt="Event Image">
                                 <div class="card-body">
                                     <h5 class="card-title" style="color: white;">{{ event.name }}</h5>
                                     <p class="card-text" style="color:white ;">{{ event.description }}</p>

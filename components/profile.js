@@ -200,7 +200,7 @@ export const user = {
                     </select>
                 </template>
                 <template #footer>
-                    <button @click="updateDrink(editDrink, editSelected)" class="btn btn-primary" >Update</button>
+                    <button @click="updateDrink(editDrink, editSelected)" class="btn btn-primary justify-content-centre mt-2 mr-2" >Update</button>
                 </template>
                 </modal>
             </teleport>

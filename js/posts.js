@@ -43,7 +43,7 @@ export async function createPost(postData) {
             date: dateString,
             
         });
-
+        await location.reload();
         console.log("Post created with ID: ", docRef.id);
         return docRef.id; // Return the ID of the newly created post
     } catch (e) {

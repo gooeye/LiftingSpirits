@@ -44,8 +44,8 @@
                                     </div>
                                     <div>
                                         <span style="font-size: 12px;" class="float-end">
-                                            <i v-for="i in Math.round(drink.rating_per_tried)" class="bi bi-star-fill"></i>
-                                            <i v-for="i in 5-Math.round(drink.rating_per_tried)" class="bi bi-star"></i>
+                                            <!-- <i v-for="i in Math.round(drink.rating_per_tried)" class="bi bi-star-fill"></i> -->
+                                            <!-- <i v-for="i in 5-Math.round(drink.rating_per_tried)" class="bi bi-star"></i> -->
                                         </span>
                                         <p style="font-size: 14px; font-weight: 100;" class="m-0">{{drink.type}}</p>
                                         <p style="font-size: 18px;" class="m-0">{{drink.name}}</p>
@@ -340,6 +340,7 @@
                         let url = await getUrl(event.img)
                         event.img = url
                     })
+                    console.log(this.drinks,"hi")
                 },
                 loadSplide() {
                     var splide = new Splide( '.splide', {

@@ -95,6 +95,12 @@
         import { router } from "/js/router.js"
 
         const drinks = await created_drinks
+
+        drinks.forEach(async (drink) => {
+                        let url = await getUrl(drink.img)
+                        drink.img = url
+                    })
+
         console.log(drinks)
         function loadSplide (num) {
             let type = 'slide'

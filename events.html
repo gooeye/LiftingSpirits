@@ -140,8 +140,8 @@
                         <!--The div element for the map -->
                         <div class="page-container">
 
-                        <div class="event-container">
-                        <div class="container col-sm-4 col-md-6 col" v-for="(event,index) of upcomingEvents">
+                        <div class="event-container  col-sm-4 col-md-6 col">
+                        <div class="container" v-for="(event,index) of upcomingEvents">
                             <div class="row mb-2">
                                 <div class="card bg-light p-0" @click="setActiveRows(index)">
                                     <img :src="event.img" class="card-img-top" style="object-fit: cover;" height="300">

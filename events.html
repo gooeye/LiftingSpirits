@@ -108,10 +108,9 @@
         <main>
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-lg-2 col-md-3 col-12 sidebar">
-                        <vertical-navbar :page="page" :is-logged-in="isLoggedIn"></vertical-navbar>
-                    </div>
-                    <div class="col-lg-10 col-md-9 col-12 main-content">
+                    <vertical-navbar :page="page" :is-logged-in="isLoggedIn"></vertical-navbar>
+                    
+                    <div class="col-lg-10 col-md-9 col-12 main-content  background2 p-3 h-100 min-vh-100" >
                         <h1 class="ps-2">Your Events</h1>
                         <h6 class="ps-2">Join an Event to see it here</h6>
                         <div class="joined-events-container d-flex flex-nowrap overflow-auto">

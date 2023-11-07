@@ -184,9 +184,9 @@
                                             // var uluru = {lat: -25.344, lng: 131.036};
                                             var loc = { lat: lat, lng: lng };
         
-                                            // The map, centered at SIS, SMU
+                                            
                                             var map = new google.maps.Map(
-                                                // play with the zoom value to zoom in or out
+                                                
                                                 document.getElementById('map'), { zoom: 14, center: loc });
                                             // The marker, positioned at SIS, SMU
                                             var marker = new google.maps.Marker({ position: loc, map: map });
@@ -417,7 +417,8 @@
 
             },
             mounted() {
-                this.getData()
+                this.getData();
+                this.initMap();
             },
         })
         app.use(router)

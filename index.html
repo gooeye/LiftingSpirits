@@ -281,8 +281,9 @@
             try {
                 const docId = await createPost({
                     title: postName,
-                    content: postCategory,
-                    imageUrl: null, // You can add an image URL if needed.
+                    category: postCategory,
+                    description: postDescription,
+                    
                 });
 
                 if (docId) {

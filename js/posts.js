@@ -26,7 +26,7 @@ export async function getAllPosts() {
 }
 export async function createPost(postData) {
     try {
-        const { title, content, imageUrl } = postData;
+        const { title, category, description } = postData;
         const username = user_infoObj.username;
         
         let daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
@@ -37,8 +37,8 @@ export async function createPost(postData) {
         let dateString = current.getFullYear() + ", " + months[current.getMonth()] + ", " + current.getDate() + ", " + daysOfWeek[current.getDay()]
         const docRef = await addDoc(collection(db, "posts"), {
             title: title,
-            category: content,
-            description: content,
+            category: category,
+            description: description,
             author: username,
             date: dateString,
             

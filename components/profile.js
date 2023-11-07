@@ -1,7 +1,7 @@
 
 import modal from "/components/modal.js"
-import { getDrinksInList } from "/js/users"
-import { email } from "/js/check_login"
+import { getDrinksInList } from "/js/users.js"
+import { email } from "/js/check_login.js"
 // import tracking from "/components/tracker.js"
 export const user = {
     components: {

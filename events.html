@@ -118,7 +118,7 @@
                             <div class="card bg-light smaller-card" style="margin-right: 5px;" >
                                 <!-- Smaller version of the card for joined event -->
                                 <!-- Display event details here using {{ joinedEvent.propertyName }} -->
-                                <img :src="event.img" class="card-img-top small-card-img" style="height: 200px; width: 200px;">
+                                <img :src="event.img" class="card-img-top small-card-img" style="object-fit: cover;" height="300">
                                 <div class="card-body">
                                     <h5 class="card-title">Name: {{event.name}}</h5>
                                     <h6 class="card-subtitle">Date: {{event.date}}</h6>

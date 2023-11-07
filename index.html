@@ -219,10 +219,13 @@
         import { getTopDrinks } from "/js/drinks.js"
         import { getUrl } from "/js/util.js"
         import { getUpcomingEvents } from "/js/events.js"
+        import {  getAllPosts,createPost } from "/js/posts.js"
         import navbar from "/components/navbar.js"
         import tracker from "/components/tracker.js"
         let isHome = false
         let page = "profile"
+
+        const popularposts = getAllPosts()
         if (window.location.pathname=="/index.html" || window.location.pathname=="/") {
             isHome = true
             page = "home"
@@ -257,49 +260,7 @@
                         img: '',
                     },
                     drinks: [],
-                    popularposts:[{
-                            title: "Post 1",
-                            description: "Description 1",
-                            category: "Beer",
-                            author: "John Doe",
-                            date: "October 28, 2023",
-                        },
-                        {
-                            title: "Post 2",
-                            description: "Description 2",
-                            category: "Wine",
-                            author : "Jane Doe",
-                            date: "October 27, 2023"
-                        },
-                        {
-                            title: "Post 3",
-                            description: "Description 3",
-                            category: "Cocktail",
-                            author : "Jenny Doe",
-                            date: "October 27, 2023"
-                        },
-                        {
-                            title: "Post 4",
-                            description: "Description 4",
-                            category: "Mocktail",
-                            author : "Elliot Doe",
-                            date: "October 26, 2023"
-                        },
-                        {
-                            title: "Post 5",
-                            description: "Description 5",
-                            category: "Liquor",
-                            author : "Min Doe",
-                            date: "October 28, 2023"
-                        },
-                        {
-                            title: "Post 6",
-                            description: "Description 6",
-                            category: "Wine",
-                            author : "Divya Doe",
-                            date: "October 29, 2023"
-                        }
-                    ],
+                    popularposts: popularposts,
                     events: [],
                     profileBanner: "https://static.wikia.nocookie.net/mariokart/images/7/7d/MK8_WiiMooMooMeadows.jpg",
                     profileIcon: "https://static.wikia.nocookie.net/mariokart/images/7/7d/MK8_WiiMooMooMeadows.jpg",

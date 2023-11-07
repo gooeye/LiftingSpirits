@@ -135,7 +135,7 @@ export async function getTopDrinks() {
         let data = await getDocs(q)
         let result = {}
         data.forEach((doc) => {
-            result[doc.data().name]=doc.data();
+            if (doc.data().rating) result[doc.data().name]=doc.data();
         })
         console.log(result)
         return result

@@ -29,12 +29,19 @@ export async function createPost(postData) {
         const { title, content, imageUrl } = postData;
         const username = user_infoObj.username;
         
+        let daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+        let months = ['January',"February","March","April","May","June","July","August","September","October","November","December"]
+        let current = new Date()
+        current.setDate(current.getDate())
+
+        let dateString = current.getFullYear() + ", " + months[current.getMonth()] + ", " + current.getDate() + ", " + daysOfWeek[current.getDay()]
         const docRef = await addDoc(collection(db, "posts"), {
             title: title,
-            content: content,
-            imageUrl: imageUrl,
-            creator: username, // does this work lol
-            createdAt: serverTimestamp() // Add a timestamp for when the post is created
+            category: content,
+            description: content,
+            author: username,
+            date: dateString,
+            
         });
 
         console.log("Post created with ID: ", docRef.id);

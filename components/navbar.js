@@ -81,7 +81,7 @@ export default {
                                 </router-link>
                             </li>
                             <li :class="{'nav-item':true, 'd-none':!isLoggedIn}">
-                                <a :class="{'nav-link':true}" href="#">
+                                <a :class="{'nav-link':true}" href="login.html">
                                     <i class="bi bi-plus-square me-2"></i>
                                     <span class="align-middle">Logout</span>
                                 </a>
